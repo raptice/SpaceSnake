@@ -1,5 +1,3 @@
-import java.awt.*;
-import GUI.*;
 import MenuController.*;
 public class SpaceSnake {
 
