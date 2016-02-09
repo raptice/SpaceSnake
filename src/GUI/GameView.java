@@ -13,7 +13,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * This is a class that just contains the startup menu
+ * This is a class that just contains the game itself
+ * 
+ * Is listener to itself in order tozoom and other stuff. Som events gets sent to others...
+ * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
  * @version 2016-02-05
@@ -25,20 +28,21 @@ extends GameComponent
 implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 {
 
-	//Temp variable until the proer world gets used
+	//Temp variable until the proper world gets used
 	int worldSize=400;
 	
 	// Determines the zoom level
 	protected float zoom = 2;
 	
 	//How much should the zoom change on zoom in/out
-	public final float zoomstep = (float) 1.2; 
+	private final float zoomstep = (float) 1.2; 
 
 	//All stuff within the gameview:
 	private LinkedList<GameFigure> figures = new LinkedList<GameFigure>();
 	
+	
 	/**
-	 * Constructors
+	 * Constructor that generates the view.
 	 */
 	public GameView ()
 	{
@@ -48,20 +52,25 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 		this.addMouseMotionListener(this);
 		this.addMouseWheelListener(this);
 	}
+	
+	
+	/**
+	 * Constructor that generates the game view and adds an ActionListener to it.
+	 * 
+	 * @param AL		The ActionListener to which events get sent
+	 */
 	public GameView (ActionListener AL)
 	{
 		this();
 		this.addActionListener(AL);
 	}
 	
+	
+	/**
+	 * The actual constructor of the view. Only called from the constructors.
+	 */
 	private void build()
 	{
-		//TODO
-		//this.setOpaque(true);
-		//this.setLayout(new BoxLayout(this,1));
-		//this.setPreferredSize(new Dimension(300,200));
-		//this.setMinimumSize(new Dimension(300,200));
-		//this.setMaximumSize(new Dimension(300,200));
 		this.setLayout(null);
 		
 		for (int i=0;i<10;i++)
@@ -69,12 +78,12 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 			//figures.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50));
 		figures.add(new GameFigure());
 		
-		//repaint();
+		//repaint();  //Don't know here...
 	}
 
 	
 	/**
-	 * This draws the world
+	 * This draws the world. Is NOT properly functional.
 	 * 
 	 */
 	@Override
@@ -103,14 +112,26 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
         
     }
 	
+	
+	/**
+	 * Zoom in
+	 * @return The zoom level after the zoom action
+	 */
 	public float zoomIn()
 	{
 		return zoom *= zoomstep;
 	}
+
+	
+	/**
+	 * Zoom in
+	 * @return The zoom level after the zoom action
+	 */
 	public float zoomOut()
 	{
 		return zoom /= zoomstep;
 	}
+	
 	
 	@Override //Zoom in or out
 	public void mouseWheelMoved(MouseWheelEvent arg0) {

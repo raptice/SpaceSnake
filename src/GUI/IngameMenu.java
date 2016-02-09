@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 /**
  * This is a class that just contains the ingame menu
+ * Not yet implemented properly!
  * 
  * @author Gustav
  * @version 2016-02-05
@@ -21,14 +22,21 @@ import javax.swing.SwingConstants;
 
 public class IngameMenu extends GameComponent{		
 
-	/*
-	 * Constructors that generates the menu
+	
+	/**
+	 * Constructor that generates the menu
 	 */
 	public IngameMenu ()
 	{
 		System.out.println("Ingame menu created");		
 		this.buildMenu();
 	}
+	
+	
+	/**
+	 * Constructor that creates the menu and adds an ActionListener to which events gets sent.
+	 * @param AL	The ActionListener to which events gets sent
+	 */
 	public IngameMenu (ActionListener AL)
 	{
 		this();
@@ -36,8 +44,12 @@ public class IngameMenu extends GameComponent{
 	}
 	
 	
+	/**
+	 * Where the actual menu is generated. Only called from the constructor.
+	 */
 	private void buildMenu()
 	{
+		//Create the menu title
 		JPanel titlePanel = new JPanel(new GridLayout(0,1));
 		titlePanel.setOpaque(false);
 
@@ -46,6 +58,7 @@ public class IngameMenu extends GameComponent{
 		titlePanel.add(label);
 		
 		
+		//Create the buttons
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
 		buttonPanel.setOpaque(false);
 		

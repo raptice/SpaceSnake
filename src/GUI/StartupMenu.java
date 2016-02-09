@@ -23,20 +23,30 @@ import javax.swing.SwingConstants;
 
 public class StartupMenu extends GameComponent{		
 
-	/*
-	 * Constructors that generates the menu
+	/**
+	 * Constructor that generates the menu
 	 */
 	public StartupMenu ()
 	{
 		System.out.println("Startup menu created");		
 		this.buildMenu();
 	}
+	
+	
+	/**
+	 * Constructor that adds an ActionListener and creates the menu.
+	 * @param AL		The ActionListener to which events get sent
+	 */
 	public StartupMenu (ActionListener AL)
 	{
 		this();
 		this.addActionListener(AL);
 	}
 	
+	
+	/**
+	 * Where the menu actually gets created. Only called from the constructor.
+	 */
 	private void buildMenu()
 	{
 		

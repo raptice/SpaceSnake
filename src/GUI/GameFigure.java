@@ -1,118 +1,125 @@
-package GUI;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JDialog;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
- * This is the GUI class that handles every graphical interaction
- * 
+ * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
+ * Is an observer for events like a new figure added.
+ * Is an ActionListener to be able to listen to itself.
+ *  
  * @author Gustav
  * @version 2016-02-05
  */
 
-/*
- * Comments:
- * Borde kanske göras om till en user interface klass?
- * 
- */
-
-public class GUI
+public class GameFigure 
+extends JPanel
+implements Observer, ActionListener
 {
-	
-	private IngameMenu ingameMenu;
-	private GameView gameView;
-	private StartupMenu startupMenu;
-	private JDialog theMenu;
-	private MainWindow mainWindow;
 
+	int size;
+	int x,y;
 	
-	/**
-	 * Constructor, does nothing. To perform something the different methods generating parts needs to be called.
-	 */
-	public GUI()
-	{
-		// start everything
-		System.out.println("GUI: started");
-				
-	}
+	//Only for testing:
+	Timer t;
 	
 	
 	/**
-	 * Starts the main window in which everything happens
-	 * Move to constructor? Or subclass?
-	 */
-	public void startMainWindow(ActionListener AL)
-	{
-		if (mainWindow==null) mainWindow = new MainWindow();
-		mainWindow.addActionListener(AL);
-	}
-	
-	
-	/**
-	 * Shows the startup menu
+	 * Constructor that takes a position (x,y) and a size and generates a GameFigure.
 	 * 
-	 * If a startup menu exists it is reused
-	 * 
+	 * @param x		The x-position
+	 * @param y		The y-position
+	 * @param size	The size of the GameFigure
 	 */
-	public void showStartupMenu(ActionListener AL)
+    public GameFigure(int x, int y, int size)
+    {
+        //super();
+    	
+        this.x=x;
+        this.y=y;
+        this.size=size;
+        
+        this.setLocation(x, y);
+        this.setSize(size,size);
+        
+        //Needed if it should be a JPanel
+        this.setOpaque(false);
+        
+        //For testing:
+        t = new Timer(20,this);
+        t.start();
+    }
+    
+    
+    /**
+     * Constructor that creates a default GameFigure with position (0,0) and size 100.
+     */
+    public GameFigure()
 	{
-		if (startupMenu==null) startupMenu = new StartupMenu();
-		startupMenu.addActionListener(AL);
-		mainWindow.addGameComponent(startupMenu,mainWindow.MENULAYER);
+		this(0,0,100);	
 	}
 	
-	/**
-	 * removes the startup menu from the main window.
-	 */
-	public void hideStartupMenu()
-	{
-		mainWindow.remove(startupMenu);
+    
+    /**
+     * Used for testing only.
+     */
+    @Override
+	public void actionPerformed(ActionEvent e) {
+		x += 20*(Math.round(Math.random())*2-1);
+		y += 20*(Math.round(Math.random())*2-1);
+		this.setLocation(x, y);
+		super.repaint();
 	}
 	
-	
-	/**
-	 * Shows the ingame menu
-	 * Uses the class IngameMenu.
-	 * More to move there?
-	 */
-	public void showIngameMenu(ActionListener AL)
-	{
-		/*theMenu = new JDialog(theWindow,"Game Menu");
-		theMenu.add(new IngameMenu(AL));
-		theMenu.setDefaultCloseOperation( JDialog.DO_NOTHING_ON_CLOSE );
-		theMenu.setPreferredSize(new Dimension(400, 300));
-		theMenu.pack();
-		//theMenu.setLocation(theWindow.getLocation().x+(int)theWindow.getSize().getWidth()/2-(int)menuDialog.getSize().getWidth()/2,
-		//		theWindow.getLocation().y+(int)theWindow.getSize().getHeight()/2-(int)menuDialog.getSize().getHeight()/2);
-		theMenu.setVisible(true);
-		*/
+    
+    /**
+     * paints itself. Does NOT work as intended!
+     * @param g
+     */
+    public void paintComponent(final Graphics2D g) {
+		super.paintComponent(g);
+		render(g);
 	}
-	public void hideIngameMenu()
-	{
-		//theMenu.dispose();
-	}
-	
-	
-	/**
-	 * Shows a Game in which everything happens. Can send actions to an {@link ActionListener} (the controller)
-	 * the actions are: accelerate in different directions with different forces and to stop accelerating.
-	 * maybe also on click a one time acceleration "pulse".
-	 * 
-	 * @param AL	The Actionlistener to which the game sends its actions
-	 */
-	public void showGame(ActionListener AL)
-	{
-		if (gameView==null) gameView = new GameView();
-		gameView.addActionListener(AL);
-		mainWindow.addGameComponent(gameView, mainWindow.GAMELAYER);
-	}
-	
-	/**
-	 * Hides the game.
-	 * TODO: what happens if no game exists?
-	 */
-	public void hideGame()
-	{
-		mainWindow.remove(gameView);
+    
+    
+    /**
+     * Paints itself. Does NOT work on updates!
+     * @param g
+     */
+    public void render(final Graphics2D g)
+    {
+    	int x = this.getLocation().x;
+    	int y = this.getLocation().y;
+    	//int diameter = this.getSize().height;
+    	
+    	g.setColor(Color.YELLOW);
+        g.fillOval(x-size/2, y-size/2, size, size);
+        g.setColor(Color.BLACK);
+        g.drawOval(x-size/2, y-size/2, size, size);
+
+        //g.drawLine(x + 20, y + 10, x + 20, y + 20);
+        //g.drawLine(x + 30, y + 10, x + 30, y + 20);
+
+        //g.drawArc(x + 15, y + 15, 20, 20, 180, 180);
+        //Graphics2D g2 = (Graphics2D)g;
+
+        //Line2D line = new Line2D.Double(10, 10, 40, 40);
+        //g2.setColor(Color.blue);
+        //g2.setStroke(new BasicStroke(10));
+        //g2.draw(line);
+    }
+    
+    
+    /**
+     * Used when "the model" sends notifyObservers(arg1).
+     */
+	@Override //Movement (or something)
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub	
 	}
 	
 }
