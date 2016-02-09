@@ -6,7 +6,8 @@ import javax.swing.JComponent;
 
 
 /**
- * This is a class that other classes inherit from
+ * Master class for all components used and added to the GUI that fixes everything concerning the ActionListers.
+ * Keeps a list of the ActionListeners and methods to add and remove from it as well as a protected method to fire an event.
  * 
  * @author Gustav
  * @version 2016-02-05
@@ -65,9 +66,8 @@ extends JComponent
 	 * @param event		The event thats get sent to the listeners
 	 */
 	protected void fireEvent (ActionEvent event){
-		for (ActionListener listener : listeners) {
+		for (ActionListener listener : listeners)
 			listener.actionPerformed(event);
-		}
 	}
 
 }
