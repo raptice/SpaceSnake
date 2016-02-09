@@ -1,4 +1,4 @@
-package defaultpackage;
+package Model;
 import java.util.*;
 
 public class Vector implements Cloneable{
