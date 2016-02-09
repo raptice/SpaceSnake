@@ -1,3 +1,4 @@
+package Model;
 import java.util.*;
 
 public class posVector {
@@ -16,11 +17,11 @@ public posVector(float speed, float angleDegree, float xPosition, float yPositio
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 }*/
-//Hämta vektorns längd ( magnitud )
+//Hï¿½mta vektorns lï¿½ngd ( magnitud )
 public float getSpeedMagnitude(){
 	return (int)Math.sqrt(xSpeed*xSpeed + ySpeed*ySpeed);
 }
-//Hämta vilken mellan x-planet och vekorn
+//Hï¿½mta vilken mellan x-planet och vekorn
 public float getAngleDegree(){
 	return (float)Math.toDegrees(Math.atan2(-ySpeed, xSpeed));
 }
@@ -37,12 +38,12 @@ public void subVector(posVector vector1){
 	this.xSpeed -= vector1.getX();
 	this.ySpeed -= vector1.getY();
 }
-//Förflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
+//Fï¿½rflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
 public void moveVector(){
 	xPosition += xSpeed;
 	yPosition += ySpeed;
 }
-//Hämta enhetsvektorn för denna vektorn
+//Hï¿½mta enhetsvektorn fï¿½r denna vektorn
 public posVector normalize(){
 	posVector returnvec = this.clone();
 	if(this.getSpeedMagnitude() != 0){
