@@ -6,52 +6,39 @@ import javax.swing.JDialog;
  * This is the GUI class that handles every graphical interaction
  * 
  * @author Gustav
- * @version 2016-02-05
+ * @version 2016-02-09
  */
 
-/*
- * Comments:
- * Borde kanske göras om till en user interface klass?
- * 
- */
 
 public class GUI
 {
 	
-	private IngameMenu ingameMenu;
+	//private IngameMenu ingameMenu;
 	private GameView gameView;
 	private StartupMenu startupMenu;
-	private JDialog theMenu;
+	//private JDialog theMenu;
 	private MainWindow mainWindow;
 
 	
 	/**
-	 * Constructor, does nothing. To perform something the different methods generating parts needs to be called.
+	 * Constructor that creates the different parts but only show the (empty) main window.
+	 * 
+	 * @param AL		The ActionListener that handles the events created
 	 */
-	public GUI()
+	public GUI(ActionListener AL)
 	{
-		// start everything
 		System.out.println("GUI: started");
-				
+
+		mainWindow = new MainWindow(AL);
+		startupMenu = new StartupMenu();
+		gameView = new GameView();		
 	}
 	
-	
-	/**
-	 * Starts the main window in which everything happens
-	 * Move to constructor? Or subclass?
-	 */
-	public void startMainWindow(ActionListener AL)
-	{
-		if (mainWindow==null) mainWindow = new MainWindow();
-		mainWindow.addActionListener(AL);
-	}
-	
-	
+
 	/**
 	 * Shows the startup menu
 	 * 
-	 * If a startup menu exists it is reused
-	 * 
+	 * @param AL		The ActionListener that handles the generated events..
 	 */
 	public void showStartupMenu(ActionListener AL)
 	{
@@ -59,6 +46,7 @@ public class GUI
 		startupMenu.addActionListener(AL);
 		mainWindow.addGameComponent(startupMenu,mainWindow.MENULAYER);
 	}
+	
 	
 	/**
 	 * removes the startup menu from the main window.
@@ -70,9 +58,9 @@ public class GUI
 	
 	
 	/**
-	 * Shows the ingame menu
-	 * Uses the class IngameMenu.
-	 * More to move there?
+	 * Shows the ingame menu. Not implemented!
+	 * 
+	 * @param AL		The ActionListener that handles the generated events..
 	 */
 	public void showIngameMenu(ActionListener AL)
 	{
@@ -86,6 +74,11 @@ public class GUI
 		theMenu.setVisible(true);
 		*/
 	}
+
+	
+	/**
+	 * removes the ingame menu from the main window. Not implemented!
+	 */
 	public void hideIngameMenu()
 	{
 		//theMenu.dispose();
@@ -101,10 +94,10 @@ public class GUI
 	 */
 	public void showGame(ActionListener AL)
 	{
-		if (gameView==null) gameView = new GameView();
 		gameView.addActionListener(AL);
 		mainWindow.addGameComponent(gameView, mainWindow.GAMELAYER);
 	}
+	
 	
 	/**
 	 * Hides the game.
