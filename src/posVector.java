@@ -51,6 +51,8 @@ public posVector normalize(){
 	}
 	return returnvec;
 }
+public double distance(posVector vector1){
+}
 public float getX(){
 	return this.xSpeed;
 }
