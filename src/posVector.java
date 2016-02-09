@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class posVector {
-	private float xPosition, yPosition;
-	private float xSpeed, ySpeed;
+	private float xPosition, yPosition;		//Objektets position
+	private float xSpeed, ySpeed;			//Hastighet och riktning
 	
 public posVector(float speed, float angleDegree, float xPosition, float yPosition){
 		this.xSpeed = (float)(speed * Math.cos(Math.toRadians(angleDegree)));
