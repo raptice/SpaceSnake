@@ -29,8 +29,9 @@ extends GameComponent{
 	/** Default layer for the menu (in front). */
 	public static int MENULAYER = JLayeredPane.PALETTE_LAYER;
 	
-
+	//Th JFrame that contains everything
 	private JFrame theWindow;
+	//The pane to which everything is added in different layers
 	private JLayeredPane theContent = new JLayeredPane();
 
 	
@@ -123,4 +124,5 @@ extends GameComponent{
 	{
 		theContent.remove(c);
 	}
+	
 }
