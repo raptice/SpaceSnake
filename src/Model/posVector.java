@@ -17,11 +17,11 @@ public posVector(float speed, float angleDegree, float xPosition, float yPositio
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 }*/
-//H�mta vektorns l�ngd ( magnitud )
+//Hämta vektorns längd ( magnitud )
 public float getSpeedMagnitude(){
 	return (int)Math.sqrt(xSpeed*xSpeed + ySpeed*ySpeed);
 }
-//H�mta vilken mellan x-planet och vekorn
+//Hämta vilken mellan x-planet och vekorn
 public float getAngleDegree(){
 	return (float)Math.toDegrees(Math.atan2(-ySpeed, xSpeed));
 }
@@ -38,12 +38,12 @@ public void subVector(posVector vector1){
 	this.xSpeed -= vector1.getX();
 	this.ySpeed -= vector1.getY();
 }
-//F�rflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
+//Färflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
 public void moveVector(){
 	xPosition += xSpeed;
 	yPosition += ySpeed;
 }
-//H�mta enhetsvektorn f�r denna vektorn
+//Hämta enhetsvektorn fär denna vektorn
 public posVector normalize(){
 	posVector returnvec = this.clone();
 	if(this.getSpeedMagnitude() != 0){
