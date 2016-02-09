@@ -1,4 +1,3 @@
-package defaultpackage;
 import java.util.*;
 
 public class posVector {
@@ -17,23 +16,56 @@ public posVector(float speed, float angleDegree, float xPosition, float yPositio
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 }*/
+//Hämta vektorns längd ( magnitud )
 public float getSpeedMagnitude(){
 	return (int)Math.sqrt(xSpeed*xSpeed + ySpeed*ySpeed);
 }
+//Hämta vilken mellan x-planet och vekorn
 public float getAngleDegree(){
 	return (float)Math.toDegrees(Math.atan2(-ySpeed, xSpeed));
 }
-public void addVector(Vector vector1){
-	this.xSpeed += vector1.xSpeed;
-	this.ySpeed += vector1.xSpeed;
+public float scalar(posVector vector1){
+	return (this.xSpeed*vector1.getX() + this.ySpeed*vector1.getY());
 }
-public void subVector(Vector vector1){
-	this.xSpeed -= vector1.xSpeed;
-	this.ySpeed -= vector1.ySpeed;
+//addera given inparameters vektor med denna vektorn
+public void addVector(posVector vector1){
+	this.xSpeed += vector1.getX();
+	this.ySpeed += vector1.getY();
 }
-public 
-
-
+//subtrahera given inparameters vektor med denna vektorn
+public void subVector(posVector vector1){
+	this.xSpeed -= vector1.getX();
+	this.ySpeed -= vector1.getY();
+}
+//Förflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
+public void moveVector(){
+	xPosition += xSpeed;
+	yPosition += ySpeed;
+}
+//Hämta enhetsvektorn för denna vektorn
+public posVector normalize(){
+	posVector returnvec = this.clone();
+	if(this.getSpeedMagnitude() != 0){
+		returnvec.xSpeed = this.xSpeed / this.getSpeedMagnitude();
+		returnvec.ySpeed = this.ySpeed / this.getSpeedMagnitude();
+	}
+	return returnvec;
+}
+public float getX(){
+	return this.xSpeed;
+}
+public float getY(){
+	return this.ySpeed;
+}
+@Override
+public posVector clone(){
+	try{
+		return (posVector)super.clone();
+	}
+	catch(CloneNotSupportedException e){
+		throw new InternalError();
+	}
+}
 
 
 
