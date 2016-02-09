@@ -43,7 +43,7 @@ public void moveVector(){
 	xPosition += xSpeed;
 	yPosition += ySpeed;
 }
-//Hämta enhetsvektorn fär denna vektorn
+//Hämta enhetsvektorn för denna vektorn
 public posVector normalize(){
 	posVector returnvec = this.clone();
 	if(this.getSpeedMagnitude() != 0){
