@@ -38,7 +38,7 @@ public void subVector(posVector vector1){
 	this.xSpeed -= vector1.getX();
 	this.ySpeed -= vector1.getY();
 }
-//Färflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
+//Förflytta denna vektorns position (xPosition, yPosition) med (xSpeed, ySpeed) antal pixlar
 public void moveVector(){
 	xPosition += xSpeed;
 	yPosition += ySpeed;
