@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
