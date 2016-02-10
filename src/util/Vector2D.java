@@ -2,6 +2,11 @@ package util;
 import java.awt.Dimension;
 import java.awt.Point;
 
+/**
+ * Class for all 2d-vector calculations.
+ * 
+ * @author Gustav
+ */
 
 public class Vector2D {
 	public double x,y;
