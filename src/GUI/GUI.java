@@ -1,6 +1,5 @@
 package GUI;
 import java.awt.event.ActionListener;
-import javax.swing.JDialog;
 
 /**
  * This is the GUI class that handles every graphical interaction
@@ -13,10 +12,9 @@ import javax.swing.JDialog;
 public class GUI
 {
 	
-	//private IngameMenu ingameMenu;
+	private IngameMenu ingameMenu;
 	private GameView gameView;
 	private StartupMenu startupMenu;
-	//private JDialog theMenu;
 	private MainWindow mainWindow;
 
 	
@@ -30,8 +28,9 @@ public class GUI
 		System.out.println("GUI: started");
 
 		mainWindow = new MainWindow(AL);
+		gameView = new GameView();
 		startupMenu = new StartupMenu();
-		gameView = new GameView();		
+		ingameMenu = new IngameMenu();
 	}
 	
 
@@ -42,9 +41,8 @@ public class GUI
 	 */
 	public void showStartupMenu(ActionListener AL)
 	{
-		if (startupMenu==null) startupMenu = new StartupMenu();
 		startupMenu.addActionListener(AL);
-		mainWindow.addGameComponent(startupMenu,mainWindow.MENULAYER);
+		mainWindow.addGameComponent(startupMenu,MainWindow.MENULAYER);
 	}
 	
 	
@@ -64,24 +62,17 @@ public class GUI
 	 */
 	public void showIngameMenu(ActionListener AL)
 	{
-		/*theMenu = new JDialog(theWindow,"Game Menu");
-		theMenu.add(new IngameMenu(AL));
-		theMenu.setDefaultCloseOperation( JDialog.DO_NOTHING_ON_CLOSE );
-		theMenu.setPreferredSize(new Dimension(400, 300));
-		theMenu.pack();
-		//theMenu.setLocation(theWindow.getLocation().x+(int)theWindow.getSize().getWidth()/2-(int)menuDialog.getSize().getWidth()/2,
-		//		theWindow.getLocation().y+(int)theWindow.getSize().getHeight()/2-(int)menuDialog.getSize().getHeight()/2);
-		theMenu.setVisible(true);
-		*/
+		startupMenu.addActionListener(AL);
+		mainWindow.addGameComponent(startupMenu,MainWindow.GAMEMENULAYER);
 	}
 
 	
 	/**
-	 * removes the ingame menu from the main window. Not implemented!
+	 * removes the ingame menu from the main window.
 	 */
 	public void hideIngameMenu()
 	{
-		//theMenu.dispose();
+		mainWindow.remove(ingameMenu);
 	}
 	
 	
@@ -95,13 +86,12 @@ public class GUI
 	public void showGame(ActionListener AL)
 	{
 		gameView.addActionListener(AL);
-		mainWindow.addGameComponent(gameView, mainWindow.GAMELAYER);
+		mainWindow.addGameComponent(gameView, MainWindow.GAMELAYER);
 	}
 	
 	
 	/**
 	 * Hides the game.
-	 * TODO: what happens if no game exists?
 	 */
 	public void hideGame()
 	{
