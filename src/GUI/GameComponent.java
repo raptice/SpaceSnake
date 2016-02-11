@@ -13,6 +13,7 @@ import javax.swing.JComponent;
  * @version 2016-02-05
  */
 
+@SuppressWarnings("serial")
 public class GameComponent 
 extends JComponent
 {		

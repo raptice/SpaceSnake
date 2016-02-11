@@ -2,20 +2,24 @@ package GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.LinkedList;
+import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
+
+import GUI.Figures.*;
 
 /**
  * This is a class that just contains the game itself
  * 
- * Is listener to itself in order tozoom and other stuff. Som events gets sent to others...
+ * Is listener to itself in order to zoom and other stuff. Som events gets sent to others...
  * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
@@ -23,6 +27,7 @@ import java.util.Observer;
  */
 
 
+@SuppressWarnings("serial")
 public class GameView 
 extends GameComponent 
 implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
@@ -35,10 +40,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	protected float zoom = 2;
 	
 	//How much should the zoom change on zoom in/out
-	private final float zoomstep = (float) 1.2; 
-
-	//All stuff within the gameview:
-	private LinkedList<GameFigure> figures = new LinkedList<GameFigure>();
+	private double zoomstep = 1.01; 
 	
 	
 	/**
@@ -56,7 +58,6 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	
 	/**
 	 * Constructor that generates the game view and adds an ActionListener to it.
-	 * 
 	 * @param AL		The ActionListener to which events get sent
 	 */
 	public GameView (ActionListener AL)
@@ -71,23 +72,25 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	 */
 	private void build()
 	{
+		//Use coordinates for positioning
 		this.setLayout(null);
 		
-		for (int i=0;i<10;i++)
-			this.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50));
-			//figures.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50));
-		figures.add(new GameFigure());
-		
-		//repaint();  //Don't know here...
+		//For testing
+		for (int i=0;i<10;i++) {
+			if (Math.random()>0.5)
+				this.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
+			else
+				this.add(new BlackHole((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
+		}
 	}
 
 	
 	/**
-	 * This draws the world. Is NOT properly functional.
-	 * 
+	 * This draws the world.
 	 */
 	@Override
     public void paintComponent(final Graphics g) {
+		
 		Graphics2D g2 =(Graphics2D)g;
         super.paintComponent(g2);
         
@@ -98,74 +101,64 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
         g2.scale(zoom, zoom);
         
         // Draw the world
-        g.setColor(Color.BLACK);
-        g.drawOval(-worldSize/2, -worldSize/2, worldSize, worldSize);
-        g.setColor(Color.WHITE);
-        g.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);
-        
-        //for(Component c : this.getComponents())
-        //	c.repaint();
-        
-        //Draw all figures
-        for (GameFigure figure : figures)
-        	figure.render(g2);
-        
+        g2.setRenderingHint(
+    	        RenderingHints.KEY_ANTIALIASING,
+    	        RenderingHints.VALUE_ANTIALIAS_ON);
+    	g2.setColor(Color.BLACK);
+        g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
+        g2.setColor(Color.WHITE);
+        g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
     }
 	
 	
 	/**
-	 * Zoom in
+	 * Zoom in or out
+	 * @param amount	The amount to zoom. Logarithmic scale	
 	 * @return The zoom level after the zoom action
 	 */
-	public float zoomIn()
-	{
-		return zoom *= zoomstep;
-	}
-
-	
-	/**
-	 * Zoom in
-	 * @return The zoom level after the zoom action
-	 */
-	public float zoomOut()
-	{
-		return zoom /= zoomstep;
+	public float zoom(int amount){
+		return zoom *= Math.pow(zoomstep, amount);
 	}
 	
 	
 	@Override //Zoom in or out
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		//TODO
-		System.out.println(arg0);
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		zoom(e.getUnitsToScroll());
 	}
 	
 	@Override //Accelerate a bit?
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub	
-		System.out.println("click");
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse clicked",Calendar.getInstance().getTime().getTime(),0));
 	}
 	
-	@Override //Should do nothing
-	public void mouseEntered(MouseEvent arg0) {}
+	@Override //For keeping track?
+	public void mouseEntered(MouseEvent arg0) {
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse inside game area",Calendar.getInstance().getTime().getTime(),0));
+	}
 	
 	@Override //Stop accelerating?
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub	
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse out of game area",Calendar.getInstance().getTime().getTime(),0));
 	}
 	
 	@Override //Start accelerating
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse pressed",Calendar.getInstance().getTime().getTime(),0));
 	}
 	
 	@Override //Stop accelerating
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub	
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse released",Calendar.getInstance().getTime().getTime(),0));
 	}
 	
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub	
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse dragged",Calendar.getInstance().getTime().getTime(),0));
 	}
 	
 	@Override //Should do nothing
@@ -176,4 +169,23 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 		// TODO Auto-generated method stub
 	}
 	
+	/**
+	 * Adds some item to the world
+	 * @param what	The item to add
+	 */
+	private void addItem (String what) {
+		//TODO
+		//Check what for type
+		//figure = new GameFigureType(...);
+		//model.addObsever(figure);
+		//this.add(figure);
+	}
+	
+	/**
+	 * Remove some item from the world. Called from the items themselves.
+	 * @param who	The item to remove
+	 */
+	public void removeMe(GameFigure who) {
+		this.remove(who);
+	}
 }
