@@ -1,6 +1,7 @@
 package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import view.View;
 
@@ -13,8 +14,16 @@ public class MainController implements ActionListener {
 	public MainController(View gui){
 		System.out.println("Controller: adding view");
 		this.theGui = gui;
+		
+		configView();
+		
 		startupMenuController = new StartupMenuController(this);
 		theGui.showStartupMenu(startupMenuController);
+	}
+	
+	private void configView () {
+		theGui.addActionListener(this);
+		theGui.addKeyListener(KeyEvent.VK_ESCAPE, "ESC Pressed");
 	}
 	
 	
@@ -69,9 +78,12 @@ public class MainController implements ActionListener {
 		else if (e.getActionCommand() == "Exit") {
 			System.out.println("Controller: Button3");
 			System.exit(0);
+		}*/
+		if (e.getActionCommand().equals("ESC Pressed")) {
+			System.out.println("Controller: ESC");
 		}
-		else {*/
-			System.out.println("Hej"); //debugging
-		//}
+		else {
+			System.out.println(e); //debugging
+		}
 	}
 }
