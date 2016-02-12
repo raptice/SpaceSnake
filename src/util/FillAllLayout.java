@@ -1,3 +1,4 @@
+package util;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -10,6 +11,8 @@ import java.awt.LayoutManager;
  * @author Gustav
  * @version 2016-02-05
  */
+
+
 public class FillAllLayout 
 implements LayoutManager 
 {
@@ -19,6 +22,7 @@ implements LayoutManager
 	 */
 	public FillAllLayout(){}
 
+	
 	/**
 	 * Overridden method that does nothing.
 	 * 
@@ -26,11 +30,9 @@ implements LayoutManager
 	 * @param comp	The component that could have been added
 	 */
 	@Override
-	public void addLayoutComponent(String name, Component comp) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addLayoutComponent(String name, Component comp) {}
 
+	
 	/**
 	 * Overridden method that sets the bounds of all components of the layout holding class.
 	 * It fetches the components of the parent and sets all of their bounds to the parents bounds.
@@ -39,14 +41,11 @@ implements LayoutManager
 	 */
 	@Override
 	public void layoutContainer(Container parent) {
-		// TODO Auto-generated method stub
 		for (Component c : parent.getComponents())
-		{
 			c.setBounds(parent.getBounds());
-		}
-		
 	}
 
+	
 	/**
 	 * Overridden method that uses the minimum size of the parent as minimum size.
 	 * 
@@ -57,6 +56,7 @@ implements LayoutManager
 		return parent.getMinimumSize();
 	}
 
+	
 	/**
 	 * Overridden method that uses the preferred size of the parent as the preferred size.
 	 * 
@@ -67,12 +67,13 @@ implements LayoutManager
 		return parent.getPreferredSize();
 	}
 
+	
 	/**
 	 * Overridden method that does nothing.
 	 * 
 	 * @param comp	The component that could have been removed from the layout
 	 */
 	@Override
-	public void removeLayoutComponent(Component comp) {	}
+	public void removeLayoutComponent(Component comp) {}
 
 }
