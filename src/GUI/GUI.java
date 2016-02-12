@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
  * This is the GUI class that handles every graphical interaction
  * 
  * @author Gustav
- * @version 2016-02-09
+ * @version 2016-02-12
  */
 
 
@@ -23,16 +23,24 @@ public class GUI
 	 * 
 	 * @param AL		The ActionListener that handles the events created
 	 */
-	public GUI(ActionListener AL)
+	public GUI()
 	{
 		System.out.println("GUI: started");
 
-		mainWindow = new MainWindow(AL);
+		mainWindow = new MainWindow();
 		gameView = new GameView();
 		startupMenu = new StartupMenu();
 		ingameMenu = new IngameMenu();
 	}
 	
+	
+	/**
+	 * Add an ActionListener to the GUI
+	 * @param the ActionListener
+	 */
+	public void addActionListener(ActionListener AL) {
+		mainWindow.addActionListener(AL);
+	}
 
 	/**
 	 * Shows the startup menu
@@ -81,7 +89,7 @@ public class GUI
 	 * the actions are: accelerate in different directions with different forces and to stop accelerating.
 	 * maybe also on click a one time acceleration "pulse".
 	 * 
-	 * @param AL	The Actionlistener to which the game sends its actions
+	 * @param AL	The ActionListener to which the game sends its actions
 	 */
 	public void showGame(ActionListener AL)
 	{
