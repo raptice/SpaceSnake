@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,17 +9,44 @@ public class MainController implements ActionListener {
 	private GUI theGui;
 	//private Model model;
 	
-	public MainController(/*GUI theGui*/){
-		//this.theGui = theGui; //= new GUI(this);
+	public MainController(){
 
 		theGui.showStartupMenu(this);
-		theGui.showGame(this);
+		//theGui.showGame(this);
 	}
-	
+	/* Controller för GUI (vi får strängar):
+	 * 
+	 * Vi ska starta startup menu när vi startar spelet (när den skapas)
+	 *  - start new game
+	 *  - load saved game
+	 *  - exit Program
+	 *  
+	 * In Game:
+	 * +escape button stops game & shows InGame menu
+	 *   In Game Menu:
+	 *   	 - save Game
+	 *   	 - exit Game
+	 *    	 - resume Game
+	 *   MainWindow:
+	 *    	ESC <-Dynamiskt(?)
+	 *    	Close Window
+	 *   Game:
+	 * 		Mouse events:
+	 * 			- Mouse Pressed
+	 * 			- Mouse Released
+	 * 			- Mouse Drag
+	 * 	 Model:
+	 * 		-GameOver
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
 	public void addView(GUI gui){
 		System.out.println("Controller: adding view");
 		this.theGui = gui;
-		GUI.init(gui);
 	}
 	
 	/*

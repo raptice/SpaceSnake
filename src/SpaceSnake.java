@@ -1,7 +1,8 @@
 import java.awt.event.ActionListener;
 
 import GUI.GUI;
-public class SpaceSnake implements ActionListener {
+import controller.MainController;
+public class SpaceSnake {
 	public static void main(String[] args) {
 		GUI view = new GUI();
 		//create world: Model model 	= new Model();
@@ -9,7 +10,6 @@ public class SpaceSnake implements ActionListener {
 		MainController mainController = new MainController();
 		//mainController.addModel(model);
 		mainController.addView(view);
-		view.addController(mainController); //addController will be in the GUI class
 		
 		
 		
