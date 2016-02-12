@@ -9,8 +9,10 @@ public class MainController implements ActionListener {
 	private GUI theGui;
 	//private Model model;
 	
-	public MainController(){
-
+	public MainController(GUI gui){
+		System.out.println("Controller: adding view");
+		this.theGui = gui;
+		theGui.showStartupMenu(this);
 	}
 	/* Controller för GUI (vi får strängar):
 	 * 
@@ -42,10 +44,6 @@ public class MainController implements ActionListener {
 	 * 
 	 * 
 	 * */
-	public void addView(GUI gui){
-		System.out.println("Controller: adding view");
-		this.theGui = gui;
-	}
 	
 	/*
 	public void addModel(Model m){
@@ -53,9 +51,6 @@ public class MainController implements ActionListener {
 		this.model = m;
 	}*/
 	
-	public void startMenu(){
-		theGui.showStartupMenu(this);
-	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "Start new game") {
