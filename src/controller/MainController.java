@@ -11,8 +11,6 @@ public class MainController implements ActionListener {
 	
 	public MainController(){
 
-		theGui.showStartupMenu(this);
-		//theGui.showGame(this);
 	}
 	/* Controller för GUI (vi får strängar):
 	 * 
@@ -54,6 +52,10 @@ public class MainController implements ActionListener {
 		System.out.println("Controller: adding model");
 		this.model = m;
 	}*/
+	
+	public void startMenu(){
+		theGui.showStartupMenu(this);
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "Start new game" /*"Button1"*/) {
