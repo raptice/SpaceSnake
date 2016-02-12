@@ -8,12 +8,16 @@ import GUI.GUI;
 public class MainController implements ActionListener {
 	private GUI theGui;
 	//private Model model;
+	private StartupMenuController startupMenuController;
 	
 	public MainController(GUI gui){
 		System.out.println("Controller: adding view");
 		this.theGui = gui;
-		theGui.showStartupMenu(this);
+		startupMenuController = new StartupMenuController(this);
+		theGui.showStartupMenu(startupMenuController);
 	}
+	
+	
 	/* Controller för GUI (vi får strängar):
 	 * 
 	 * Vi ska starta startup menu när vi startar spelet (när den skapas)
@@ -52,8 +56,11 @@ public class MainController implements ActionListener {
 	}*/
 	
 	
+	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == "Start new game") {
+		
+		
+		/*if (e.getActionCommand() == "Start new game") {
 			System.out.println("Controller: Button1");
 		}
 		else if (e.getActionCommand() == "Load game") {
@@ -63,8 +70,8 @@ public class MainController implements ActionListener {
 			System.out.println("Controller: Button3");
 			System.exit(0);
 		}
-		else {
-			System.out.println("Controller: Unknown button: " + e.paramString()); //debugging
-		}
+		else {*/
+			System.out.println("Hej"); //debugging
+		//}
 	}
 }
