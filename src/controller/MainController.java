@@ -2,15 +2,15 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import GUI.GUI;
+import view.View;
 
 
 public class MainController implements ActionListener {
-	private GUI theGui;
+	private View theGui;
 	//private Model model;
 	private StartupMenuController startupMenuController;
 	
-	public MainController(GUI gui){
+	public MainController(View gui){
 		System.out.println("Controller: adding view");
 		this.theGui = gui;
 		startupMenuController = new StartupMenuController(this);
@@ -18,7 +18,7 @@ public class MainController implements ActionListener {
 	}
 	
 	
-	/* Controller för GUI (vi får strängar):
+	/* Controller för view (vi får strängar):
 	 * 
 	 * Vi ska starta startup menu när vi startar spelet (när den skapas)
 	 *  - start new game

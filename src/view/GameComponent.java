@@ -1,4 +1,4 @@
-package GUI;
+package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import javax.swing.JComponent;
 
 
 /**
- * Master class for all components used and added to the GUI that fixes everything concerning the ActionListers.
+ * Master class for all components used and added to the view that fixes everything concerning the ActionListers.
  * Keeps a list of the ActionListeners and methods to add and remove from it as well as a protected method to fire an event.
  * 
  * @author Gustav

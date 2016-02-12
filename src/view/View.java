@@ -1,15 +1,15 @@
-package GUI;
+package view;
 import java.awt.event.ActionListener;
 
 /**
- * This is the GUI class that handles every graphical interaction
+ * This is the view class that handles every graphical interaction
  * 
  * @author Gustav
  * @version 2016-02-12
  */
 
 
-public class GUI
+public class View
 {
 	
 	private IngameMenu ingameMenu;
@@ -23,9 +23,9 @@ public class GUI
 	 * 
 	 * @param AL		The ActionListener that handles the events created
 	 */
-	public GUI()
+	public View()
 	{
-		System.out.println("GUI: started");
+		System.out.println("view: started");
 
 		mainWindow = new MainWindow();
 		gameView = new GameView();
@@ -35,7 +35,7 @@ public class GUI
 	
 	
 	/**
-	 * Add an ActionListener to the GUI
+	 * Add an ActionListener to the view
 	 * @param the ActionListener
 	 */
 	public void addActionListener(ActionListener AL) {
