@@ -1,4 +1,4 @@
-package modell;
+package model;
 public class posVector {
 	private double xPosition, yPosition;		//Objektets position
 	private double xSpeed, ySpeed;			//Hastighet och riktning

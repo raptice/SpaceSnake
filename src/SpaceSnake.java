@@ -1,4 +1,3 @@
-import java.awt.event.ActionListener;
 
 import GUI.GUI;
 import controller.MainController;

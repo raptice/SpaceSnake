@@ -1,4 +1,4 @@
-package modell;
+package model;
 
 public class Floater extends Vector2D implements Gravity{
 	private Vector2D position;
