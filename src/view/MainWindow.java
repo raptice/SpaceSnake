@@ -1,27 +1,27 @@
 package view;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
-import java.util.Calendar;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
-import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.KeyStroke;
 
+import util.Command;
+import util.Config;
 import util.FillAllLayout;
+import util.Timestamp;
 
-import java.io.*;
+
 
 /**
  * This is a class that just contains the MainWindow in one JFrame
@@ -81,8 +81,8 @@ implements WindowListener
 	private void build()
 	{
 		//Load a window
-		theWindow = new JFrame("Space Snake");
-				
+		theWindow = new JFrame(Config.get("Window_title"));
+		
 		//Set up the window appearance...
 		//theWindow.setIconImage(Toolkit.getDefaultToolkit().getImage("images/icon.png"));
 //new ImageIcon(getClass().getClassLoader().getResource("PATH/TO/YourImage.png")));
@@ -91,18 +91,19 @@ implements WindowListener
 		//ImageIcon icon = new ImageIcon(iconURL);
 		//theWindow.setIconImage(icon.getImage());
 		
-		theWindow.setPreferredSize(new Dimension(800, 600));
-		theWindow.pack();
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        theWindow.setLocation(d.width/3 - theWindow.getWidth()/3, d.height/3 - theWindow.getHeight()/3);
-        theWindow.setVisible(true);
+		theWindow.setPreferredSize(new Dimension(
+				Integer.parseInt(Config.get("Window_width")), 
+				Integer.parseInt(Config.get("Window_height"))));
 		
-        // Proper closing: (Should instead send action to controller)
-        //theWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		theWindow.pack();
         
-        //Add key listener (if ESC is pressed)
-        addKeyListener(KeyEvent.VK_ESCAPE, "ESC Pressed");
-		        
+		//Always place the window 1/3 from the top left corner
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        theWindow.setLocation(d.width/3 - theWindow.getWidth()/3, d.height/3 - theWindow.getHeight()/3);
+        
+        theWindow.setVisible(true);
+		theWindow.addWindowListener(this);
+                
         theWindow.getContentPane().add(theContent);
         theContent.setLayout(new FillAllLayout());    
 	}
@@ -122,7 +123,7 @@ implements WindowListener
 	    actionMap.put(code, new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, Calendar.getInstance().getTime().getTime(),0));
+	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, Timestamp.now(),0));
 	        }
 	    });
 	}
@@ -166,11 +167,11 @@ implements WindowListener
 	@Override
 	public void windowActivated(WindowEvent e) {}
 	@Override
-	public void windowClosed(WindowEvent e) {
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Window closed",Calendar.getInstance().getTime().getTime(),0));
-	}
+	public void windowClosed(WindowEvent e) {}
 	@Override
-	public void windowClosing(WindowEvent e) {}
+	public void windowClosing(WindowEvent e) {
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,Command.WINDOW_CLOSED,Timestamp.now(),0));
+	}
 	@Override
 	public void windowDeactivated(WindowEvent e) {}
 	@Override

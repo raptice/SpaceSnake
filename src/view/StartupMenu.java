@@ -14,6 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import util.Command;
+import util.Config;
+import util.Timestamp;
+
 
 /**
  * This is a class that just contains the startup menu
@@ -77,7 +81,7 @@ extends GameComponent{
 		JPanel titlePanel = new JPanel(new GridLayout(0,1));
 		titlePanel.setOpaque(false);
 
-		JLabel label = new JLabel("Space Snake", SwingConstants.CENTER);
+		JLabel label = new JLabel(Config.get("Startup_menu_title"), SwingConstants.CENTER);
 		label.setFont(new Font(Font.SERIF, Font.BOLD, 80));
 		titlePanel.add(label);
 		return titlePanel;
@@ -92,30 +96,30 @@ extends GameComponent{
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
 		buttonPanel.setOpaque(false);
 		
-		JButton button1 = new JButton("Start new game");
+		JButton button1 = new JButton(Config.get("Startup_menu_newgame"));
 		button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //fireEvent(e);
-            	fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Start new game",Calendar.getInstance().getTime().getTime(),0));
+            	fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.START_NEW_GAME, Timestamp.now(), 0));
             }
         });
 		buttonPanel.add(button1);
 		
-		JButton button2 = new JButton("Load game");
+		JButton button2 = new JButton(Config.get("Startup_menu_loadgame"));
 		button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Load game",Calendar.getInstance().getTime().getTime(),0));
+                fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.LOAD_GAME, Timestamp.now(), 0));
             }
         });
 		buttonPanel.add(button2);
 		
-		JButton button3 = new JButton("Exit");
+		JButton button3 = new JButton(Config.get("Startup_menu_exit"));
 		button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Exit",Calendar.getInstance().getTime().getTime(),0));
+                fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.EXIT, Timestamp.now(), 0));
             }
         });
 		buttonPanel.add(button3);

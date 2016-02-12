@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import util.Config;
 import view.View;
 
 
@@ -81,6 +82,10 @@ public class MainController implements ActionListener {
 		}*/
 		if (e.getActionCommand().equals("ESC Pressed")) {
 			System.out.println("Controller: ESC");
+		}
+		else if (e.getActionCommand().equals("Window closed")) {
+			System.out.println("Controller: window closed");
+			System.exit(0);
 		}
 		else {
 			System.out.println(e); //debugging
