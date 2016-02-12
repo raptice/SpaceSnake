@@ -1,4 +1,4 @@
-package GUI.Figures;
+package view.Figures;
 
 import java.awt.Color;
 import java.awt.Graphics;
