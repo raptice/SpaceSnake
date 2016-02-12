@@ -6,10 +6,9 @@ public class SpaceSnake {
 		GUI view = new GUI();
 		//create world: Model model 	= new Model();
 		
-		MainController mainController = new MainController();
+		@SuppressWarnings("unused")
+		MainController mainController = new MainController(view);
 		//mainController.addModel(model);
-		mainController.addView(view);
-		mainController.startMenu();
 		
 		
 		
