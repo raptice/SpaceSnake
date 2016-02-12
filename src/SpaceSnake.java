@@ -1,4 +1,3 @@
-import java.awt.event.ActionListener;
 
 import GUI.GUI;
 import controller.MainController;
@@ -10,6 +9,7 @@ public class SpaceSnake {
 		MainController mainController = new MainController();
 		//mainController.addModel(model);
 		mainController.addView(view);
+		mainController.startMenu();
 		
 		
 		
