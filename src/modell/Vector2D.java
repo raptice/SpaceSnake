@@ -1,4 +1,4 @@
-package util;
+package modell;
 import java.awt.Dimension;
 import java.awt.Point;
 

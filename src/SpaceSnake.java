@@ -10,6 +10,7 @@ public class SpaceSnake {
 		MainController mainController = new MainController();
 		//mainController.addModel(model);
 		mainController.addView(view);
+		mainController.startMenu();
 		
 		
 		
