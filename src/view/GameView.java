@@ -1,4 +1,4 @@
-package GUI;
+package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
 
-import GUI.Figures.*;
+import view.Figures.*;
 
 /**
  * This is a class that just contains the game itself
