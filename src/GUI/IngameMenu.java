@@ -30,7 +30,7 @@ extends GameComponent{
 	 */
 	public IngameMenu ()
 	{
-		System.out.println("Startup menu created");		
+		System.out.println("Ingame menu created");		
 		this.buildMenu();
 	}
 	
