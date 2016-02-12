@@ -58,14 +58,15 @@ public class MainController implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == "Start new game" /*"Button1"*/) {
+		if (e.getActionCommand() == "Start new game") {
 			System.out.println("Controller: Button1");
 		}
-		else if (e.getActionCommand() == "Load game" /*"Command2"*/) {
+		else if (e.getActionCommand() == "Load game") {
 			System.out.println("Controller: Button2");
 		}
-		else if (e.getActionCommand() == "Exit" /*"Command3"*/) {
+		else if (e.getActionCommand() == "Exit") {
 			System.out.println("Controller: Button3");
+			System.exit(0);
 		}
 		else {
 			System.out.println("Controller: Unknown button: " + e.paramString()); //debugging
