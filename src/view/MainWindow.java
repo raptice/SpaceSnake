@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.net.URL;
 import java.util.Calendar;
 
@@ -30,7 +32,9 @@ import java.io.*;
 
 @SuppressWarnings("serial")
 public class MainWindow 
-extends GameComponent{		
+extends GameComponent 
+implements WindowListener 
+{		
 
 	/** Default layer for the game (far back). */
 	public static int GAMELAYER = JLayeredPane.DEFAULT_LAYER;
@@ -94,21 +98,33 @@ extends GameComponent{
         theWindow.setVisible(true);
 		
         // Proper closing: (Should instead send action to controller)
-        theWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //theWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Add key listener (if ESC is pressed)
-        InputMap inputMap  = ((JComponent)theWindow.getContentPane()).getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = ((JComponent)theWindow.getContentPane()).getActionMap();
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
-        actionMap.put("escape", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-        		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"ESC pressed",Calendar.getInstance().getTime().getTime(),0));
-            }
-        });	        
+        addKeyListener(KeyEvent.VK_ESCAPE, "ESC Pressed");
 		        
         theWindow.getContentPane().add(theContent);
         theContent.setLayout(new FillAllLayout());    
+	}
+	
+	/**
+	 * Adds KeyStrokeEvents and sends ActionEvents to the ActionListeners.
+	 */
+	public void addKeyListener (int key, String theCommand) {
+		
+		final String code = new String("Key_"+key);
+	    final String command = new String(theCommand);
+	    
+		InputMap inputMap  = ((JComponent)theWindow.getContentPane()).getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+	    ActionMap actionMap = ((JComponent)theWindow.getContentPane()).getActionMap();
+	    
+	    inputMap.put(KeyStroke.getKeyStroke(key, 0), code); //KeyEvent.VK_ESCAPE
+	    actionMap.put(code, new AbstractAction() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, Calendar.getInstance().getTime().getTime(),0));
+	        }
+	    });
 	}
 	
 	
@@ -145,5 +161,23 @@ extends GameComponent{
 	{
 		theContent.remove(c);
 	}
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {}
+	@Override
+	public void windowClosed(WindowEvent e) {
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Window closed",Calendar.getInstance().getTime().getTime(),0));
+	}
+	@Override
+	public void windowClosing(WindowEvent e) {}
+	@Override
+	public void windowDeactivated(WindowEvent e) {}
+	@Override
+	public void windowDeiconified(WindowEvent e) {}
+	@Override
+	public void windowIconified(WindowEvent e) {}
+	@Override
+	public void windowOpened(WindowEvent e) {}
 	
 }
