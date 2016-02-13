@@ -78,8 +78,8 @@ public class View
 	 */
 	public void showIngameMenu(ActionListener AL)
 	{
-		startupMenu.addActionListener(AL);
-		mainWindow.addGameComponent(startupMenu,MainWindow.GAMEMENULAYER);
+		ingameMenu.addActionListener(AL);
+		mainWindow.addGameComponent(ingameMenu,MainWindow.GAMEMENULAYER);
 	}
 
 	

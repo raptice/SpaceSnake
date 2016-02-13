@@ -8,23 +8,28 @@ import view.View;
 
 
 public class MainController implements ActionListener {
-	private View theGui;
+	private View gui;
 	//private Model model;
 	private StartupMenuController startupMenuController;
+	private IngameMenuController ingameMenuController;
+	private GameViewController gameViewController;
 	
 	public MainController(View gui){
 		System.out.println("Controller: adding view");
-		this.theGui = gui;
+		this.gui = gui;
 		
 		configView();
 		
 		startupMenuController = new StartupMenuController(this);
-		theGui.showStartupMenu(startupMenuController);
+		ingameMenuController = new IngameMenuController(this);
+		gameViewController = new GameViewController(this);
+		//gui.showStartupMenu(startupMenuController);
+		gui.showIngameMenu(ingameMenuController);
 	}
 	
 	private void configView () {
-		theGui.addActionListener(this);
-		theGui.addKeyListener(KeyEvent.VK_ESCAPE, "ESC Pressed");
+		gui.addActionListener(this);
+		gui.addKeyListener(KeyEvent.VK_ESCAPE, "ESC Pressed");
 	}
 	
 	
@@ -66,26 +71,41 @@ public class MainController implements ActionListener {
 	}*/
 	
 	
+		public void startNewGame() {
+			gui.hideStartupMenu();
+			gui.showGame(gameViewController);
+		}
+		
+		//TODO: Add method to load game
+		public void loadGame() {
+		}
+		
+		public void exit() {
+			System.exit(0);
+		}
+	
+	public void resumeGame() {
+		gui.hideIngameMenu();
+		gui.showGame(gameViewController);
+	}
+	
+	//TODO: Add method to save game
+	public void saveGame() {
+	}
+	
+	public void exitGame() {
+		gui.hideIngameMenu();
+		gui.showStartupMenu(startupMenuController);
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		
-		/*if (e.getActionCommand() == "Start new game") {
-			System.out.println("Controller: Button1");
-		}
-		else if (e.getActionCommand() == "Load game") {
-			System.out.println("Controller: Button2");
-		}
-		else if (e.getActionCommand() == "Exit") {
-			System.out.println("Controller: Button3");
-			System.exit(0);
-		}*/
 		if (e.getActionCommand().equals("ESC Pressed")) {
-			System.out.println("Controller: ESC");
+			System.out.println("MainController: ESC");
 		}
 		else if (e.getActionCommand().equals("Window closed")) {
-			System.out.println("Controller: window closed");
-			System.exit(0);
+			System.out.println("MainController: Window closed");
+			exit();
 		}
 		else {
 			System.out.println(e); //debugging

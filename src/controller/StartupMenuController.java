@@ -11,19 +11,20 @@ public class StartupMenuController implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == "Start new game") {
-			System.out.println("Controller: Button1");
-			//parent.startNewGame();
+		if (e.getActionCommand() == "START_NEW_GAME") {
+			System.out.println("StartupMenuController: Start game");
+			parent.startNewGame();
 		}
-		else if (e.getActionCommand() == "Load game") {
-			System.out.println("Controller: Button2");
+		else if (e.getActionCommand() == "LOAD_GAME") {
+			System.out.println("StartupMenuController: Load game");
+			parent.loadGame();
 		}
-		else if (e.getActionCommand() == "Exit") {
-			System.out.println("Controller: Button3");
-			System.exit(0);
+		else if (e.getActionCommand() == "EXIT") {
+			System.out.println("StartupMenuController: Exit");
+			parent.exit();
 		}
 		else {
-			System.out.println("Controller: Unknown button: " + e.paramString()); //debugging
+			System.out.println("StartupMenuController: Unknown button: " + e.paramString()); //debugging
 		}
 	}
 }
