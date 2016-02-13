@@ -10,16 +10,17 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import util.Command;
+import util.Timestamp;
 import view.Figures.*;
 
 /**
  * This is a class that just contains the game itself
  * 
- * Is listener to itself in order to zoom and other stuff. Som events gets sent to others...
+ * Is listener to itself in order to zoom and other stuff. Some events gets sent to others...
  * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
@@ -127,38 +128,33 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	}
 	
 	@Override //Accelerate a bit?
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse clicked",Calendar.getInstance().getTime().getTime(),0));
+	public void mouseClicked(MouseEvent arg0) {	
+		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse clicked", Timestamp.now(), 0));
 	}
 	
 	@Override //For keeping track?
 	public void mouseEntered(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse inside game area",Calendar.getInstance().getTime().getTime(),0));
+		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse inside game area", Timestamp.now(), 0));
 	}
 	
 	@Override //Stop accelerating?
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse out of game area",Calendar.getInstance().getTime().getTime(),0));
+		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse out of game area", Timestamp.now(), 0));
 	}
 	
 	@Override //Start accelerating
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse pressed",Calendar.getInstance().getTime().getTime(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, Timestamp.now(), 0));
 	}
 	
 	@Override //Stop accelerating
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse released",Calendar.getInstance().getTime().getTime(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, Timestamp.now(), 0));
 	}
 	
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse dragged",Calendar.getInstance().getTime().getTime(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, Timestamp.now(), 0));
 	}
 	
 	@Override //Should do nothing

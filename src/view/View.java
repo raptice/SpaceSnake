@@ -20,8 +20,6 @@ public class View
 	
 	/**
 	 * Constructor that creates the different parts but only show the (empty) main window.
-	 * 
-	 * @param AL		The ActionListener that handles the events created
 	 */
 	public View()
 	{
@@ -41,10 +39,20 @@ public class View
 	public void addActionListener(ActionListener AL) {
 		mainWindow.addActionListener(AL);
 	}
+	
+	
+	/**
+	 * Adds a keyListener to the window that sends events to the ActionListeners
+	 * @param key		The keyCode
+	 * @param command	The command that gets sent to the ActionListeners
+	 */
+	public void addKeyListener (int key, String command) {
+		mainWindow.addKeyListener (key, command);
+	}
+	
 
 	/**
 	 * Shows the startup menu
-	 * 
 	 * @param AL		The ActionListener that handles the generated events..
 	 */
 	public void showStartupMenu(ActionListener AL)
