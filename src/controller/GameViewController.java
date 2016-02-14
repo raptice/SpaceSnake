@@ -13,15 +13,15 @@ public class GameViewController implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == "MOUSE_PRESSED") {
+		if (e.getActionCommand() == "Mouse pressed") {
 			System.out.println("GameViewController: Mouse pressed");
 			//startAccelerating();
 		}
-		else if (e.getActionCommand() == "MOUSE_RELEASED") {
+		else if (e.getActionCommand() == "Mouse released") {
 			System.out.println("GameViewController: Mouse released");
 			//stopAccelerating();
 		}
-		else if (e.getActionCommand() == "MOUSE_DRAGGED") {
+		else if (e.getActionCommand() == "Mouse dragged") {
 			System.out.println("GameViewController: Mouse dragged");
 			//changeAccelerationDirection();
 		}

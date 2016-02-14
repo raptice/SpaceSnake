@@ -23,8 +23,8 @@ public class MainController implements ActionListener {
 		startupMenuController = new StartupMenuController(this);
 		ingameMenuController = new IngameMenuController(this);
 		gameViewController = new GameViewController(this);
-		//gui.showStartupMenu(startupMenuController);
-		gui.showIngameMenu(ingameMenuController);
+		
+		gui.showStartupMenu(startupMenuController);
 	}
 	
 	private void configView () {
@@ -102,6 +102,8 @@ public class MainController implements ActionListener {
 		
 		if (e.getActionCommand().equals("ESC Pressed")) {
 			System.out.println("MainController: ESC");
+			gui.hideGame();
+			gui.showIngameMenu(ingameMenuController);
 		}
 		else if (e.getActionCommand().equals("Window closed")) {
 			System.out.println("MainController: Window closed");

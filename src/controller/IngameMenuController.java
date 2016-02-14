@@ -12,15 +12,15 @@ public class IngameMenuController implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == "RETURN_TO_GAME") {
+		if (e.getActionCommand() == "Return to game") {
 			System.out.println("IngameMenuController: Resume game");
 			parent.resumeGame();
 		}
-		else if (e.getActionCommand() == "SAVE_GAME") {
+		else if (e.getActionCommand() == "Save game") {
 			System.out.println("IngameMenuController: Save game");
 			parent.saveGame();
 		}
-		else if (e.getActionCommand() == "EXIT_GAME") {
+		else if (e.getActionCommand() == "Exit game") {
 			System.out.println("IngameMenuController: Exit game");
 			parent.exitGame();
 		}
