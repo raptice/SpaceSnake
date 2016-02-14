@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import util.Config;
+import util.Command;
+
 import view.View;
 
 /**
@@ -41,7 +43,7 @@ public class MainController implements ActionListener {
 	 */
 	private void configView () {
 		view.addActionListener(this);
-		view.addKeyListener(KeyEvent.VK_ESCAPE, "ESC Pressed");
+		view.addKeyListener(KeyEvent.VK_ESCAPE, Command.ESC_PRESSED);
 	}
 	
 	
@@ -128,12 +130,12 @@ public class MainController implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getActionCommand().equals("ESC Pressed")) {
+		if (e.getActionCommand().equals(Command.ESC_PRESSED)) {
 			System.out.println("MainController: ESC");
 			view.hideGame();
 			view.showIngameMenu(ingameMenuController);
 		}
-		else if (e.getActionCommand().equals("Window closed")) {
+		else if (e.getActionCommand() == Command.WINDOW_CLOSED) {
 			System.out.println("MainController: Window closed");
 			exit();
 		}
