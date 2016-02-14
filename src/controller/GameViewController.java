@@ -4,24 +4,34 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//Hanterar event från GameView
+/**
+ * Handles events from the GameView
+ */
 public class GameViewController implements ActionListener {
 	private MainController parent;
 	
-	public GameViewController(MainController AL){
-		parent = AL;
+	/**
+	 * Constructor that adds a reference to the parent controller
+	 * @param parent	The parent controller
+	 */
+	public GameViewController(MainController parent){
+		this.parent = parent;
 	}
 	
+	/**
+	 * Handles events in the game
+	 * @param e		The ActionEvent sent from a mouse press
+	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == "MOUSE_PRESSED") {
+		if (e.getActionCommand() == "Mouse pressed") {
 			System.out.println("GameViewController: Mouse pressed");
 			//startAccelerating();
 		}
-		else if (e.getActionCommand() == "MOUSE_RELEASED") {
+		else if (e.getActionCommand() == "Mouse released") {
 			System.out.println("GameViewController: Mouse released");
 			//stopAccelerating();
 		}
-		else if (e.getActionCommand() == "MOUSE_DRAGGED") {
+		else if (e.getActionCommand() == "Mouse dragged") {
 			System.out.println("GameViewController: Mouse dragged");
 			//changeAccelerationDirection();
 		}
