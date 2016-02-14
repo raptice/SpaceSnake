@@ -3,13 +3,24 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Handles events from the StartupMenu
+ */
 public class StartupMenuController implements ActionListener {
 	private MainController parent;
 	
-	public StartupMenuController(MainController AL){
-		parent = AL;
+	/**
+	 * Constructor that adds a reference to the parent controller
+	 * @param parent	The parent controller
+	 */
+	public StartupMenuController(MainController parent){
+		this.parent = parent;
 	}
 	
+	/**
+	 * Handles events coming from buttons on the startup menu
+	 * @param e		The ActionEvent sent from a button press
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "Start new game") {
 			System.out.println("StartupMenuController: Start game");
