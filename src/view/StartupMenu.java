@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -8,14 +10,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import util.Command;
 import util.Config;
+import util.Parser;
 import util.Timestamp;
 
 
@@ -56,77 +61,21 @@ extends GameComponent{
 	 */
 	private void buildMenu()
 	{
+		MenuPanel menuPanel = new MenuPanel(this, Config.get("Startup_menu_title"));
+		menuPanel.setBackground(Parser.ColorFromString(Config.get("Startup_bg_color")));
+		menuPanel.setBorderColor(Parser.ColorFromString(Config.get("Startup_border_color")));
 		
-		JPanel titlePanel = buildTitle();
-		JPanel buttonPanel = buildButtons();
+		Color bg_color = Parser.ColorFromString(Config.get("Startup_button_bg_color"));
+		Color border_color = Parser.ColorFromString(Config.get("Startup_button_border_color"));
+		Color highlight_color = Parser.ColorFromString(Config.get("Startup_button_highlight"));
+		menuPanel.addButton(Config.get("Startup_menu_newgame"), Command.START_NEW_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Startup_menu_loadgame"), Command.LOAD_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Startup_menu_exit"), Command.EXIT, bg_color, border_color, highlight_color);
 		
-		JPanel menuPanel = new JPanel();
-		menuPanel.setOpaque(false);
-		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
-		menuPanel.add(titlePanel);
-		menuPanel.add(buttonPanel);
-		
+		this.add(menuPanel);
 		this.setOpaque(false);
 		this.setLayout(new GridBagLayout());
-		this.add(menuPanel);
 		this.setVisible(true);
-	}
-	
-
-	/**
-	 * A private method that builds a JPanel with the title.
-	 * @return		A JPanel with the title
-	 */
-	private JPanel buildTitle() {
-		JPanel titlePanel = new JPanel(new GridLayout(0,1));
-		titlePanel.setOpaque(false);
-
-		JLabel label = new JLabel(Config.get("Startup_menu_title"), SwingConstants.CENTER);
-		label.setFont(new Font(Font.SERIF, Font.BOLD, 80));
-		titlePanel.add(label);
-		return titlePanel;
-	}
-	
-	
-	/**
-	 * A private method that builds a JPanel with the buttons.
-	 * @return		A JPanel with all the buttons
-	 */
-	private JPanel buildButtons() {
-		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
-		buttonPanel.setOpaque(false);
-		
-		JButton button1 = new JButton(Config.get("Startup_menu_newgame"));
-		button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //fireEvent(e);
-            	fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.START_NEW_GAME, Timestamp.now(), 0));
-            }
-        });
-		buttonPanel.add(button1);
-		
-		JButton button2 = new JButton(Config.get("Startup_menu_loadgame"));
-		button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.LOAD_GAME, Timestamp.now(), 0));
-            }
-        });
-		buttonPanel.add(button2);
-		
-		JButton button3 = new JButton(Config.get("Startup_menu_exit"));
-		button3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.EXIT, Timestamp.now(), 0));
-            }
-        });
-		buttonPanel.add(button3);
-
-		buttonPanel.setPreferredSize(new Dimension(200, 100));
-		buttonPanel.setMaximumSize(new Dimension(300,300));
-		return buttonPanel;
 	}
 	
 }

@@ -38,6 +38,10 @@ implements WindowListener
 
 	/** Default layer for the game (far back). */
 	public static int GAMELAYER = JLayeredPane.DEFAULT_LAYER;
+	/** Default layer for the map (far back). */
+	public static int MAPLAYER = JLayeredPane.DEFAULT_LAYER+10;
+	/** Default layer for the game controls (far back). */
+	public static int GAMECONTROLLAYER = JLayeredPane.DEFAULT_LAYER+50;
 	/** Default layer for the menu (in front). */
 	public static int MENULAYER = JLayeredPane.POPUP_LAYER;
 	/** Default layer for the menu (in over the game). */
@@ -85,7 +89,7 @@ implements WindowListener
 		
 		//Set up the window appearance...
 		//theWindow.setIconImage(Toolkit.getDefaultToolkit().getImage("images/icon.png"));
-//new ImageIcon(getClass().getClassLoader().getResource("PATH/TO/YourImage.png")));
+		//new ImageIcon(getClass().getClassLoader().getResource("PATH/TO/YourImage.png")));
 		//URL iconURL = getClass().getResource("src/3D_Geometrical_Figures_24.svg.png");
 		// iconURL is null when not found
 		//ImageIcon icon = new ImageIcon(iconURL);
@@ -164,6 +168,7 @@ implements WindowListener
 	}
 
 
+	//WindowEvents:
 	@Override
 	public void windowActivated(WindowEvent e) {}
 	@Override

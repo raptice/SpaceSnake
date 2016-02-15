@@ -1,11 +1,14 @@
 package view.Figures;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JComponent;
@@ -26,9 +29,11 @@ extends JComponent
 implements Observer, ActionListener
 {
 
-	double size;
-	double x,y;
+	protected double size;
+	protected double x,y;
 
+	protected Color color;
+	
 	//Extra buffer when determining bounds
 	int extra=1;
 
@@ -56,6 +61,7 @@ implements Observer, ActionListener
         this.parent=parent;
         
         this.setBounds((int)(x-size/2), (int)(y-size/2), (int)size+extra, (int)size+extra);
+        this.color = new Color(255,0,0);
         
         //For testing:
         t = new Timer(1000/30,this);
@@ -68,8 +74,8 @@ implements Observer, ActionListener
      */
     @Override
 	public void actionPerformed(ActionEvent e) {
-		x += 2*(Math.round(Math.random())*2-1);
-		y += 2*(Math.round(Math.random())*2-1);
+		x += 0.2*(Math.round(Math.random())*2-1);
+		y += 0.2*(Math.round(Math.random())*2-1);
 		this.setBounds((int)(x-size/2), (int)(y-size/2), (int)size+extra, (int)size+extra);
 		parent.repaint();
 	}
@@ -98,6 +104,15 @@ implements Observer, ActionListener
     	parent.repaint();
 	}
     
+    /**
+     * Returns the color of itself to be used in the map.
+     */
+    public Color getColor() {
+    	return color;
+    }
+    public void setColor(Color c) {
+    	color = c;
+    }
     
     /**
      * Paints itself.
@@ -112,10 +127,16 @@ implements Observer, ActionListener
     	g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, 
     						RenderingHints.VALUE_ANTIALIAS_ON);
     	
-    	g.setColor(Color.BLUE);
+    	g.setColor(Color.WHITE);
         g.fillOval(0, 0, (int)size, (int)size);
-        g.setColor(Color.RED);
+        g.setColor(Color.BLACK);
         g.drawOval(0, 0, (int)size, (int)size);
+        
+        g.setColor(Color.RED);
+        String text="?";
+        g.setFont(g.getFont().deriveFont((float)(size*0.75)));
+        Rectangle2D r = g.getFont().getStringBounds(text, g.getFontRenderContext());
+        g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));
         
         //g.drawLine(x + 20, y + 10, x + 20, y + 20);
         //g.drawLine(x + 30, y + 10, x + 30, y + 20);
