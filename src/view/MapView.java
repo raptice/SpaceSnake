@@ -103,12 +103,12 @@ implements MouseListener, Observer, ActionListener
         g2.setRenderingHint(
     	        RenderingHints.KEY_ANTIALIASING,
     	        RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setStroke(new BasicStroke(10));
+        g2.setStroke(new BasicStroke(2*worldSize/mapSize));
         
         Point2D center = new Point2D.Double(0, 0);
         Point2D focus = center;//new Point2D.Float(40, 40);
         float[] dist = {0.0f, 0.9f, 1.0f};
-        Color[] colors = {new Color(255,255,255,255), new Color(255,255,255,200), new Color(255,255,255,0)};
+        Color[] colors = {new Color(255,255,255,255), new Color(255,255,255,200), new Color(255,255,255,255)};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);
         g2.setPaint(rgrad);
         
