@@ -5,6 +5,11 @@ package util;
  * @author Gustav
  */
 
+/*
+ * Comment
+ * This should be remade as a subclass to ActionListener which is extensively used in this project. 
+ * Maybe then renamed to GameAction?
+ */
 
 public class Command {
 
@@ -18,8 +23,10 @@ public class Command {
 		EXIT = "Exit",
 		MOUSE_PRESSED = "Mouse pressed",
 		MOUSE_RELEASED = "Mouse released",
-		MOUSE_DRAGGED = "Mouse dragged";
-		
+		MOUSE_DRAGGED = "Mouse dragged",
+		ZOOM_IN = "Zoom in",
+		ZOOM_OUT = "Zoom out";
+	
 	//public Command () {}
 
 }

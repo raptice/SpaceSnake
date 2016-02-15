@@ -20,6 +20,9 @@ public class MainController implements ActionListener {
 		
 		startupMenuController = new StartupMenuController(this);
 		theGui.showStartupMenu(startupMenuController);
+		theGui.showIngameMenu(startupMenuController);
+		theGui.showGame(startupMenuController);
+		
 	}
 	
 	private void configView () {
