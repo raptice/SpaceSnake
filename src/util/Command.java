@@ -14,6 +14,7 @@ package util;
 public class Command {
 
 	public static String
+		ESC_PRESSED = "ESC pressed",
 		WINDOW_CLOSED = "Window closed",
 		RETURN_TO_GAME = "Return to game",
 		SAVE_GAME = "Save game",
