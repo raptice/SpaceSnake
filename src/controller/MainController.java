@@ -16,6 +16,10 @@ public class MainController implements ActionListener {
 	//private Model model;
 	private String state;
 	
+	private static final String STARTUP_MENU = "Startup Menu";
+	private static final String INGAME_MENU = "Ingame Menu";
+	private static final String GAME_VIEW = "Game View";
+	
 	private StartupMenuController startupMenuController;
 	private IngameMenuController ingameMenuController;
 	private GameViewController gameViewController;
