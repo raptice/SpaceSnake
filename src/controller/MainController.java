@@ -14,6 +14,7 @@ import view.View;
 public class MainController implements ActionListener {
 	private View view;
 	//private Model model;
+	private String state;
 	
 	private StartupMenuController startupMenuController;
 	private IngameMenuController ingameMenuController;
@@ -28,6 +29,7 @@ public class MainController implements ActionListener {
 	public MainController(View view){
 		System.out.println("Controller: adding view");
 		this.view = view;
+		state = STARTUP_MENU;
 		
 		configView();
 		
@@ -85,6 +87,7 @@ public class MainController implements ActionListener {
 	public void startNewGame() {
 		view.hideStartupMenu();			
 		view.showGame(gameViewController);
+		state = GAME_VIEW;
 	}
 		
 	/**
@@ -107,6 +110,7 @@ public class MainController implements ActionListener {
 	public void resumeGame() {
 		view.hideIngameMenu();
 		view.showGame(gameViewController);
+		state = GAME_VIEW;
 	}
 	
 	/**
@@ -119,9 +123,16 @@ public class MainController implements ActionListener {
 	/**
 	 * Exits the game from the ingame menu and shows the startup menu
 	 */
-	public void exitGame() {
+	public void exitMenu() {
 		view.hideIngameMenu();
 		view.showStartupMenu(startupMenuController);
+		state = STARTUP_MENU;
+	}
+	
+	public void exitGame() {
+		view.hideGame();
+		view.showIngameMenu(ingameMenuController);
+		state = INGAME_MENU;
 	}
 	
 	/**
@@ -132,8 +143,14 @@ public class MainController implements ActionListener {
 		
 		if (e.getActionCommand().equals(Command.ESC_PRESSED)) {
 			System.out.println("MainController: ESC");
-			view.hideGame();
-			view.showIngameMenu(ingameMenuController);
+			switch (state) {
+			case STARTUP_MENU: 
+				break;
+			case INGAME_MENU: resumeGame();
+				break;
+			case GAME_VIEW: exitGame();
+				break;
+			}
 		}
 		else if (e.getActionCommand() == Command.WINDOW_CLOSED) {
 			System.out.println("MainController: Window closed");
