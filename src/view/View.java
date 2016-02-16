@@ -103,7 +103,7 @@ public class View
 	 * 
 	 * @param AL	The ActionListener to which the game sends its actions
 	 */
-	public void showGame(ActionListener AL)
+	public GameView showGame(ActionListener AL)
 	{
 		gameView.addActionListener(AL);
 		gameViewMenu.addActionListener(gameView);
@@ -111,6 +111,8 @@ public class View
 		mainWindow.addGameComponent(gameView, MainWindow.GAMELAYER);
 		mainWindow.addGameComponent(gameViewMenu, MainWindow.GAMECONTROLLAYER);
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
+		
+		return gameView;
 	}
 	
 	
