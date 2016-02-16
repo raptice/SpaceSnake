@@ -15,6 +15,6 @@ public class SpaceSnake {
 		//Attach a controller to the GUI
 		@SuppressWarnings("unused")
 		MainController mainController = new MainController(view);
-		mainController.getGameController().getEngine().run();
+		
 	}
 }
