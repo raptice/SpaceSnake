@@ -81,12 +81,15 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		this.setLayout(null);
 		
 		//For testing
-		for (int i=0;i<10;i++) {
-			if (Math.random()>0.5)
+		/*for (int i=0;i<10;i++) {
+			if (Math.random()>0.7)
 				this.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-			else
+			else if (Math.random()>0.5)
 				this.add(new BlackHole((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-		}
+			else
+				this.add(new FloaterView((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
+			
+		}*/
 	}
 
 	
