@@ -191,7 +191,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		if (what instanceof WorldObject) {
 			addItem((WorldObject) what);
 		}
-		System.out.println("Update i GameView");
+		//System.out.println("Update i GameView");
 		
 	}
 	

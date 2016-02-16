@@ -4,7 +4,7 @@ public class WorldCollection extends Observable{
 	private ArrayList<WorldObject> data;
 	
 	public WorldCollection(){
-		data = new ArrayList<>();
+		data = new ArrayList<WorldObject>();
 	}
 	public ArrayList<WorldObject> getCollection(){
 		return data;
