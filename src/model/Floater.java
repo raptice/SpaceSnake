@@ -1,30 +1,45 @@
 package model;
-import java.util.List;
 import util.*;
-
-public class Floater extends WorldObject implements Gravity{
-	private Vector2D velocity;
-	private double gravity;
+/**
+ * Floater class represents a generic floating object in space
+ * having both gravity an velocity.
+ * 
+ * @author Model-team 
+ * @version 1.0.0.0
+ */
+public class Floater extends WorldObject{
+	protected Vector2D velocity;
 	public Floater(double xSpeed, double ySpeed, double xPos, double yPos, double mass){
 		super(xPos, yPos, mass);
-		this.velocity.setX(xPos);
-		this.velocity.setY(yPos);
+		velocity = new Vector2D();
+		this.velocity.setX(xSpeed);
+		this.velocity.setY(ySpeed);
 	}
+	/**
+	 * Adds gravitational force to this Floater velocity
+	 * 
+	 * @param Affecting WorldObject
+	 * @return	void
+	 */
 	@Override
-	public Vector2D getGravity() {
-		// TODO Auto-generated method stub
-		return null;
+	public void gravityPull(WorldCollection data) {
+		for(WorldObject obj : data.getCollection()){
+			if(!obj.equals(this))
+				velocity = velocity.add(this.calcuateGravity(obj));
+		}
 	}
-	@Override
-	public Vector2D calcuateGravity(Vector2D arg) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Move this Floater and notify observers
+	 * 
+	 * @param dt - delta time
+	 * @return
+	 */
+	public void move(){
+		position = position.add(velocity);
+		setChanged();
+		notifyObservers(position);
 	}
-	@Override
-	public void gravityPull(List<WorldObject> argList) {
-		// TODO Auto-generated method stub
-		
+	public Vector2D getVelocity(){
+		return velocity;
 	}
-	
-	
 }
