@@ -14,6 +14,10 @@ import java.util.Observer;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
+import util.Vector2D;
+
+import model.WorldObject;
+
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
  * Is an observer for events like a new figure added.
@@ -136,7 +140,15 @@ implements Observer, ActionListener
      * Used when "the model" sends notifyObservers(arg1).
      */
 	@Override //Movement (or something)
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable who, Object what) {
+		
+		if (what instanceof Vector2D) {
+			Vector2D position = (Vector2D) what;
+			this.x = position.getX();
+			this.y = position.getY();
+		}
+		//System.out.println("Update i GameView");
+		
 		// TODO Auto-generated method stub	
 		// if (died) parent.removeItem(this);
 		// if (moved) move(new_x, new_y);
