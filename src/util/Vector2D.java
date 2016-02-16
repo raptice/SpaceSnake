@@ -1,4 +1,4 @@
-package model;
+package util;
 import java.awt.Dimension;
 import java.awt.Point;
 
@@ -493,7 +493,14 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	/* ************************************************
 	 *  Multiplication
 	 ************************************************ */
-	
+	/**
+	 * Scales a vector with a scalar
+	 * @return			The new vector
+	 */
+	public void scaleself(double scalar) {
+		this.x *= scalar;
+		this.y *= scalar;
+	}
 	/**
 	 * Scales a vector with a scalar
 	 * @return			The new vector
@@ -610,6 +617,14 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	 */
 	public double lengthsquared() {
 		return this.x*this.x+this.y*this.y;
+	}
+	/**
+	 * Calculates the squared distance between this vector and the passed parameter vector.
+	 * @param vector
+	 * @return
+	 */
+	public double distancesquared(Vector2D vector){
+		return (x-vector.x)*(x-vector.x)+(y-vector.y)*(y-vector.y);
 	}
 	
 	/**
