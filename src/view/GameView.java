@@ -1,4 +1,4 @@
-package GUI;
+package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,16 +10,17 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
 
-import GUI.Figures.*;
+import util.Command;
+import util.Timestamp;
+import view.Figures.*;
 
 /**
  * This is a class that just contains the game itself
  * 
- * Is listener to itself in order to zoom and other stuff. Som events gets sent to others...
+ * Is listener to itself in order to zoom and other stuff. Some events gets sent to others...
  * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
@@ -30,14 +31,14 @@ import GUI.Figures.*;
 @SuppressWarnings("serial")
 public class GameView 
 extends GameComponent 
-implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
+implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, ActionListener
 {
 
 	//Temp variable until the proper world gets used
-	int worldSize=400;
+	int worldSize=800;
 	
 	// Determines the zoom level
-	protected float zoom = 2;
+	protected float zoom = 1;
 	
 	//How much should the zoom change on zoom in/out
 	private double zoomstep = 1.01; 
@@ -117,7 +118,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	 * @return The zoom level after the zoom action
 	 */
 	public float zoom(int amount){
-		return zoom *= Math.pow(zoomstep, amount);
+		zoom *= Math.pow(zoomstep, amount);
+		repaint();
+		return zoom;
 	}
 	
 	
@@ -127,38 +130,33 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	}
 	
 	@Override //Accelerate a bit?
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse clicked",Calendar.getInstance().getTime().getTime(),0));
+	public void mouseClicked(MouseEvent arg0) {	
+		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse clicked", Timestamp.now(), 0));
 	}
 	
 	@Override //For keeping track?
 	public void mouseEntered(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse inside game area",Calendar.getInstance().getTime().getTime(),0));
+		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse inside game area", Timestamp.now(), 0));
 	}
 	
 	@Override //Stop accelerating?
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse out of game area",Calendar.getInstance().getTime().getTime(),0));
+		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse out of game area", Timestamp.now(), 0));
 	}
 	
 	@Override //Start accelerating
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse pressed",Calendar.getInstance().getTime().getTime(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, Timestamp.now(), 0));
 	}
 	
 	@Override //Stop accelerating
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse released",Calendar.getInstance().getTime().getTime(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, Timestamp.now(), 0));
 	}
 	
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"Mouse dragged",Calendar.getInstance().getTime().getTime(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, Timestamp.now(), 0));
 	}
 	
 	@Override //Should do nothing
@@ -187,5 +185,17 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	 */
 	public void removeMe(GameFigure who) {
 		this.remove(who);
+	}
+
+
+	/**
+	 * For commands sent from the game view menu
+	 * @param e
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals(Command.ZOOM_IN)) zoom(10);
+		else if (e.getActionCommand().equals(Command.ZOOM_OUT)) zoom(-10);
+		
 	}
 }

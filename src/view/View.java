@@ -1,50 +1,62 @@
-package GUI;
+package view;
 import java.awt.event.ActionListener;
 
 /**
- * This is the GUI class that handles every graphical interaction
+ * This is the view class that handles every graphical interaction
  * 
  * @author Gustav
  * @version 2016-02-12
  */
 
 
-public class GUI
+public class View
 {
 	
 	private IngameMenu ingameMenu;
 	private GameView gameView;
+	private GameViewMenu gameViewMenu;
+	private MapView mapView;
 	private StartupMenu startupMenu;
 	private MainWindow mainWindow;
 
 	
 	/**
 	 * Constructor that creates the different parts but only show the (empty) main window.
-	 * 
-	 * @param AL		The ActionListener that handles the events created
 	 */
-	public GUI()
+	public View()
 	{
-		System.out.println("GUI: started");
+		System.out.println("view: started");
 
 		mainWindow = new MainWindow();
 		gameView = new GameView();
+		gameViewMenu = new GameViewMenu();
+		mapView = new MapView();
 		startupMenu = new StartupMenu();
 		ingameMenu = new IngameMenu();
 	}
 	
 	
 	/**
-	 * Add an ActionListener to the GUI
+	 * Add an ActionListener to the view
 	 * @param the ActionListener
 	 */
 	public void addActionListener(ActionListener AL) {
 		mainWindow.addActionListener(AL);
 	}
+	
+	
+	/**
+	 * Adds a keyListener to the window that sends events to the ActionListeners
+	 * @param key		The keyCode
+	 * @param command	The command that gets sent to the ActionListeners
+	 */
+	public void addKeyListener (int key, String command) {
+		mainWindow.addKeyListener (key, command);
+	}
+	
 
 	/**
 	 * Shows the startup menu
-	 * 
 	 * @param AL		The ActionListener that handles the generated events..
 	 */
 	public void showStartupMenu(ActionListener AL)
@@ -70,8 +82,8 @@ public class GUI
 	 */
 	public void showIngameMenu(ActionListener AL)
 	{
-		startupMenu.addActionListener(AL);
-		mainWindow.addGameComponent(startupMenu,MainWindow.GAMEMENULAYER);
+		ingameMenu.addActionListener(AL);
+		mainWindow.addGameComponent(ingameMenu,MainWindow.GAMEMENULAYER);
 	}
 
 	
@@ -94,7 +106,11 @@ public class GUI
 	public void showGame(ActionListener AL)
 	{
 		gameView.addActionListener(AL);
+		gameViewMenu.addActionListener(gameView);
+		
 		mainWindow.addGameComponent(gameView, MainWindow.GAMELAYER);
+		mainWindow.addGameComponent(gameViewMenu, MainWindow.GAMECONTROLLAYER);
+		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 	}
 	
 	
@@ -104,6 +120,8 @@ public class GUI
 	public void hideGame()
 	{
 		mainWindow.remove(gameView);
+		mainWindow.remove(gameViewMenu);
+		mainWindow.remove(mapView);
 	}
 	
 }

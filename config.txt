@@ -1,0 +1,44 @@
+
+Window_title  = Space Snake
+Window_width  = 800
+Window_height = 600
+Map_size      = 200
+
+Menu_padding          = 10
+Menu_corner_r         = 40
+Menu_max_button_width = 250
+Menu_title_fontsize   = 60
+Menu_button_fontsize  = 18
+Menu_button_spacing   = 3
+
+Ingame_menu_title           = Paused
+Ingame_bg_color             = 200,240,200,200
+Ingame_border_color         = 100,140,100,200
+Ingame_button_bg_color      = 220,240,220,255
+Ingame_button_border_color  = 120,180,120,255
+Ingame_button_highlight     = 50,155,50,255
+Ingame_menu_resume          = Resume game
+Ingame_menu_save            = Save game
+Ingame_menu_exitgame        = Exit game
+
+Startup_menu_title          = Space Snake
+Startup_bg_color            = 200,200,240,200
+Startup_border_color        = 100,100,140,200
+Startup_button_bg_color     = 220,220,240,255
+Startup_button_border_color = 120,120,180,255
+Startup_button_highlight    = 50,50,200,255
+Startup_menu_newgame        = New game
+Startup_menu_loadgame       = Load game
+Startup_menu_exit           = Exit
+
+Gamemenu_bg_color            = 200,200,200,200
+Gamemenu_border_color        = 100,100,100,200
+Gamemenu_button_bg_color     = 220,220,220,255
+Gamemenu_button_border_color = 120,120,120,255
+Gamemenu_button_highlight    = 200,50,50,255
+
+Map_bg_color3     = 180,180,180,255
+Map_bg_color2     = 200,200,200,200
+Map_bg_color1     = 255,255,255,255
+Map_border_color = 0,0,0,200
+
