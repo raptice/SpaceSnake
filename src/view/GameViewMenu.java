@@ -69,7 +69,7 @@ extends GameComponent
 		Color border_color = Parser.ColorFromString(Config.get("Gamemenu_button_border_color"));
 		Color highlight_color = Parser.ColorFromString(Config.get("Gamemenu_button_highlight"));
 		menuPanel.addButton("+", Command.ZOOM_IN, bg_color, border_color, highlight_color);
-		menuPanel.addButton("−", Command.ZOOM_OUT, bg_color, border_color, highlight_color);
+		menuPanel.addButton("-", Command.ZOOM_OUT, bg_color, border_color, highlight_color); //"−" eller "\u2212"
 		
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		this.add(menuPanel);//, BorderLayout.NORTH);

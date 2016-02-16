@@ -13,6 +13,10 @@ import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.Floater;
+import model.WorldCollection;
+import model.WorldObject;
+
 import util.Command;
 import util.Timestamp;
 import view.Figures.*;
@@ -162,21 +166,51 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 	@Override //Should do nothing
 	public void mouseMoved(MouseEvent arg0) {}
 	
-	@Override //Something happened in the world!!!
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * 
+	 * 
+	 */
+	public void addWorld (WorldCollection world) {
+		for (WorldObject thing : world.getCollection()) {
+			addItem(thing);
+		}
+		System.out.println("Addworld i GameView");
+		
 	}
+	
+	/**
+	 * When something is added to the world it gets sent here
+	 */
+	@Override //Something happened in the world!!!
+	public void update(Observable who, Object what) {
+		
+		if (what instanceof WorldObject) {
+			addItem((WorldObject) what);
+		}
+		System.out.println("Update i GameView");
+		
+	}
+	
 	
 	/**
 	 * Adds some item to the world
 	 * @param what	The item to add
 	 */
-	private void addItem (String what) {
-		//TODO
+	private void addItem (WorldObject what) {
+		
 		//Check what for type
+		if (what instanceof Floater) {
+			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			this.add(figure);
+			what.addObserver(figure);
+		}
 		//figure = new GameFigureType(...);
+		
 		//model.addObsever(figure);
+		
 		//this.add(figure);
+		
 	}
 	
 	/**
