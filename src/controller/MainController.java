@@ -23,6 +23,7 @@ public class MainController implements ActionListener {
 	private StartupMenuController startupMenuController;
 	private IngameMenuController ingameMenuController;
 	private GameViewController gameViewController;
+	private GameController gameController;
 	
 	/**
 	 * Constructor that adds a reference to the view, configures the view and adds
@@ -40,6 +41,7 @@ public class MainController implements ActionListener {
 		startupMenuController = new StartupMenuController(this);
 		ingameMenuController = new IngameMenuController(this);
 		gameViewController = new GameViewController(this);
+		gameController = new GameController(this);
 		
 		view.showStartupMenu(startupMenuController);
 	}
