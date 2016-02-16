@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import model.PhysicsEngine;
 import util.Config;
 import util.Command;
 
@@ -92,6 +93,7 @@ public class MainController implements ActionListener {
 		view.hideStartupMenu();			
 		GameView gameView = view.showGame(gameController);
 		gameController.addView(gameView);
+		gameController.createObject();
 		state = GAME_VIEW;
 	}
 		
