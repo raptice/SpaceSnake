@@ -1,9 +1,12 @@
 package model;
 import util.*;
-import java.util.*;
-
+/**
+ * Interface with methods representing generic gravitational functionality.
+ * @author Victor
+ *
+ */
 public interface Gravity {
-	public Vector2D calcuateGravity(Vector2D arg);
-	public Vector2D getGravity();
-	public void gravityPull(List<WorldObject> argList);
+	public double getGravity();
+	public Vector2D calcuateGravity(WorldObject arg);
+	public void gravityPull(WorldObject arg);
 }
