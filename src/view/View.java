@@ -14,6 +14,8 @@ public class View
 	
 	private IngameMenu ingameMenu;
 	private GameView gameView;
+	private GameViewMenu gameViewMenu;
+	private MapView mapView;
 	private StartupMenu startupMenu;
 	private MainWindow mainWindow;
 
@@ -27,6 +29,8 @@ public class View
 
 		mainWindow = new MainWindow();
 		gameView = new GameView();
+		gameViewMenu = new GameViewMenu();
+		mapView = new MapView();
 		startupMenu = new StartupMenu();
 		ingameMenu = new IngameMenu();
 	}
@@ -102,7 +106,11 @@ public class View
 	public void showGame(ActionListener AL)
 	{
 		gameView.addActionListener(AL);
+		gameViewMenu.addActionListener(gameView);
+		
 		mainWindow.addGameComponent(gameView, MainWindow.GAMELAYER);
+		mainWindow.addGameComponent(gameViewMenu, MainWindow.GAMECONTROLLAYER);
+		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 	}
 	
 	

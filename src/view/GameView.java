@@ -31,14 +31,14 @@ import view.Figures.*;
 @SuppressWarnings("serial")
 public class GameView 
 extends GameComponent 
-implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
+implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, ActionListener
 {
 
 	//Temp variable until the proper world gets used
-	int worldSize=400;
+	int worldSize=800;
 	
 	// Determines the zoom level
-	protected float zoom = 2;
+	protected float zoom = 1;
 	
 	//How much should the zoom change on zoom in/out
 	private double zoomstep = 1.01; 
@@ -118,7 +118,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	 * @return The zoom level after the zoom action
 	 */
 	public float zoom(int amount){
-		return zoom *= Math.pow(zoomstep, amount);
+		zoom *= Math.pow(zoomstep, amount);
+		repaint();
+		return zoom;
 	}
 	
 	
@@ -183,5 +185,17 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer
 	 */
 	public void removeMe(GameFigure who) {
 		this.remove(who);
+	}
+
+
+	/**
+	 * For commands sent from the game view menu
+	 * @param e
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals(Command.ZOOM_IN)) zoom(10);
+		else if (e.getActionCommand().equals(Command.ZOOM_OUT)) zoom(-10);
+		
 	}
 }
