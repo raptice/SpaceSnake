@@ -178,6 +178,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		for (WorldObject thing : world.getCollection()) {
 			addItem(thing);
 		}
+		System.out.println("Addworld i GameView");
 		
 	}
 	
@@ -190,6 +191,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		if (what instanceof WorldObject) {
 			addItem((WorldObject) what);
 		}
+		System.out.println("Update i GameView");
 		
 	}
 	

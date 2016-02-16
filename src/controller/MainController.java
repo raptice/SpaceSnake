@@ -3,17 +3,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import model.PhysicsEngine;
 import util.Config;
 import util.Command;
 
 import view.View;
+import view.GameView;
 
 /**
  * Creates view and model, handles events from the keyboard and implements actions from subcontrollers
  */
 public class MainController implements ActionListener {
 	private View view;
-	//private Model model;
 	private String state;
 	
 	private static final String STARTUP_MENU = "Startup Menu";
@@ -22,7 +23,6 @@ public class MainController implements ActionListener {
 	
 	private StartupMenuController startupMenuController;
 	private IngameMenuController ingameMenuController;
-	private GameViewController gameViewController;
 	private GameController gameController;
 	
 	/**
@@ -40,7 +40,6 @@ public class MainController implements ActionListener {
 		
 		startupMenuController = new StartupMenuController(this);
 		ingameMenuController = new IngameMenuController(this);
-		gameViewController = new GameViewController(this);
 		gameController = new GameController(this);
 		
 		view.showStartupMenu(startupMenuController);
@@ -81,7 +80,7 @@ public class MainController implements ActionListener {
 	 * 
 	 * */
 	
-	/* TODO: Add model and fix where to have the methods for GameViewController
+	/* TODO: Add model and fix where to have the methods for GameController
 	public void addModel(Model model){
 		System.out.println("Controller: adding model");
 		this.model = model;
@@ -92,7 +91,9 @@ public class MainController implements ActionListener {
 	 */
 	public void startNewGame() {
 		view.hideStartupMenu();			
-		view.showGame(gameViewController);
+		GameView gameView = view.showGame(gameController);
+		gameController.addView(gameView);
+		gameController.createObject();
 		state = GAME_VIEW;
 	}
 		
@@ -115,7 +116,7 @@ public class MainController implements ActionListener {
 	 */
 	public void resumeGame() {
 		view.hideIngameMenu();
-		view.showGame(gameViewController);
+		view.showGame(gameController);
 		state = GAME_VIEW;
 	}
 	
