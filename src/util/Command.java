@@ -31,3 +31,27 @@ public class Command {
 	//public Command () {}
 
 }
+
+/*public enum Command{
+    
+	ESC_PRESSED("ESC pressed"),
+    WINDOW_CLOSED("Window closed"),
+    		RETURN_TO_GAME("Return to game"),
+    		SAVE_GAME("Save game"),
+    		EXIT_GAME("Exit game"),
+    		START_NEW_GAME("Start new game"),
+    		LOAD_GAME ("Load game"),
+    		EXIT ("Exit"),
+    		MOUSE_PRESSED ("Mouse pressed"),
+    		MOUSE_RELEASED ("Mouse released"),
+    		MOUSE_DRAGGED ("Mouse dragged"),
+    		ZOOM_IN ("Zoom in"),
+    		ZOOM_OUT ("Zoom out");
+    
+    private String value;
+
+    private Command(String value) {
+        this.value = value;
+    }
+}
+*/
