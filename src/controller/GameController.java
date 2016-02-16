@@ -27,11 +27,11 @@ public class GameController implements ActionListener {
 		this.parent = parent;
 		
 		worldCollection = new WorldCollection();
-		physicsEngine = new PhysicsEngine(worldCollection, testValue);
+		//physicsEngine = new PhysicsEngine(worldCollection, testValue);
 	}
 	
 	public void createObject() {
-		worldObject = new BlackHole(testValue, testValue, testValue);
+		//worldObject = new BlackHole(testValue, testValue, testValue);
 		if(worldCollection.addcheck(worldObject)) {
 			worldCollection.add(worldObject);
 		}
