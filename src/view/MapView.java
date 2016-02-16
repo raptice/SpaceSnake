@@ -19,6 +19,7 @@ import java.util.Observer;
 import javax.swing.Timer;
 
 import util.Config;
+import util.Parser;
 import view.Figures.*;
 
 /**
@@ -50,6 +51,10 @@ implements MouseListener, Observer, ActionListener
 	//Update itself every now and then
 	Timer t;
 		
+	Color bg_color1 = new Color(255,255,255,255);
+	Color bg_color2 = new Color(255,255,255,200);
+	Color bg_color3 = new Color(255,255,255,255);
+	Color border_color = new Color(0,0,0,200);
 	
 	/**
 	 * Constructor that generates the view.
@@ -59,6 +64,11 @@ implements MouseListener, Observer, ActionListener
 		System.out.println("Mapview created");		
 		this.build();
 		this.addMouseListener(this);
+		
+		bg_color1 = Parser.ColorFromString(Config.get("Map_bg_color1"));
+		bg_color2 = Parser.ColorFromString(Config.get("Map_bg_color2"));
+		bg_color3 = Parser.ColorFromString(Config.get("Map_bg_color3"));
+		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
 		
 		t = new Timer(500,this);
         t.start();
@@ -108,13 +118,13 @@ implements MouseListener, Observer, ActionListener
         Point2D center = new Point2D.Double(0, 0);
         Point2D focus = center;//new Point2D.Float(40, 40);
         float[] dist = {0.0f, 0.9f, 1.0f};
-        Color[] colors = {new Color(255,255,255,255), new Color(255,255,255,200), new Color(255,255,255,255)};
+        Color[] colors = {bg_color1, bg_color2, bg_color3};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);
         g2.setPaint(rgrad);
         
         
         
-    	g2.setColor(new Color(0,0,0,200));
+    	g2.setColor(border_color);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
         //g2.setColor(new Color(255,255,255,200));
         g2.setPaint(rgrad);
