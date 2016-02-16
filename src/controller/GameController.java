@@ -15,7 +15,6 @@ import util.Command;
  * Handles events from the GameView
  */
 public class GameController implements ActionListener {
-	private MainController parent;
 	private WorldCollection worldCollection;
 	private WorldObject worldObject;
 	private WorldObject worldObject2;
@@ -23,14 +22,13 @@ public class GameController implements ActionListener {
 	private GameView gameView;
 	
 	private static final double testValue = 1;
-	private static final long longValue = 1;
+	private static final long longValue = 100;
 	
 	/**
 	 * Constructor that adds a reference to the parent controller
 	 * @param parent	The parent controller
 	 */
 	public GameController(MainController parent){
-		this.parent = parent;
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
 	}
@@ -45,8 +43,8 @@ public class GameController implements ActionListener {
 	//fill world with objects
 	public void createObject() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
-		worldObject = new Floater(testValue, testValue, testValue, testValue, testValue+10000000);
-		worldObject2 = new Floater(testValue, testValue, testValue+100, testValue, testValue+10000000);
+		worldObject = new Floater(testValue-1, testValue-1, testValue, testValue, testValue);
+		worldObject2 = new Floater(testValue-1, testValue-1, testValue+100, testValue, testValue+99);
 		gameObjects.add(worldObject);
 		gameObjects.add(worldObject2);
 		for (WorldObject worldObject: gameObjects) {
