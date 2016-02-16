@@ -1,25 +1,27 @@
-package GUI;
+package view;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.net.URL;
-import java.util.Calendar;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
-import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.KeyStroke;
 
+import util.Command;
+import util.Config;
 import util.FillAllLayout;
+import util.Timestamp;
 
-import java.io.*;
+
 
 /**
  * This is a class that just contains the MainWindow in one JFrame
@@ -30,10 +32,16 @@ import java.io.*;
 
 @SuppressWarnings("serial")
 public class MainWindow 
-extends GameComponent{		
+extends GameComponent 
+implements WindowListener 
+{		
 
 	/** Default layer for the game (far back). */
 	public static int GAMELAYER = JLayeredPane.DEFAULT_LAYER;
+	/** Default layer for the map (far back). */
+	public static int MAPLAYER = JLayeredPane.DEFAULT_LAYER+10;
+	/** Default layer for the game controls (far back). */
+	public static int GAMECONTROLLAYER = JLayeredPane.DEFAULT_LAYER+50;
 	/** Default layer for the menu (in front). */
 	public static int MENULAYER = JLayeredPane.POPUP_LAYER;
 	/** Default layer for the menu (in over the game). */
@@ -77,38 +85,51 @@ extends GameComponent{
 	private void build()
 	{
 		//Load a window
-		theWindow = new JFrame("Space Snake");
-				
+		theWindow = new JFrame(Config.get("Window_title"));
+		
 		//Set up the window appearance...
 		//theWindow.setIconImage(Toolkit.getDefaultToolkit().getImage("images/icon.png"));
-//new ImageIcon(getClass().getClassLoader().getResource("PATH/TO/YourImage.png")));
+		//new ImageIcon(getClass().getClassLoader().getResource("PATH/TO/YourImage.png")));
 		//URL iconURL = getClass().getResource("src/3D_Geometrical_Figures_24.svg.png");
 		// iconURL is null when not found
 		//ImageIcon icon = new ImageIcon(iconURL);
 		//theWindow.setIconImage(icon.getImage());
 		
-		theWindow.setPreferredSize(new Dimension(800, 600));
-		theWindow.pack();
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        theWindow.setLocation(d.width/3 - theWindow.getWidth()/3, d.height/3 - theWindow.getHeight()/3);
-        theWindow.setVisible(true);
+		theWindow.setPreferredSize(new Dimension(
+				Integer.parseInt(Config.get("Window_width")), 
+				Integer.parseInt(Config.get("Window_height"))));
 		
-        // Proper closing: (Should instead send action to controller)
-        theWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		theWindow.pack();
         
-        //Add key listener (if ESC is pressed)
-        InputMap inputMap  = ((JComponent)theWindow.getContentPane()).getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = ((JComponent)theWindow.getContentPane()).getActionMap();
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
-        actionMap.put("escape", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-        		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,"ESC pressed",Calendar.getInstance().getTime().getTime(),0));
-            }
-        });	        
-		        
+		//Always place the window 1/3 from the top left corner
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        theWindow.setLocation(d.width/3 - theWindow.getWidth()/3, d.height/3 - theWindow.getHeight()/3);
+        
+        theWindow.setVisible(true);
+		theWindow.addWindowListener(this);
+                
         theWindow.getContentPane().add(theContent);
         theContent.setLayout(new FillAllLayout());    
+	}
+	
+	/**
+	 * Adds KeyStrokeEvents and sends ActionEvents to the ActionListeners.
+	 */
+	public void addKeyListener (int key, String theCommand) {
+		
+		final String code = new String("Key_"+key);
+	    final String command = new String(theCommand);
+	    
+		InputMap inputMap  = ((JComponent)theWindow.getContentPane()).getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+	    ActionMap actionMap = ((JComponent)theWindow.getContentPane()).getActionMap();
+	    
+	    inputMap.put(KeyStroke.getKeyStroke(key, 0), code); //KeyEvent.VK_ESCAPE
+	    actionMap.put(code, new AbstractAction() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, Timestamp.now(),0));
+	        }
+	    });
 	}
 	
 	
@@ -145,5 +166,24 @@ extends GameComponent{
 	{
 		theContent.remove(c);
 	}
+
+
+	//WindowEvents:
+	@Override
+	public void windowActivated(WindowEvent e) {}
+	@Override
+	public void windowClosed(WindowEvent e) {}
+	@Override
+	public void windowClosing(WindowEvent e) {
+		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,Command.WINDOW_CLOSED,Timestamp.now(),0));
+	}
+	@Override
+	public void windowDeactivated(WindowEvent e) {}
+	@Override
+	public void windowDeiconified(WindowEvent e) {}
+	@Override
+	public void windowIconified(WindowEvent e) {}
+	@Override
+	public void windowOpened(WindowEvent e) {}
 	
 }
