@@ -18,6 +18,7 @@ public class GameController implements ActionListener {
 	private PhysicsEngine physicsEngine;
 	
 	private static final double testValue = 1;
+	private static final long longValue = 1;
 	
 	/**
 	 * Constructor that adds a reference to the parent controller
@@ -27,13 +28,16 @@ public class GameController implements ActionListener {
 		this.parent = parent;
 		
 		worldCollection = new WorldCollection();
-		//physicsEngine = new PhysicsEngine(worldCollection, testValue);
+		physicsEngine = new PhysicsEngine(worldCollection, longValue);
 	}
 	
+	//TODO: Create snake, create randomized object
 	public void createObject() {
-		//worldObject = new BlackHole(testValue, testValue, testValue);
+		worldObject = new Floater(testValue, testValue, testValue, testValue, testValue);
+		//for (worldCollection object: WorldObject)
 		if(worldCollection.addcheck(worldObject)) {
 			worldCollection.add(worldObject);
+			
 		}
 		worldObject = null;
 	}
