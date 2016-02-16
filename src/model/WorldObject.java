@@ -33,6 +33,7 @@ public  abstract class WorldObject extends Observable implements Gravity {
 		
 	}
 	public void gravityPull(WorldCollection data) {
+		
 	}
 	public double getGravity() {
 		return GRAVITY;
