@@ -85,7 +85,9 @@ public class MainController implements ActionListener {
 		System.out.println("Controller: adding model");
 		this.model = model;
 	}*/
-	
+	public GameController getGameController(){
+		return this.gameController;
+	}
 	/**
 	 * Starts a new game
 	 */
