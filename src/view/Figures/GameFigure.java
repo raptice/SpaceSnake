@@ -146,8 +146,10 @@ implements Observer, ActionListener
 			Vector2D position = (Vector2D) what;
 			this.x = position.getX();
 			this.y = position.getY();
+	    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
+			parent.repaint();
 		}
-		//System.out.println("Update i GameView");
+		System.out.println("Update i GameView: "+what);
 		
 		// TODO Auto-generated method stub	
 		// if (died) parent.removeItem(this);
