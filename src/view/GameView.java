@@ -14,6 +14,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.Floater;
+import model.WorldCollection;
 import model.WorldObject;
 
 import util.Command;
@@ -167,6 +168,17 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 	
 	
 	/**
+	 * 
+	 * 
+	 */
+	public void addWorld (WorldCollection world) {
+		for (WorldObject thing : world.getCollection()) {
+			addItem(thing);
+		}
+		
+	}
+	
+	/**
 	 * When something is added to the world it gets sent here
 	 */
 	@Override //Something happened in the world!!!
@@ -177,6 +189,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		}
 		
 	}
+	
 	
 	/**
 	 * Adds some item to the world
