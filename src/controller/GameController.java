@@ -29,15 +29,13 @@ public class GameController implements ActionListener {
 	public GameController(MainController parent){
 		this.parent = parent;
 		worldCollection = new WorldCollection();
-	}
-	
-	public void createWorld() {
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
 	}
 	
 	public void addView(GameView gameView) {
 		this.gameView = gameView;
-		//gameView.addWorld(worldCollection);
+		worldCollection.addObserver(gameView);
+		gameView.addWorld(worldCollection);
 	}
 	
 	//TODO: Create snake, create randomized object
@@ -45,11 +43,7 @@ public class GameController implements ActionListener {
 	public void createObject() {
 		worldObject = new Floater(testValue, testValue, testValue, testValue, testValue);
 		//for (worldCollection object: WorldObject)
-		if(worldCollection.addcheck(worldObject)) {
-			worldCollection.add(worldObject);
-			
-		}
-		worldObject = null;
+		worldCollection.add(worldObject);
 	}
 	
 	/**
