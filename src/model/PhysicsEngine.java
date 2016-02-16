@@ -1,20 +1,17 @@
 package model;
-
-import java.util.*;
 /**
  * Write a description of class GameThread here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class GameThread extends Thread
+public class PhysicsEngine extends Thread
 {
     private long interval;
-    private ArrayList<WorldObject> data;
+    private WorldCollection data;
 
-    public GameThread(WorldCollection datacoll, long interval){
-        data = new ArrayList<>();
-        data = datacoll.getCollection();
+    public PhysicsEngine(WorldCollection data, long interval){
+    	this.data = data;
         this.interval = interval;
     }
 
@@ -28,8 +25,8 @@ public class GameThread extends Thread
             }
            
             //DO USEFUL WORK HERE
-            for(WorldObject obj : data){
-            	obj.
+            for(WorldObject obj : data.getCollection()){
+            	obj.gravityPull(data);
             }
             
         }

@@ -8,5 +8,5 @@ import util.*;
 public interface Gravity {
 	public double getGravity();
 	public Vector2D calcuateGravity(WorldObject arg);
-	public void gravityPull(WorldObject arg);
+	public void gravityPull(WorldCollection data);
 }
