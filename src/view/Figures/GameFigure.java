@@ -60,7 +60,7 @@ implements Observer, ActionListener
         this.size=size;
         this.parent=parent;
         
-        this.setBounds((int)(x-size/2), (int)(y-size/2), (int)size+extra, (int)size+extra);
+        this.setBounds((int)(x-size/2-extra), (int)(y-size/2-extra), (int)size+2*extra, (int)size+2*extra);
         this.color = new Color(255,0,0);
         
         //For testing:
@@ -76,8 +76,8 @@ implements Observer, ActionListener
 	public void actionPerformed(ActionEvent e) {
 		x += 0.2*(Math.round(Math.random())*2-1);
 		y += 0.2*(Math.round(Math.random())*2-1);
-		this.setBounds((int)(x-size/2), (int)(y-size/2), (int)size+extra, (int)size+extra);
-		parent.repaint();
+		this.setBounds((int)(x-size/2-extra), (int)(y-size/2-extra), (int)size+2*extra, (int)size+2*extra);
+        parent.repaint();
 	}
 	
     
@@ -89,8 +89,8 @@ implements Observer, ActionListener
     private void move (double new_x, double new_y) {
     	x = new_x;
     	y = new_y;
-    	this.setBounds((int)(x-size/2), (int)(y-size/2), (int)size+extra, (int)size+extra);
-    	parent.repaint();
+    	this.setBounds((int)(x-size/2-extra), (int)(y-size/2-extra), (int)size+2*extra, (int)size+2*extra);
+        parent.repaint();
 	}
     
     
@@ -130,7 +130,7 @@ implements Observer, ActionListener
     	g.setColor(Color.WHITE);
         g.fillOval(0, 0, (int)size, (int)size);
         g.setColor(Color.BLACK);
-        g.drawOval(0, 0, (int)size, (int)size);
+        g.drawOval(0+extra, 0+extra, (int)size, (int)size);
         
         g.setColor(Color.RED);
         String text="?";
