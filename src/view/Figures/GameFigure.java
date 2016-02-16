@@ -14,6 +14,10 @@ import java.util.Observer;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
+import util.Vector2D;
+
+import model.WorldObject;
+
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
  * Is an observer for events like a new figure added.
@@ -36,9 +40,6 @@ implements Observer, ActionListener
 	
 	//Extra buffer when determining bounds
 	int extra=1;
-
-	//Only for testing:
-	Timer t;
 	
 	//Needed to repaint the containing panel and to delete itself
 	JComponent parent;
@@ -60,25 +61,9 @@ implements Observer, ActionListener
         this.size=size;
         this.parent=parent;
         
-        this.setBounds((int)(x-size/2-extra), (int)(y-size/2-extra), (int)size+2*extra, (int)size+2*extra);
+        this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
         this.color = new Color(255,0,0);
-        
-        //For testing:
-        t = new Timer(1000/30,this);
-        t.start();
     }
-    
-        
-    /**
-     * For testing only.
-     */
-    @Override
-	public void actionPerformed(ActionEvent e) {
-		x += 0.2*(Math.round(Math.random())*2-1);
-		y += 0.2*(Math.round(Math.random())*2-1);
-		this.setBounds((int)(x-size/2-extra), (int)(y-size/2-extra), (int)size+2*extra, (int)size+2*extra);
-        parent.repaint();
-	}
 	
     
     /**
@@ -89,7 +74,7 @@ implements Observer, ActionListener
     private void move (double new_x, double new_y) {
     	x = new_x;
     	y = new_y;
-    	this.setBounds((int)(x-size/2-extra), (int)(y-size/2-extra), (int)size+2*extra, (int)size+2*extra);
+    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
         parent.repaint();
 	}
     
@@ -100,7 +85,7 @@ implements Observer, ActionListener
      */
     private void resize (double new_size) {
     	size = new_size;
-    	this.setBounds((int)(x-size/2), (int)(y-size/2), (int)size+extra, (int)size+extra);
+    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
     	parent.repaint();
 	}
     
@@ -130,7 +115,7 @@ implements Observer, ActionListener
     	g.setColor(Color.WHITE);
         g.fillOval(0, 0, (int)size, (int)size);
         g.setColor(Color.BLACK);
-        g.drawOval(0+extra, 0+extra, (int)size, (int)size);
+        g.drawOval(0, 0, (int)size, (int)size);
         
         g.setColor(Color.RED);
         String text="?";
@@ -155,7 +140,17 @@ implements Observer, ActionListener
      * Used when "the model" sends notifyObservers(arg1).
      */
 	@Override //Movement (or something)
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable who, Object what) {
+		
+		if (what instanceof Vector2D) {
+			Vector2D position = (Vector2D) what;
+			this.x = position.getX();
+			this.y = position.getY();
+	    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
+			parent.repaint();
+		}
+		System.out.println("Update i GameView: "+what);
+		
 		// TODO Auto-generated method stub	
 		// if (died) parent.removeItem(this);
 		// if (moved) move(new_x, new_y);
