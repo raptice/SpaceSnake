@@ -42,6 +42,4 @@ public class Floater extends WorldObject{
 	public Vector2D getVelocity(){
 		return velocity;
 	}
-	
-	
 }
