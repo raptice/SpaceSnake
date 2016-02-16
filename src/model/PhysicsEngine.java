@@ -27,6 +27,7 @@ public class PhysicsEngine extends Thread
             //DO USEFUL WORK HERE
             for(WorldObject obj : data.getCollection()){
             	obj.gravityPull(data);
+            	obj.move();
             }
             
         }
