@@ -120,6 +120,8 @@ public class View
 	public void hideGame()
 	{
 		mainWindow.remove(gameView);
+		mainWindow.remove(gameViewMenu);
+		mainWindow.remove(mapView);
 	}
 	
 }
