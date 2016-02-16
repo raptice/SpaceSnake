@@ -35,7 +35,7 @@ public class IngameMenuController implements ActionListener {
 		}
 		else if (e.getActionCommand() == Command.EXIT_GAME) {
 			System.out.println("IngameMenuController: Exit game");
-			parent.exitGame();
+			parent.exitMenu();
 		}
 		else {
 			System.out.println("IngameMenuController: Unknown button: " + e.paramString()); //debugging
