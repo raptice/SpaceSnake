@@ -91,11 +91,12 @@ public class MainController implements ActionListener {
 	 * Starts a new game
 	 */
 	public void startNewGame() {
+		gameController.newGame();
 		view.hideStartupMenu();			
 		gameController.addObserver(view.showGame(gameController));
 		gameController.addObserver(view.showMap());
-		state = GAME_VIEW;
 		gameController.runPhysics();
+		state = GAME_VIEW;
 	}
 		
 	/**
@@ -134,6 +135,7 @@ public class MainController implements ActionListener {
 	public void exitMenu() {
 		view.hideIngameMenu();
 		view.showStartupMenu(startupMenuController);
+		gameController.stopPhysics();
 		state = STARTUP_MENU;
 	}
 	
