@@ -14,7 +14,9 @@ public class PhysicsEngine extends Thread
     	this.data = data;
         this.interval = interval;
     }
-
+    public void collisionResolve(){
+    	
+    }
     public void run(){
         while ( ! interrupted() ) {
             try{ 

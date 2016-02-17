@@ -34,6 +34,7 @@ public class Floater extends WorldObject{
 	 */
 	public void move(){
 		position = position.add(velocity);
+		System.out.println(position.toString());
 		update();
 	}
 	public Vector2D getVelocity(){
