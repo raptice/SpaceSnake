@@ -137,7 +137,7 @@ implements Observer
 			});
 		}
 		
-		System.out.println("Update i GameView: "+what);
+		//System.out.println("Update i GameView: "+what);
 		
 		// if (moved) move(new_x, new_y);
 		// if (died) parent.removeItem(this);
