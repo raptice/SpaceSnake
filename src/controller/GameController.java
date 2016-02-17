@@ -39,7 +39,7 @@ public class GameController implements ActionListener {
 	
 	
 	/**
-	 * Starts the thread where the physics runs
+	 * Starts the thread where the physics run
 	 */
 	public void runPhysics () {
 		physicsEngine.start();
@@ -47,7 +47,7 @@ public class GameController implements ActionListener {
 	
 	
 	/**
-	 * Pauses the thread where the physics runs
+	 * Pauses the thread where the physics run
 	 */
 	public void pausePhysics () {
 		physicsEngine.interrupt();
@@ -61,7 +61,7 @@ public class GameController implements ActionListener {
 	}
 	
 	//TODO: Create snake, create randomized object
-	//fill world with objects
+	//		fill world with objects
 	public void createObject() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100);
