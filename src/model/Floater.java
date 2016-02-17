@@ -11,9 +11,7 @@ public class Floater extends WorldObject{
 	protected Vector2D velocity;
 	public Floater(double xSpeed, double ySpeed, double xPos, double yPos, double mass){
 		super(xPos, yPos, mass);
-		velocity = new Vector2D();
-		this.velocity.setX(xSpeed);
-		this.velocity.setY(ySpeed);
+		velocity = new Vector2D(xSpeed, ySpeed);
 	}
 	/**
 	 * Adds gravitational force to this Floater velocity
@@ -36,6 +34,7 @@ public class Floater extends WorldObject{
 	 */
 	public void move(){
 		position = position.add(velocity);
+		System.out.println(position.toString());
 		update();
 	}
 	public Vector2D getVelocity(){

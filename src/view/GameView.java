@@ -18,7 +18,6 @@ import model.WorldCollection;
 import model.WorldObject;
 
 import util.Command;
-import util.Timestamp;
 import view.Figures.*;
 
 /**
@@ -81,12 +80,15 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		this.setLayout(null);
 		
 		//For testing
-		for (int i=0;i<10;i++) {
-			if (Math.random()>0.5)
+		/*for (int i=0;i<10;i++) {
+			if (Math.random()>0.7)
 				this.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-			else
+			else if (Math.random()>0.5)
 				this.add(new BlackHole((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-		}
+			else
+				this.add(new FloaterView((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
+			
+		}*/
 	}
 
 	
@@ -150,17 +152,17 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 	
 	@Override //Start accelerating
 	public void mousePressed(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, Timestamp.now(), 0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, System.currentTimeMillis(), 0));
 	}
 	
 	@Override //Stop accelerating
 	public void mouseReleased(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, Timestamp.now(), 0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, System.currentTimeMillis(), 0));
 	}
 	
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, Timestamp.now(), 0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, System.currentTimeMillis(), 0));
 	}
 	
 	@Override //Should do nothing
@@ -188,7 +190,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		if (what instanceof WorldObject) {
 			addItem((WorldObject) what);
 		}
-		System.out.println("Update i GameView");
+		//System.out.println("Update i GameView");
 		
 	}
 	

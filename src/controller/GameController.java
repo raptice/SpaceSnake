@@ -1,6 +1,8 @@
 
 package controller;
 
+import java.util.ArrayList;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,11 +18,12 @@ public class GameController implements ActionListener {
 	private MainController parent;
 	private WorldCollection worldCollection;
 	private WorldObject worldObject;
+	private WorldObject worldObject2;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
 	
 	private static final double testValue = 1;
-	private static final long longValue = 1;
+	private static final long longValue = 100;
 	
 	/**
 	 * Constructor that adds a reference to the parent controller
@@ -30,7 +33,26 @@ public class GameController implements ActionListener {
 		this.parent = parent;
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
+		createObject();
+		
 	}
+	
+	
+	/**
+	 * Starts the thread where the physics runs
+	 */
+	public void runPhysics () {
+		physicsEngine.start();
+	}
+	
+	
+	/**
+	 * Pauses the thread where the physics runs
+	 */
+	public void pausePhysics () {
+		physicsEngine.interrupt();
+	}
+	
 	
 	public void addView(GameView gameView) {
 		this.gameView = gameView;
@@ -41,9 +63,14 @@ public class GameController implements ActionListener {
 	//TODO: Create snake, create randomized object
 	//fill world with objects
 	public void createObject() {
-		worldObject = new Floater(testValue, testValue, testValue, testValue, testValue);
-		//for (worldCollection object: WorldObject)
-		worldCollection.add(worldObject);
+		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
+		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100);
+		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+100);
+		gameObjects.add(worldObject);
+		gameObjects.add(worldObject2);
+		for (WorldObject worldObject: gameObjects) {
+			worldCollection.add(worldObject);
+		}
 	}
 	
 	/**
