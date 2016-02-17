@@ -3,8 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import model.PhysicsEngine;
-import util.Config;
 import util.Command;
 
 import view.GameObserver;
