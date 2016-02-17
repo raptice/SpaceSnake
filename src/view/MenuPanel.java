@@ -23,7 +23,6 @@ import javax.swing.border.EmptyBorder;
 import util.Command;
 import util.Config;
 import util.Parser;
-import util.Timestamp;
 
 @SuppressWarnings("serial")
 public class MenuPanel 
