@@ -95,8 +95,8 @@ public class MainController implements ActionListener {
 		view.hideStartupMenu();			
 		GameView gameView = view.showGame(gameController);
 		gameController.addView(gameView);
-		gameController.createObject();
 		state = GAME_VIEW;
+		gameController.runPhysics();
 	}
 		
 	/**

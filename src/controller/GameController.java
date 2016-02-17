@@ -31,8 +31,27 @@ public class GameController implements ActionListener {
 	public GameController(MainController parent){
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
+		createObject();
+		
 	}
-	public PhysicsEngine getEngine(){ return physicsEngine;}
+	
+	
+	/**
+	 * Starts the thread where the physics runs
+	 */
+	public void runPhysics () {
+		physicsEngine.start();
+	}
+	
+	
+	/**
+	 * Pauses the thread where the physics runs
+	 */
+	public void pausePhysics () {
+		physicsEngine.interrupt();
+	}
+	
+	
 	public void addView(GameView gameView) {
 		this.gameView = gameView;
 		worldCollection.addObserver(gameView);
@@ -43,8 +62,13 @@ public class GameController implements ActionListener {
 	//fill world with objects
 	public void createObject() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
+<<<<<<< HEAD
 		worldObject = new Floater(testValue-1, testValue-1, testValue, testValue, testValue);
 		worldObject2 = new Floater(testValue-1, testValue-1, testValue+100, testValue, testValue+99);
+=======
+		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100);
+		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+100);
+>>>>>>> raptice/master
 		gameObjects.add(worldObject);
 		gameObjects.add(worldObject2);
 		for (WorldObject worldObject: gameObjects) {

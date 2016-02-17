@@ -8,17 +8,22 @@ import util.*;
  * 
  * @author Model-team
  */
-public  abstract class WorldObject extends Observable implements Gravity {
+public  abstract class WorldObject extends Observable implements Gravity, Cloneable {
 	protected Vector2D position;
 	protected double mass;
 	protected double radius;
-	protected final static double GRAVITY=1; 
+
+	
+	
+	protected final static double GRAVITY=1; //Detta hör väl till världen man spelar i.
+	
+	
+	
 	public WorldObject(double xPos, double yPos, double mass){
-		position = new Vector2D();
-		this.position.setX(xPos);
-		this.position.setY(yPos);
+		position = new Vector2D(xPos, yPos);
 		this.mass= mass;
 	}
+	
 	/**
 	 * Calculates gravity vector between two WorldObjects.
 	 * 
@@ -33,6 +38,8 @@ public  abstract class WorldObject extends Observable implements Gravity {
 		return temp;
 		
 	}
+	
+	
 	public void gravityPull(WorldCollection data) {
 		
 	}

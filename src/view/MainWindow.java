@@ -19,7 +19,6 @@ import javax.swing.KeyStroke;
 import util.Command;
 import util.Config;
 import util.FillAllLayout;
-import util.Timestamp;
 
 
 
@@ -127,7 +126,7 @@ implements WindowListener
 	    actionMap.put(code, new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, Timestamp.now(),0));
+	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, System.currentTimeMillis(), 0));
 	        }
 	    });
 	}
@@ -175,7 +174,7 @@ implements WindowListener
 	public void windowClosed(WindowEvent e) {}
 	@Override
 	public void windowClosing(WindowEvent e) {
-		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,Command.WINDOW_CLOSED,Timestamp.now(),0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.WINDOW_CLOSED, System.currentTimeMillis(), 0));
 	}
 	@Override
 	public void windowDeactivated(WindowEvent e) {}

@@ -1,22 +1,16 @@
 package view.Figures;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JComponent;
-import javax.swing.Timer;
+import javax.swing.SwingUtilities;
 
 import util.Vector2D;
-
-import model.WorldObject;
 
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
@@ -30,7 +24,7 @@ import model.WorldObject;
 @SuppressWarnings("serial")
 public class GameFigure 
 extends JComponent
-implements Observer, ActionListener
+implements Observer
 {
 
 	protected double size;
@@ -65,19 +59,6 @@ implements Observer, ActionListener
         this.color = new Color(255,0,0);
     }
 	
-    
-    /**
-     * Move the figure to a new position
-     * @param new_x	The new x-position
-     * @param new_y	Thenew y-position
-     */
-    private void move (double new_x, double new_y) {
-    	x = new_x;
-    	y = new_y;
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
-        parent.repaint();
-	}
-    
     
     /**
      * Set a new size for the figure
@@ -143,18 +124,29 @@ implements Observer, ActionListener
 	public void update(Observable who, Object what) {
 		
 		if (what instanceof Vector2D) {
-			Vector2D position = (Vector2D) what;
-			this.x = position.getX();
-			this.y = position.getY();
-	    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
-			parent.repaint();
+			final Vector2D position = new Vector2D((Vector2D) what);
+			SwingUtilities.invokeLater(new Runnable() {
+			    public void run() { setPosition(position); }	    
+			});
 		}
-		System.out.println("Update i GameView: "+what);
 		
-		// TODO Auto-generated method stub	
-		// if (died) parent.removeItem(this);
+		//System.out.println("Update i GameView: "+what);
+		
 		// if (moved) move(new_x, new_y);
+		// if (died) parent.removeItem(this);
 		// if (resized) resize(new_size);
+	}
+	
+	
+	/**
+	 * Moves the figure to a new position
+	 * @param position
+	 */
+	private void setPosition (Vector2D position) {
+		this.x = position.getX();
+		this.y = position.getY();
+    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
+		parent.repaint();
 	}
 	
 }

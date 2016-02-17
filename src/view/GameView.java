@@ -18,7 +18,6 @@ import model.WorldCollection;
 import model.WorldObject;
 
 import util.Command;
-import util.Timestamp;
 import view.Figures.*;
 
 /**
@@ -153,17 +152,17 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 	
 	@Override //Start accelerating
 	public void mousePressed(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, Timestamp.now(), 0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, System.currentTimeMillis(), 0));
 	}
 	
 	@Override //Stop accelerating
 	public void mouseReleased(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, Timestamp.now(), 0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, System.currentTimeMillis(), 0));
 	}
 	
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, Timestamp.now(), 0));
+		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, System.currentTimeMillis(), 0));
 	}
 	
 	@Override //Should do nothing
@@ -191,7 +190,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, Act
 		if (what instanceof WorldObject) {
 			addItem((WorldObject) what);
 		}
-		System.out.println("Update i GameView");
+		//System.out.println("Update i GameView");
 		
 	}
 	
