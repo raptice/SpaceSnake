@@ -30,12 +30,17 @@ public class GameController implements ActionListener {
 	 * @param parent	The parent controller
 	 */
 	public GameController(MainController parent){
+		newGame();
+	}
+	
+	/**
+	 * Starts the thread where the physics run
+	 */
+	public void newGame () {
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
 		createObject();
-		
 	}
-	
 	
 	/**
 	 * Starts the thread where the physics run
@@ -48,7 +53,7 @@ public class GameController implements ActionListener {
 	/**
 	 * Pauses the thread where the physics run
 	 */
-	public void pausePhysics () {
+	public void stopPhysics () {
 		physicsEngine.interrupt();
 	}
 	

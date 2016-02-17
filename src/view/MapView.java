@@ -18,7 +18,9 @@ import java.util.Observer;
 
 import javax.swing.Timer;
 
+import model.Floater;
 import model.WorldCollection;
+import model.WorldObject;
 
 import util.Config;
 import util.Parser;
@@ -85,14 +87,6 @@ implements MouseListener, GameObserver, ActionListener
 		//Use coordinates for positioning
 		this.setLayout(null);
 		mapSize = Integer.parseInt(Config.get("Map_size"));
-		
-		//For testing
-		for (int i=0;i<10;i++) {
-			if (Math.random()>0.5)
-				theList.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-			else
-				theList.add(new BlackHole((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-		}
 	}
 
 	
@@ -128,6 +122,7 @@ implements MouseListener, GameObserver, ActionListener
         
     	g2.setColor(border_color);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
+        g2.drawLine(0, 0, 0, 0);
         //g2.setColor(new Color(255,255,255,200));
         g2.setPaint(rgrad);
         g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
@@ -136,7 +131,8 @@ implements MouseListener, GameObserver, ActionListener
         for (GameFigure figure : theList)
         {
         	g2.setColor(figure.getColor());
-        	g2.drawLine(figure.getX(), figure.getY(), figure.getX(), figure.getY());
+        	g2.drawLine((int)figure.positionX(), (int)figure.positionY(), (int)figure.positionX(), (int)figure.positionY());
+        	
         }
     }
 	
@@ -164,6 +160,9 @@ implements MouseListener, GameObserver, ActionListener
 		// TODO Auto-generated method stub
 	}
 	public void addWorld (WorldCollection world) {
+		for (WorldObject thing : world.getCollection()) {
+			addItem(thing);
+		}
 		System.out.println("Addworld i MapView");
 		
 	}
@@ -171,7 +170,14 @@ implements MouseListener, GameObserver, ActionListener
 	 * Adds some item to the world
 	 * @param what	The item to add
 	 */
-	private void addItem (String what) {
+	private void addItem (WorldObject what) {
+		
+		if (what instanceof Floater) {
+			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			theList.add(figure);
+			what.addObserver(figure);
+		}
+		
 		//TODO
 		//Check what for type
 		//figure = new GameFigureType(...);
