@@ -18,6 +18,8 @@ import java.util.Observer;
 
 import javax.swing.Timer;
 
+import model.WorldCollection;
+
 import util.Config;
 import util.Parser;
 import view.Figures.*;
@@ -36,7 +38,7 @@ import view.Figures.*;
 @SuppressWarnings("serial")
 public class MapView 
 extends GameComponent 
-implements MouseListener, Observer, ActionListener
+implements MouseListener, GameObserver, ActionListener
 {
 
 	//Temp variable until the proper world gets used
@@ -161,7 +163,10 @@ implements MouseListener, Observer, ActionListener
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 	}
-	
+	public void addWorld (WorldCollection world) {
+		System.out.println("Addworld i MapView");
+		
+	}
 	/**
 	 * Adds some item to the world
 	 * @param what	The item to add
