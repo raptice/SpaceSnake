@@ -34,7 +34,7 @@ import view.Figures.*;
 @SuppressWarnings("serial")
 public class GameView 
 extends GameComponent 
-implements MouseWheelListener, MouseMotionListener, MouseListener, Observer, ActionListener
+implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver, ActionListener
 {
 
 	//Temp variable until the proper world gets used

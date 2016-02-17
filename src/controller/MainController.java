@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import util.Command;
 
+import view.GameObserver;
 import view.View;
 import view.GameView;
 
@@ -91,9 +92,8 @@ public class MainController implements ActionListener {
 	 */
 	public void startNewGame() {
 		view.hideStartupMenu();			
-		GameView gameView = view.showGame(gameController);
-		MapView mapView = view.showMap();
-		gameController.addView(gameView, mapView);
+		gameController.addObserver(view.showGame(gameController));
+		gameController.addObserver(view.showMap());
 		state = GAME_VIEW;
 		gameController.runPhysics();
 	}
