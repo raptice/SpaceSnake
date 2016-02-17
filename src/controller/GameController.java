@@ -20,6 +20,7 @@ public class GameController implements ActionListener {
 	private WorldObject worldObject2;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
+	private MapView mapView;
 	
 	private static final double testValue = 1;
 	private static final long longValue = 100;
@@ -52,10 +53,13 @@ public class GameController implements ActionListener {
 	}
 	
 	
-	public void addView(GameView gameView) {
+	public void addView(GameView gameView, MapView mapView) {
 		this.gameView = gameView;
+		this.mapView = mapView;
 		worldCollection.addObserver(gameView);
+		worldCollection.addObserver(mapView);
 		gameView.addWorld(worldCollection);
+		//mapView.addWorld(worldCollection);
 	}
 	
 	//TODO: Create snake, create randomized object

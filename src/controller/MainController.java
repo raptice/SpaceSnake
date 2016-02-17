@@ -3,8 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import model.PhysicsEngine;
-import util.Config;
 import util.Command;
 
 import view.View;
@@ -94,7 +92,8 @@ public class MainController implements ActionListener {
 	public void startNewGame() {
 		view.hideStartupMenu();			
 		GameView gameView = view.showGame(gameController);
-		gameController.addView(gameView);
+		MapView mapView = view.showMap();
+		gameController.addView(gameView, mapView);
 		state = GAME_VIEW;
 		gameController.runPhysics();
 	}
