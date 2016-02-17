@@ -31,7 +31,7 @@ import model.WorldObject;
 @SuppressWarnings("serial")
 public class GameFigure 
 extends JComponent
-implements Observer, ActionListener
+implements Observer
 {
 
 	protected double size;
@@ -131,16 +131,13 @@ implements Observer, ActionListener
 	public void update(Observable who, Object what) {
 		
 		if (what instanceof Vector2D) {
-
 			final Vector2D position = new Vector2D((Vector2D) what);
-			
 			SwingUtilities.invokeLater(new Runnable() {
 			    public void run() { setPosition(position); }	    
-			  });
-			
+			});
 		}
 		
-		System.out.println("Update i GameView: "+what);
+		//System.out.println("Update i GameView: "+what);
 		
 		// if (moved) move(new_x, new_y);
 		// if (died) parent.removeItem(this);
