@@ -436,9 +436,7 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	 * @return			The new vector
 	 */
 	public Vector2D sub (Vector2D other) {
-		this.x -= other.getX();
-		this.y -= other.getY();
-		return new Vector2D(this);
+		return new Vector2D(x-other.getX(),y-other.getY());
 	}
 	
 	/**
@@ -493,6 +491,7 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	/* ************************************************
 	 *  Multiplication
 	 ************************************************ */
+	
 	/**
 	 * Scales a vector with a scalar
 	 * @return			The new vector
@@ -501,6 +500,7 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 		this.x *= scalar;
 		this.y *= scalar;
 	}
+	
 	/**
 	 * Scales a vector with a scalar
 	 * @return			The new vector
@@ -601,8 +601,26 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	/**
 	 * returns a normalized vector
 	 */
-	public Vector2D normalize(Vector2D vector) {
+	public static Vector2D normalize(Vector2D vector) {
 		return new Vector2D(vector.scale(1/vector.length()));
+	}
+	
+	/**
+	 * Calculates the squared distance between this vector and the passed parameter vector.
+	 * @param vector
+	 * @return
+	 */
+	public double distancesquared(Vector2D vector){
+		return sub(vector).lengthsquared();
+	}
+	
+	/**
+	 * Calculates the squared distance between two vectors.
+	 * @param vector
+	 * @return
+	 */
+	public static double distancesquared(Vector2D first, Vector2D second){
+		return diff(first, second).lengthsquared();
 	}
 	
 	/**
@@ -613,25 +631,17 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	}
 	
 	/**
-	 * Calculates the length squared of this vector.
-	 */
-	public double lengthsquared() {
-		return this.x*this.x+this.y*this.y;
-	}
-	/**
-	 * Calculates the squared distance between this vector and the passed parameter vector.
-	 * @param vector
-	 * @return
-	 */
-	public double distancesquared(Vector2D vector){
-		return (x-vector.x)*(x-vector.x)+(y-vector.y)*(y-vector.y);
-	}
-	
-	/**
 	 * calculates the length of a vector
 	 */
 	public static double length (Vector2D vector) {
 		return Math.sqrt(vector.lengthsquared());
+	}
+	
+	/**
+	 * Calculates the length squared of this vector.
+	 */
+	public double lengthsquared() {
+		return this.x*this.x+this.y*this.y;
 	}
 	
 	/**
