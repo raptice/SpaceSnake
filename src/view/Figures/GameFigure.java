@@ -1,23 +1,16 @@
 package view.Figures;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 
 import util.Vector2D;
-
-import model.WorldObject;
 
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
