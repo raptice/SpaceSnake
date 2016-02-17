@@ -8,60 +8,51 @@ import util.*;
  * 
  * @author Model-team
  */
-public  abstract class WorldObject extends Observable implements Gravity, Cloneable {
+public  abstract class WorldObject extends Observable{
 	protected Vector2D position;
-	protected double mass;
 	protected double radius;
-
-	
-	
-	protected final static double GRAVITY=1; //Detta hör väl till världen man spelar i.
-	
-	
+	protected double mass;
 	
 	public WorldObject(double xPos, double yPos, double mass){
-		position = new Vector2D(xPos, yPos);
-		this.mass= mass;
+		position = new Vector2D();
+		this.position.setX(xPos);
+		this.position.setY(yPos);
+		this.mass = mass;
 	}
-	
 	/**
-	 * Calculates gravity vector between two WorldObjects.
-	 * 
-	 * @param WorldObject
-	 * @return Scaled gravitational vector between this WorldObject and affecting WorldObject 
+	 * Return this objects mass.
+	 * @return mass
 	 */
-	public Vector2D calcuateGravity(WorldObject arg) {
-		Vector2D temp = Vector2D.diff(this.getPosition(), arg.getPosition());
-		temp = temp.normalize();
-		temp = temp.scale(mass*GRAVITY*arg.getMass());
-		temp = temp.div(this.getPosition().distancesquared(arg.getPosition()));
-		return temp;
-		
-	}
-	
-	
-	public void gravityPull(WorldCollection data) {
-		
-	}
-	public double getGravity() {
-		return GRAVITY;
-	}
 	public double getMass(){
 		return mass;
 	}
+	/**
+	 * Return the Position vector of this object.
+	 * @return Vector2D the position vector
+	 */
 	public Vector2D getPosition(){
 		return position;
 	}
+	/**
+	 * Return this objects radius.
+	 * @return Double the radius
+	 */
 	public double getRadius(){
 		return radius;
 	}
+	/**
+	 * Return this objects diameter.
+	 * @return Double the diameter
+	 */
 	public double getDiameter(){
 		return radius*2;
 	}
+	/**
+	 * Sets this object as changed and notify it's observers.
+	 * @return void
+	 */
 	public void update(){
 		setChanged();
 		notifyObservers(position);
 	}
-	public void move(){}
-	
 }

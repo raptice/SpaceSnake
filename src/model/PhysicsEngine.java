@@ -28,8 +28,12 @@ public class PhysicsEngine extends Thread
            
             //DO USEFUL WORK HERE
             for(WorldObject obj : data.getCollection()){
-            	obj.gravityPull(data);
-            	obj.move();
+            	if(obj instanceof Gravity ){
+            		Gravity obj2 = (Gravity)obj;
+            		obj2.gravityPull(data);
+            	}
+            	((Floater)obj).move();
+            	
             }
             
         }
