@@ -1,5 +1,6 @@
 package view;
 import java.awt.event.ActionListener;
+import java.util.Observer;
 
 /**
  * This is the view class that handles every graphical interaction
@@ -103,7 +104,7 @@ public class View
 	 * 
 	 * @param AL	The ActionListener to which the game sends its actions
 	 */
-	public GameView showGame(ActionListener AL)
+	public Observer showGame(ActionListener AL)
 	{
 		gameView.addActionListener(AL);
 		gameViewMenu.addActionListener(gameView);
@@ -119,7 +120,7 @@ public class View
 	 * Shows a Map in which everything happens.
 	 * @param AL	The ActionListener to which the game sends its actions
 	 */
-	public MapView showMap(ActionListener AL)
+	public Observer showMap()
 	{
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		return mapView;
