@@ -148,5 +148,10 @@ implements Observer
     	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
 		parent.repaint();
 	}
-	
+	public double positionX() {
+		return this.x;
+	}
+	public double positionY() {
+		return this.y;
+	}
 }
