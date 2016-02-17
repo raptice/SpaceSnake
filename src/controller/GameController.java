@@ -62,10 +62,8 @@ public class GameController implements ActionListener {
 	//		fill world with objects
 	public void createObject() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
-
 		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100);
 		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+100);
-
 		gameObjects.add(worldObject);
 		gameObjects.add(worldObject2);
 		for (WorldObject worldObject: gameObjects) {
