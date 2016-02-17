@@ -54,10 +54,14 @@ public class GameController implements ActionListener {
 	}
 	
 	
-	public void addView(GameView gameView) {
+	/*public void addView(GameView gameView) {
 		this.gameView = gameView;
 		worldCollection.addObserver(gameView);
 		gameView.addWorld(worldCollection);
+	}*/
+	public void addObserver(GameObserver gameObserver) {
+		worldCollection.addObserver(gameObserver);
+		gameObserver.addWorld(worldCollection);
 	}
 	
 	//TODO: Create snake, create randomized object

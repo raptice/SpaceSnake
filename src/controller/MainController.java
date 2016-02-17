@@ -7,6 +7,7 @@ import model.PhysicsEngine;
 import util.Config;
 import util.Command;
 
+import view.GameObserver;
 import view.View;
 import view.GameView;
 
@@ -93,8 +94,8 @@ public class MainController implements ActionListener {
 	 */
 	public void startNewGame() {
 		view.hideStartupMenu();			
-		GameView gameView = view.showGame(gameController);
-		gameController.addView(gameView);
+		gameController.addObserver(view.showGame(gameController));
+		gameController.addObserver(view.showMap());
 		state = GAME_VIEW;
 		gameController.runPhysics();
 	}
