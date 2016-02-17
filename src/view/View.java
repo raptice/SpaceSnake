@@ -110,9 +110,19 @@ public class View
 		
 		mainWindow.addGameComponent(gameView, MainWindow.GAMELAYER);
 		mainWindow.addGameComponent(gameViewMenu, MainWindow.GAMECONTROLLAYER);
-		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		
 		return gameView;
+	}
+	
+	
+	/**
+	 * Shows a Map in which everything happens.
+	 * @param AL	The ActionListener to which the game sends its actions
+	 */
+	public MapView showMap(ActionListener AL)
+	{
+		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
+		return mapView;
 	}
 	
 	
