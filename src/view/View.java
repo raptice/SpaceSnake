@@ -120,7 +120,7 @@ public class View
 	 * Shows a Map in which everything happens.
 	 * @param AL	The ActionListener to which the game sends its actions
 	 */
-	public Observer showMap(ActionListener AL)
+	public Observer showMap()
 	{
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		return mapView;
