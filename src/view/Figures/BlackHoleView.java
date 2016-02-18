@@ -11,10 +11,10 @@ import java.awt.geom.Point2D;
 import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
-public class BlackHole 
+public class BlackHoleView 
 extends GameFigure {
 
-	public BlackHole(double x, double y, double size, JComponent parent){
+	public BlackHoleView(double x, double y, double size, JComponent parent){
 		super(x, y, size, parent);
 	}
 
