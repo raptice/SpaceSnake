@@ -52,7 +52,10 @@ public class PhysicsEngine extends Thread
             	}
             }
             for(WorldObject obj : data.getCollection()){
-            	Physics.Collision(obj, data);
+            	if(obj instanceof Moveable){
+            		((Moveable)obj).collisions(data);
+            	}
+            	//Physics.Collision(obj, data);
             }
             for(WorldObject obj : data.getCollection()){
             	if(obj instanceof SnakePart ){
