@@ -6,7 +6,19 @@ import util.*;
  *
  */
 public interface IGravity {
+	
+	/**
+	 * To get the gravity constant for this object
+	 * @return
+	 */
 	public double getGravity();
-	public Vector2D calcuateGravity(WorldObject arg);
+	
+	
+	/**
+	 * Calculate the gravitational force on movable objects among the WorldObjects.
+	 * 
+	 * @param Affecting WorldObject
+	 * @return	void
+	 */
 	public void gravityPull(WorldCollection data);
 }
