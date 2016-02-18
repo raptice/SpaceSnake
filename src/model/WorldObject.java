@@ -13,13 +13,25 @@ public abstract class WorldObject extends Observable{
 	protected double radius;
 	protected double mass;
 	
+	
+	/**
+	 * Constructor using xpos and ypos
+	 */
 	public WorldObject(double xPos, double yPos, double mass, double radius){
-		position = new Vector2D();
-		this.position.setX(xPos);
-		this.position.setY(yPos);
-		this.mass = mass;
-		this.radius = radius;
+			this(new Vector2D(xPos,yPos),mass,radius);
 	}
+	
+	
+	/**
+	 * Constructor using vectors.
+	 */
+	public WorldObject(Vector2D position, double mass, double radius) {
+		this.position = position;
+		this.radius = radius;
+		this.mass = mass;
+	}
+	
+	
 	/**
 	 * Return this objects mass.
 	 * @return mass
