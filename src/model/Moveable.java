@@ -54,6 +54,15 @@ extends WorldObject
 	
 	
 	/**
+	 * Accelerates this using some force.
+	 * @param force
+	 */
+	public void accelerate(Vector2D force) {
+		velocity_diff = velocity_diff.add(force.div(mass));
+	}
+	
+	
+	/**
 	 * Return this objects velocity vector.
 	 * @return Vector2D the velocity vector.
 	 */
