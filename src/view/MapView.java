@@ -164,8 +164,11 @@ implements MouseListener, GameObserver, ActionListener
 			addItem(thing);
 		}
 		System.out.println("Addworld i MapView");
-		
 	}
+	public void clear() {
+		theList = new ArrayList<GameFigure>();
+	}
+	
 	/**
 	 * Adds some item to the world
 	 * @param what	The item to add

@@ -70,6 +70,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		this.addActionListener(AL);
 	}
 	
+	public void clear() {
+		removeAll();
+	}
 	
 	/**
 	 * The actual constructor of the view. Only called from the constructors.
