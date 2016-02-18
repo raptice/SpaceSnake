@@ -2,7 +2,6 @@ package controller;
 
 import model.IGravity;
 import model.Moveable;
-import model.Physics;
 import model.WorldCollection;
 import model.WorldObject;
 import model.objects.SnakePart;
@@ -47,12 +46,13 @@ public class PhysicsEngine extends Thread
             	}       	
             }
             for(WorldObject obj : data.getCollection()){
+            	if(obj instanceof Moveable)
+            		((Moveable)obj).Collision(data);
+            }
+            for(WorldObject obj : data.getCollection()){
             	if(obj instanceof Moveable){
             		((Moveable)obj).move();
             	}
-            }
-            for(WorldObject obj : data.getCollection()){
-            	Physics.Collision(obj, data);
             }
             for(WorldObject obj : data.getCollection()){
             	if(obj instanceof SnakePart ){
