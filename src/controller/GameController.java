@@ -2,7 +2,8 @@
 package controller;
 
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,9 +22,12 @@ public class GameController implements ActionListener {
 	private WorldCollection worldCollection;
 	private WorldObject worldObject;
 	private WorldObject worldObject2;
+	private WorldObject worldObject3;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
 	private MapView mapView;
+	
+	SnakeHead head;
 	
 	private static final double testValue = 1;
 	private static final long longValue = 100;
@@ -42,7 +46,9 @@ public class GameController implements ActionListener {
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
-		createObject();
+		
+		head = null;
+		createObjects();
 	}
 	
 	/**
@@ -60,6 +66,17 @@ public class GameController implements ActionListener {
 		physicsEngine.interrupt();
 	}
 	
+	public void pausePhysics() {
+		physicsEngine.setPaused();
+	}
+	
+	public void resumePhysics() {
+		synchronized(physicsEngine) {
+			physicsEngine.setResumed();
+			physicsEngine.notifyAll();
+		}
+	}
+	
 	
 	/*public void addView(GameView gameView) {
 		this.gameView = gameView;
@@ -75,14 +92,26 @@ public class GameController implements ActionListener {
 	
 	//TODO: Create snake, create randomized object
 	//		fill world with objects
-	public void createObject() {
+	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
+		
+		//skapa en orm
+		
+		//randomSpawns();
+		/*worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
+		gameObjects.add(worldObject);
+
+		gameObjects.add(worldObject2);
+		SnakeHead head = new SnakeHead(0,0,20,100,100,100);
+		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);*/
+
 		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+10, 50);
 		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+10, 50);
 		gameObjects.add(worldObject);
 		//gameObjects.add(worldObject2);
-		SnakeHead head = new SnakeHead(-2,2,20,100,100,20);
+		head = new SnakeHead(-2,2,20,100,100,20);
 		SnakeTail tail = new SnakeTail(-5,0,-30,100,100,20);
+
 		head.addTail(tail);
 		SnakeTail tail2 = new SnakeTail(-4,2,-70,100,100,20);
 		tail.addTail(tail2);
@@ -95,6 +124,25 @@ public class GameController implements ActionListener {
 		}
 	}
 	
+	public ArrayList<Integer> randomSpawns() {		
+		ArrayList<Integer> spawns = new ArrayList<Integer>();
+		Random random = new Random();
+		
+		//antal objekt : fasta, rörliga, (ätbara)
+		int totalObjects = random.nextInt(10) + 3;
+		
+		return spawns;
+	}
+	
+	public int randomWorldSize() {
+		Random random = new Random();
+		
+		//storlek bana -> ett tal som är slumpat mellan olika värden
+		int worldSize = random.nextInt(1000) + 500;
+		
+		return worldSize;
+	}
+	
 	/**
 	 * Handles events in the game
 	 * @param e		The ActionEvent sent from a mouse press
@@ -102,15 +150,15 @@ public class GameController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == Command.MOUSE_PRESSED) {
 			System.out.println("GameViewController: Mouse pressed");
-			//startAccelerating();
+			//head.startAccelerating();
 		}
 		else if (e.getActionCommand() == Command.MOUSE_RELEASED) {
 			System.out.println("GameViewController: Mouse released");
-			//stopAccelerating();
+			//head.stopAccelerating();
 		}
 		else if (e.getActionCommand() == Command.MOUSE_DRAGGED) {
 			System.out.println("GameViewController: Mouse dragged");
-			//changeAccelerationDirection();
+			//head.changeAccelerationDirection();
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
