@@ -1,4 +1,12 @@
-package model;
+package controller;
+
+import objects.SnakePart;
+import model.IGravity;
+import model.Moveable;
+import model.Physics;
+import model.WorldCollection;
+import model.WorldObject;
+
 /**
  * Write a description of class GameThread here.
  * 
@@ -33,13 +41,19 @@ public class PhysicsEngine extends Thread
             	}       	
             }
             for(WorldObject obj : data.getCollection()){
-            	if(obj instanceof IMovable){
-            		((IMovable)obj).move();
+            	if(obj instanceof Moveable){
+            		((Moveable)obj).move();
             	}
             }
             for(WorldObject obj : data.getCollection()){
             	Physics.Collision(obj, data);
             }
+            for(WorldObject obj : data.getCollection()){
+            	if(obj instanceof SnakePart ){
+            		((SnakePart)obj).pullAtNext();
+            	}
+            }
+            
             
         }
     }

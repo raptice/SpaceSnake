@@ -72,6 +72,14 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	
 	/**
+	 * Removes everything from the view. Equal to restart the view.
+	 */
+	public void clear() {
+		removeAll();
+	}
+	
+	
+	/**
 	 * The actual constructor of the view. Only called from the constructors.
 	 */
 	private void build()
@@ -170,8 +178,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	
 	/**
-	 * 
-	 * 
+	 * Adds a new world to the view including all objects and all constants.
 	 */
 	public void addWorld (WorldCollection world) {
 		for (WorldObject thing : world.getCollection()) {
@@ -180,6 +187,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		System.out.println("Addworld i GameView");
 		
 	}
+	
 	
 	/**
 	 * When something is added to the world it gets sent here
@@ -206,6 +214,10 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
 			this.add(figure);
 			what.addObserver(figure);
+		} else {
+			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			this.add(figure);
+			what.addObserver(figure);
 		}
 		//figure = new GameFigureType(...);
 		
@@ -214,6 +226,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		//this.add(figure);
 		
 	}
+	
 	
 	/**
 	 * Remove some item from the world. Called from the items themselves.
