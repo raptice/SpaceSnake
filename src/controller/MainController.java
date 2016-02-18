@@ -93,8 +93,8 @@ public class MainController implements ActionListener {
 	public void startNewGame() {
 		gameController.newGame();
 		view.hideStartupMenu();			
-		gameController.addObserver(view.showGame(gameController));
-		gameController.addObserver(view.showMap());
+		gameController.addObserver(view.showNewGame(gameController));
+		gameController.addObserver(view.showNewMap());
 		gameController.runPhysics();
 		state = GAME_VIEW;
 	}
