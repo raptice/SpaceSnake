@@ -57,6 +57,17 @@ public class GameController implements ActionListener {
 		physicsEngine.interrupt();
 	}
 	
+	public void pausePhysics() {
+		physicsEngine.setPaused();
+	}
+	
+	public void resumePhysics() {
+		synchronized(physicsEngine) {
+			physicsEngine.setResumed();
+			physicsEngine.notifyAll();
+		}
+	}
+	
 	
 	/*public void addView(GameView gameView) {
 		this.gameView = gameView;
