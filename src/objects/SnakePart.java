@@ -14,7 +14,8 @@ extends Moveable
 {
 	private SnakePart nextPart;
 	private double stiffness = 1;
-	private double linkLength = 50;
+	private double linkLength = 40;
+	private double damping = 0.9;
 
 	
 	/**
@@ -39,10 +40,18 @@ extends Moveable
 	 */
 	public void pullAtNext () {
 		if (nextPart != null) {
+			
+			//Elastic pull/push
 			Vector2D distance = this.position.sub( nextPart.getPosition() );
 			double x = distance.length() - linkLength;
 			this.accelerate( distance.normalize().scale(-x*stiffness) );
 			nextPart.accelerate( distance.normalize().scale(x*stiffness) );
+			
+			//Damping
+			Vector2D v = this.velocity.sub(nextPart.getVelocity());
+			this.accelerate(v.scale(-damping));
+			nextPart.accelerate(v.scale(damping));
+			
 		}
 	}
 	
@@ -55,6 +64,7 @@ extends Moveable
 	public boolean addTail (SnakePart tail) {
 		if (nextPart != null) return false;
 		nextPart = tail;
+		linkLength = this.getRadius() + tail.getRadius();
 		return true;
 	}
 	

@@ -13,11 +13,15 @@ import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import objects.SnakeHead;
+import objects.SnakeTail;
+
 import model.Floater;
 import model.WorldCollection;
 import model.WorldObject;
 
 import util.Command;
+import util.Vector2D;
 import view.Figures.*;
 
 /**
@@ -46,6 +50,8 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	//How much should the zoom change on zoom in/out
 	private double zoomstep = 1.01; 
 	
+	//The snake position
+	private Vector2D snakePosition=new Vector2D(0,0);
 	
 	/**
 	 * Constructor that generates the view.
@@ -110,10 +116,15 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
         super.paintComponent(g2);
         
         //Set center to (0,0)
-        g2.translate(this.getWidth()/2,this.getHeight()/2); 
+        g2.translate(this.getWidth()/2 - snakePosition.getX()*zoom, this.getHeight()/2 - snakePosition.getY()*zoom); 
+        
+        //Set center to SnakePosition
+        //g2.translate(, -snakePosition.getY()*zoom); 
         
         // Set zoom
         g2.scale(zoom, zoom);
+        
+       
         
         // Draw the world
         g2.setRenderingHint(
@@ -211,11 +222,19 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		
 		//Check what for type
 		if (what instanceof Floater) {
-			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			this.add(figure);
+			what.addObserver(figure);
+		} else if (what instanceof SnakeHead) {
+			GameFigure figure = new SnakeHeadView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			this.add(figure);
+			what.addObserver(figure);
+		} else if (what instanceof SnakeTail) {
+			GameFigure figure = new SnakeTailView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 			this.add(figure);
 			what.addObserver(figure);
 		} else {
-			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 			this.add(figure);
 			what.addObserver(figure);
 		}
@@ -234,6 +253,13 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 */
 	public void removeMe(GameFigure who) {
 		this.remove(who);
+	}
+	
+	/**
+	 * Used for the snake to update where it is.
+	 */
+	public void updateSnakePosition(Vector2D position) {
+		this.snakePosition = position;
 	}
 
 
