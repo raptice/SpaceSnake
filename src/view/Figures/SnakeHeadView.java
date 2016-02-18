@@ -7,15 +7,20 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.RadialGradientPaint;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
+import java.util.Observable;
 
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
+
+import util.Vector2D;
+import view.GameView;
 
 @SuppressWarnings("serial")
-public class FloaterView 
+public class SnakeHeadView 
 extends GameFigure {
 
-	public FloaterView(double x, double y, double size, JComponent parent){
-		super(x, y, size, parent);
+	public SnakeHeadView(double x, double y, double size, GameView parent){
+		super(x, y, size, (JComponent)parent);
 		setColor(new Color(0,0,0));
 	}
 
@@ -36,17 +41,19 @@ extends GameFigure {
        	Point2D center = new Point2D.Double(centerx, centery);
         Point2D focus = center;//new Point2D.Float(40, 40);
         float[] dist = {0.0f, 0.8f, 1.0f};
-        Color[] colors = {new Color(0,255,0,0), new Color(0,255,0,255), new Color(0,255,0,255)};
+        Color[] colors = {new Color(255,235,200), new Color(255,55,0,255), new Color(255,55,0,255)};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) radius, focus, dist, colors, CycleMethod.NO_CYCLE);
         g.setPaint(rgrad);
-        //g.fillRect(20, 20, 300, 40);
-            
-    	//g.setColor(Color.DARK_GRAY);
         g.fillOval(0, 0, (int)size, (int)size);
-        //g.setColor(Color.BLACK);
-        //g.drawOval(0, 0, (int)size, (int)size);
         
-        //g.drawImage(Toolkit.getDefaultToolkit().getImage("3D_Geometrical_Figures_24.svg.png"), 0, 0, null);
     }
 
+    /**
+     * Used when "the model" sends notifyObservers(arg1). Needs to override so that the center of screen follows the head
+     */
+	@Override //Movement (or something)
+	public void update(Observable who, Object what) {
+		((GameView) parent).updateSnakePosition((Vector2D)what);
+		super.update(who, what);
+	}
 }
