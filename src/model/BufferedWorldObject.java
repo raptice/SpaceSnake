@@ -2,10 +2,10 @@ package model;
 
 import util.Vector2D;
 
-public class BufferedWorldObject implements Gravity {
-	private Gravity decoObj;
+public class BufferedWorldObject implements IGravity {
+	private IGravity decoObj;
 	
-	public BufferedWorldObject(Gravity decoObj){
+	public BufferedWorldObject(IGravity decoObj){
 		this.decoObj = decoObj;
 	}
 	@Override

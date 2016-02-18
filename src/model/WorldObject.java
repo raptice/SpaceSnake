@@ -8,16 +8,17 @@ import util.*;
  * 
  * @author Model-team
  */
-public  abstract class WorldObject extends Observable{
+public abstract class WorldObject extends Observable{
 	protected Vector2D position;
 	protected double radius;
 	protected double mass;
 	
-	public WorldObject(double xPos, double yPos, double mass){
+	public WorldObject(double xPos, double yPos, double mass, double radius){
 		position = new Vector2D();
 		this.position.setX(xPos);
 		this.position.setY(yPos);
 		this.mass = mass;
+		this.radius = radius;
 	}
 	/**
 	 * Return this objects mass.
