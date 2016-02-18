@@ -54,11 +54,13 @@ implements MouseListener, GameObserver, ActionListener
 	
 	//Update itself every now and then
 	Timer t;
-		
+	
+	//Colors. These are defaults, overridden by config in the constructor.
 	Color bg_color1 = new Color(255,255,255,255);
 	Color bg_color2 = new Color(255,255,255,200);
 	Color bg_color3 = new Color(255,255,255,255);
 	Color border_color = new Color(0,0,0,200);
+	
 	
 	/**
 	 * Constructor that generates the view.
@@ -74,7 +76,7 @@ implements MouseListener, GameObserver, ActionListener
 		bg_color3 = Parser.ColorFromString(Config.get("Map_bg_color3"));
 		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
 		
-		t = new Timer(500,this);
+		t = new Timer(500,this); //Only needed if nothing is repainted in the gameview.
         t.start();
 	}
 	
@@ -155,19 +157,34 @@ implements MouseListener, GameObserver, ActionListener
 		return mapSize*mapSize/4 > x1*x1+y1*y1;
 	}
 	
+	
+	/**
+	 * Update function run by the observable (through notifyobservers).
+	 */
 	@Override //Something happened in the world!!!
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 	}
+	
+	
+	/**
+	 * Adds a complete world to the view (including all objects and constants).
+	 */
 	public void addWorld (WorldCollection world) {
 		for (WorldObject thing : world.getCollection()) {
 			addItem(thing);
 		}
 		System.out.println("Addworld i MapView");
 	}
+	
+	
+	/**
+	 * Removes everything from the view. Equal to restart the view.
+	 */
 	public void clear() {
 		theList = new ArrayList<GameFigure>();
 	}
+	
 	
 	/**
 	 * Adds some item to the world
@@ -187,6 +204,7 @@ implements MouseListener, GameObserver, ActionListener
 		//model.addObsever(figure);
 		//this.add(figure);
 	}
+	
 	
 	/**
 	 * Remove some item from the world. Called from the items themselves.

@@ -129,7 +129,7 @@ public class View
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		return mapView;
 	}
-	public GameObserver showNewMap(ActionListener AL)
+	public GameObserver showNewMap()
 	{
 		mapView.clear();
 		return showMap();
