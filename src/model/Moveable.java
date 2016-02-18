@@ -13,18 +13,11 @@ extends WorldObject
 {
 	
 	protected Vector2D velocity;
-	protected Vector2D velocity_diff;
+	protected Vector2D velocity_diff = new Vector2D(0,0);
 	
 
 	/**
 	 * Constructor
-	 * 
-	 * @param xSpeed
-	 * @param ySpeed
-	 * @param xPos
-	 * @param yPos
-	 * @param mass
-	 * @param radius
 	 */
 	public Moveable(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
 		super(xPos, yPos, mass, radius);
@@ -48,6 +41,8 @@ extends WorldObject
 	 * @return void
 	 */
 	public void move(){
+		velocity = velocity.add(velocity_diff);
+		velocity_diff = new Vector2D(0,0);
 		position = position.add(velocity);
 		update();
 	}

@@ -214,6 +214,10 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
 			this.add(figure);
 			what.addObserver(figure);
+		} else {
+			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			this.add(figure);
+			what.addObserver(figure);
 		}
 		//figure = new GameFigureType(...);
 		

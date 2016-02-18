@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import objects.SnakeHead;
+import objects.SnakeTail;
+
 import model.*;
 import view.*;
 
@@ -78,6 +81,12 @@ public class GameController implements ActionListener {
 		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+100, testValue);
 		gameObjects.add(worldObject);
 		gameObjects.add(worldObject2);
+		SnakeHead head = new SnakeHead(0,0,20,100,100,100);
+		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);
+		head.addTail(tail);
+		gameObjects.add(head);
+		gameObjects.add(tail);
+		
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
 		}
