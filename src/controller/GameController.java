@@ -94,15 +94,26 @@ public class GameController implements ActionListener {
 		//skapa en orm
 		
 		//randomSpawns();
-		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
+		/*worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
 		gameObjects.add(worldObject);
 
 		gameObjects.add(worldObject2);
 		SnakeHead head = new SnakeHead(0,0,20,100,100,100);
-		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);
+		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);*/
+
+		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+10, 50);
+		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+10, 50);
+		gameObjects.add(worldObject);
+		//gameObjects.add(worldObject2);
+		SnakeHead head = new SnakeHead(-2,2,20,100,100,20);
+		SnakeTail tail = new SnakeTail(-5,0,-30,100,100,20);
+
 		head.addTail(tail);
+		SnakeTail tail2 = new SnakeTail(-4,2,-70,100,100,20);
+		tail.addTail(tail2);
 		gameObjects.add(head);
 		gameObjects.add(tail);
+		gameObjects.add(tail2);
 		
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);

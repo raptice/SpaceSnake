@@ -86,10 +86,7 @@ implements Observer
      */
     @Override
     public void paintComponent(Graphics g_in) {
-		//super.paintComponent(g);
-		
-    	Graphics2D g = (Graphics2D)g_in;
-
+		Graphics2D g = (Graphics2D)g_in;
     	g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, 
     						RenderingHints.VALUE_ANTIALIAS_ON);
     	
@@ -104,16 +101,6 @@ implements Observer
         Rectangle2D r = g.getFont().getStringBounds(text, g.getFontRenderContext());
         g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));
         
-        //g.drawLine(x + 20, y + 10, x + 20, y + 20);
-        //g.drawLine(x + 30, y + 10, x + 30, y + 20);
-        
-        //g.drawArc(x + 15, y + 15, 20, 20, 180, 180);
-        //Graphics2D g2 = (Graphics2D)g;
-
-        //Line2D line = new Line2D.Double(10, 10, 40, 40);
-        //g2.setColor(Color.blue);
-        //g2.setStroke(new BasicStroke(10));
-        //g2.draw(line);
     }
     
     
