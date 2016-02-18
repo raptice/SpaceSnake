@@ -1,4 +1,4 @@
-package view.Figures;
+package view.mapfigures;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,14 +22,15 @@ import util.Vector2D;
  */
 
 @SuppressWarnings("serial")
-public class GameFigure 
-extends JComponent
+public class MapFigure 
 implements Observer
 {
 
 	protected double size;
-	protected double x,y;
+	protected Vector2D position;
 
+	protected Color color = new Color(255,0,0);;
+	
 	//Extra buffer when determining bounds
 	int extra=1;
 	
@@ -45,15 +46,11 @@ implements Observer
 	 * @param size	The size of the GameFigure
 	 * @param parent	The containing GameView
 	 */
-    public GameFigure(double x, double y, double size, JComponent parent)
+    public MapFigure(Vector2D position, double size, Color color)
     {
-    	
-        this.x=x;
-        this.y=y;
+        this.position = position;
         this.size=size;
-        this.parent=parent;
-        
-        this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
+        this.color = color;
     }
 	
     
@@ -63,32 +60,25 @@ implements Observer
      */
     private void resize (double new_size) {
     	size = new_size;
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
-    	parent.repaint();
 	}
     
+    /**
+     * Returns the color of itself to be used in the map.
+     */
+    public Color getColor() {
+    	return color;
+    }
+    public void setColor(Color c) {
+    	color = c;
+    }
     
     /**
      * Paints itself.
      * @param g
      */
-    @Override
-    public void paintComponent(Graphics g_in) {
-		Graphics2D g = (Graphics2D)g_in;
-    	g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, 
-    						RenderingHints.VALUE_ANTIALIAS_ON);
-    	
-    	g.setColor(Color.WHITE);
-        g.fillOval(0, 0, (int)size, (int)size);
-        g.setColor(Color.BLACK);
-        g.drawOval(0, 0, (int)size, (int)size);
-        
-        g.setColor(Color.RED);
-        String text="?";
-        g.setFont(g.getFont().deriveFont((float)(size*0.75)));
-        Rectangle2D r = g.getFont().getStringBounds(text, g.getFontRenderContext());
-        g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));
-        
+    public void paintComponent(Graphics g) {
+    	g.setColor(color);
+    	g.drawLine((int)position.getX(), (int)position.getY(), (int)position.getX(), (int)position.getY());
     }
     
     
@@ -99,10 +89,7 @@ implements Observer
 	public void update(Observable who, Object what) {
 		
 		if (what instanceof Vector2D) {
-			final Vector2D position = new Vector2D((Vector2D) what);
-			SwingUtilities.invokeLater(new Runnable() {
-			    public void run() { setPosition(position); }	    
-			});
+			position = (Vector2D) what;
 		}
 		
 		//System.out.println("Update i GameView: "+what);
@@ -118,15 +105,12 @@ implements Observer
 	 * @param position
 	 */
 	private void setPosition (Vector2D position) {
-		this.x = position.getX();
-		this.y = position.getY();
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
-		parent.repaint();
+		this.position = position;
 	}
 	public double positionX() {
-		return this.x;
+		return position.getX();
 	}
 	public double positionY() {
-		return this.y;
+		return position.getY();
 	}
 }

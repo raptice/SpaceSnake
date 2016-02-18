@@ -18,6 +18,9 @@ import java.util.Observer;
 
 import javax.swing.Timer;
 
+import objects.SnakeHead;
+import objects.SnakeTail;
+
 import model.Floater;
 import model.WorldCollection;
 import model.WorldObject;
@@ -25,6 +28,7 @@ import model.WorldObject;
 import util.Config;
 import util.Parser;
 import view.Figures.*;
+import view.mapfigures.MapFigure;
 
 /**
  * This is a class that just contains the game itself
@@ -50,7 +54,7 @@ implements MouseListener, GameObserver, ActionListener
 	protected float mapSize = 1;
 	private int margin = 5;
 	
-	private ArrayList<GameFigure> theList = new ArrayList<GameFigure>();
+	private ArrayList<MapFigure> theList = new ArrayList<MapFigure>();
 	
 	//Update itself every now and then
 	Timer t;
@@ -129,8 +133,9 @@ implements MouseListener, GameObserver, ActionListener
         g2.setPaint(rgrad);
         g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
         
+        g2.setStroke(new BasicStroke(4*worldSize/mapSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         //Draw all items:
-        for (GameFigure figure : theList)
+        for (MapFigure figure : theList)
         {
         	g2.setColor(figure.getColor());
         	g2.drawLine((int)figure.positionX(), (int)figure.positionY(), (int)figure.positionX(), (int)figure.positionY());
@@ -182,7 +187,7 @@ implements MouseListener, GameObserver, ActionListener
 	 * Removes everything from the view. Equal to restart the view.
 	 */
 	public void clear() {
-		theList = new ArrayList<GameFigure>();
+		theList = new ArrayList<MapFigure>();
 	}
 	
 	
@@ -191,22 +196,18 @@ implements MouseListener, GameObserver, ActionListener
 	 * @param what	The item to add
 	 */
 	private void addItem (WorldObject what) {
-		
+		MapFigure figure;
 		if (what instanceof Floater) {
-			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2, this);
-			theList.add(figure);
-			what.addObserver(figure);
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,155,0));
+		} else if (what instanceof SnakeHead) {
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(125,125,0));
+		} else if (what instanceof SnakeTail) {
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(155,155,0));
 		} else {
-			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2, this);
-			theList.add(figure);
-			what.addObserver(figure);
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,0,0));
 		}
-		
-		//TODO
-		//Check what for type
-		//figure = new GameFigureType(...);
-		//model.addObsever(figure);
-		//this.add(figure);
+		theList.add(figure);
+		what.addObserver(figure);
 	}
 	
 	
@@ -215,7 +216,7 @@ implements MouseListener, GameObserver, ActionListener
 	 * @param who	The item to remove
 	 */
 	public void removeMe(GameFigure who) {
-		this.remove(who);
+		theList.remove(who);
 	}
 
 
