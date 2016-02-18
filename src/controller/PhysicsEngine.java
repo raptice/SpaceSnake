@@ -1,4 +1,11 @@
-package model;
+package controller;
+
+import model.IGravity;
+import model.IMovable;
+import model.Physics;
+import model.WorldCollection;
+import model.WorldObject;
+
 /**
  * Write a description of class GameThread here.
  * 
