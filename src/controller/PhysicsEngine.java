@@ -16,6 +16,7 @@ public class PhysicsEngine extends Thread
 {
     private long interval;
     private WorldCollection data;
+    private boolean setPaused;
 
     public PhysicsEngine(WorldCollection data, long interval){
     	this.data = data;
@@ -25,9 +26,15 @@ public class PhysicsEngine extends Thread
     	
     }
     public void run(){
-        while ( ! interrupted() ) {
+    	Thread thisThread = Thread.currentThread();
+        while ( ! isInterrupted() ) {
             try{ 
                 sleep(interval);
+                synchronized(this) {
+                	while(setPaused) {
+                		thisThread.wait();
+                	}
+                }
             }
             catch(InterruptedException e){
                 break;
@@ -49,5 +56,12 @@ public class PhysicsEngine extends Thread
             }
             
         }
+    }
+    public void setPaused() {
+    	setPaused = true;
+    }
+    
+    public void setResumed() {
+    	setPaused = false;
     }
 }
