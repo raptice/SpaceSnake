@@ -27,6 +27,8 @@ public class GameController implements ActionListener {
 	private GameView gameView;
 	private MapView mapView;
 	
+	SnakeHead head;
+	
 	private static final double testValue = 1;
 	private static final long longValue = 100;
 	
@@ -44,6 +46,8 @@ public class GameController implements ActionListener {
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, longValue);
+		
+		head = null;
 		createObjects();
 	}
 	
@@ -105,7 +109,7 @@ public class GameController implements ActionListener {
 		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+10, 50);
 		gameObjects.add(worldObject);
 		//gameObjects.add(worldObject2);
-		SnakeHead head = new SnakeHead(-2,2,20,100,100,20);
+		head = new SnakeHead(-2,2,20,100,100,20);
 		SnakeTail tail = new SnakeTail(-5,0,-30,100,100,20);
 
 		head.addTail(tail);
@@ -146,15 +150,15 @@ public class GameController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == Command.MOUSE_PRESSED) {
 			System.out.println("GameViewController: Mouse pressed");
-			//startAccelerating();
+			//head.startAccelerating();
 		}
 		else if (e.getActionCommand() == Command.MOUSE_RELEASED) {
 			System.out.println("GameViewController: Mouse released");
-			//stopAccelerating();
+			//head.stopAccelerating();
 		}
 		else if (e.getActionCommand() == Command.MOUSE_DRAGGED) {
 			System.out.println("GameViewController: Mouse dragged");
-			//changeAccelerationDirection();
+			//head.changeAccelerationDirection();
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
