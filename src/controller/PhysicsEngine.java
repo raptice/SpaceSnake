@@ -40,7 +40,6 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            //DO USEFUL WORK HERE
             for(WorldObject obj : data.getCollection()){
             	if(obj instanceof IGravity ){
             		((IGravity)obj).gravityPull(data);
