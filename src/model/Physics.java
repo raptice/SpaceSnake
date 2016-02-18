@@ -15,10 +15,10 @@ public class Physics {
 			if(!obj1.equals(obj2)){
 				double length = Math.sqrt(obj1.getPosition().distancesquared(obj2.getPosition()));
 				double radlength = obj1.getRadius() + obj2.getRadius();
-				System.out.println("Distance between:" + length);
-				System.out.println("Combined radiuses:" + radlength);
+				//System.out.println("Distance between:" + length);
+				//System.out.println("Combined radiuses:" + radlength);
 				if(length < radlength){
-					System.out.println("COLLISION DETECTED");
+					//System.out.println("COLLISION DETECTED");
 					return true;
 				}
 			}
