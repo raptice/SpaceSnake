@@ -7,10 +7,10 @@ import util.*;
  * @author Model-team 
  * @version 1.0.0.0
  */
-public class Floater extends Moveable implements Gravity{
+public class Floater extends Moveable implements IGravity{
 	protected final static double GRAVITY=1;
-	public Floater(double xSpeed, double ySpeed, double xPos, double yPos, double mass){
-		super(xSpeed, ySpeed, xPos, yPos, mass);
+	public Floater(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
+		super(xSpeed, ySpeed, xPos, yPos, mass, radius);
 	}
 	/**
 	 * Adds gravitational force to this Floater velocity
