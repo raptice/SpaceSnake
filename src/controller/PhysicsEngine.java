@@ -1,11 +1,11 @@
 package controller;
 
-import objects.SnakePart;
 import model.IGravity;
 import model.Moveable;
 import model.Physics;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.SnakePart;
 
 /**
  * Write a description of class GameThread here.

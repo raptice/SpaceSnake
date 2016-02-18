@@ -21,7 +21,6 @@ import util.Vector2D;
  * @version 2016-02-05
  */
 
-@SuppressWarnings("serial")
 public class MapFigure 
 implements Observer
 {
@@ -88,13 +87,11 @@ implements Observer
 	@Override //Movement (or something)
 	public void update(Observable who, Object what) {
 		
+		// if (moved) move(new_x, new_y);
 		if (what instanceof Vector2D) {
 			position = (Vector2D) what;
 		}
 		
-		//System.out.println("Update i GameView: "+what);
-		
-		// if (moved) move(new_x, new_y);
 		// if (died) parent.removeItem(this);
 		// if (resized) resize(new_size);
 	}

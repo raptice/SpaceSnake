@@ -13,12 +13,12 @@ import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import objects.SnakeHead;
-import objects.SnakeTail;
 
 import model.Floater;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.SnakeHead;
+import model.objects.SnakeTail;
 
 import util.Command;
 import util.Vector2D;

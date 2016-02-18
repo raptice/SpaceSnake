@@ -7,10 +7,10 @@ import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import objects.SnakeHead;
-import objects.SnakeTail;
 
 import model.*;
+import model.objects.SnakeHead;
+import model.objects.SnakeTail;
 import view.*;
 
 import util.Command;
