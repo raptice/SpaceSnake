@@ -42,5 +42,5 @@ Map_bg_color2     = 200,200,200,200
 Map_bg_color1     = 255,255,255,255
 Map_border_color = 0,0,0,200
 
-Snake_link_stiffness = 10
+Snake_link_stiffness = 1
 Snake_link_damping   = 0.9
