@@ -1,7 +1,7 @@
 package controller;
 
 import model.IGravity;
-import model.IMovable;
+import model.Moveable;
 import model.Physics;
 import model.WorldCollection;
 import model.WorldObject;
@@ -47,8 +47,8 @@ public class PhysicsEngine extends Thread
             	}       	
             }
             for(WorldObject obj : data.getCollection()){
-            	if(obj instanceof IMovable){
-            		((IMovable)obj).move();
+            	if(obj instanceof Moveable){
+            		((Moveable)obj).move();
             	}
             }
             for(WorldObject obj : data.getCollection()){
