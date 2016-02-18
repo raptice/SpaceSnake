@@ -18,12 +18,12 @@ import java.util.Observer;
 
 import javax.swing.Timer;
 
-import objects.SnakeHead;
-import objects.SnakeTail;
 
 import model.Floater;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.SnakeHead;
+import model.objects.SnakeTail;
 
 import util.Config;
 import util.Parser;

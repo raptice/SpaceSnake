@@ -1,4 +1,4 @@
-package objects;
+package model.objects;
 
 import util.Vector2D;
 import model.Moveable;
