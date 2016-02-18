@@ -193,11 +193,11 @@ implements MouseListener, GameObserver, ActionListener
 	private void addItem (WorldObject what) {
 		
 		if (what instanceof Floater) {
-			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2, this);
 			theList.add(figure);
 			what.addObserver(figure);
 		} else {
-			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), 50 ,this);
+			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2, this);
 			theList.add(figure);
 			what.addObserver(figure);
 		}
