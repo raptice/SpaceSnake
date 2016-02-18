@@ -7,7 +7,7 @@ import model.WorldObject;
 import util.Vector2D;
 
 /**
- * An moveable object...
+ * An non movable object with gravity
  * @author Gustav
  *
  */
@@ -30,12 +30,6 @@ implements IGravity
 	@Override
 	public double getGravity() {
 		return gravity_constant;
-	}
-
-	@Override //Not needed
-	public Vector2D calcuateGravity(WorldObject arg) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
