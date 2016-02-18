@@ -20,8 +20,7 @@ extends WorldObject
 	 * Constructor
 	 */
 	public Moveable(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
-		super(xPos, yPos, mass, radius);
-		velocity = new Vector2D(xSpeed, ySpeed);
+		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
 	}
 	
 	
