@@ -2,7 +2,8 @@
 package controller;
 
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,7 @@ public class GameController implements ActionListener {
 	private WorldCollection worldCollection;
 	private WorldObject worldObject;
 	private WorldObject worldObject2;
+	private WorldObject worldObject3;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
 	private MapView mapView;
@@ -83,15 +85,36 @@ public class GameController implements ActionListener {
 	
 	//TODO: Create snake, create randomized object
 	//		fill world with objects
-	public void createObject() {
+	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
+		
+		//skapa en orm
+		
+		randomSpawns();
 		worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
-		worldObject2 = new Floater(0, 0, testValue+100, testValue, testValue+100, testValue);
 		gameObjects.add(worldObject);
-		gameObjects.add(worldObject2);
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
 		}
+	}
+	
+	public ArrayList<Integer> randomSpawns() {		
+		ArrayList<Integer> spawns = new ArrayList<Integer>();
+		Random random = new Random();
+		
+		//antal objekt : fasta, rörliga, (ätbara)
+		int totalObjects = random.nextInt(10) + 3;
+		
+		return spawns;
+	}
+	
+	public int randomWorldSize() {
+		Random random = new Random();
+		
+		//storlek bana -> ett tal som är slumpat mellan olika värden
+		int worldSize = random.nextInt(1000) + 500;
+		
+		return worldSize;
 	}
 	
 	/**
