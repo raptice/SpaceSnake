@@ -43,4 +43,27 @@ extends Moveable
 			nextPart.accelerate( nextPart.getPosition().sub( this.position ).scale( (this.position.sub( nextPart.getPosition() ).length() - linkLength) * stiffness );
 		}
 	}
+	
+	
+	/**
+	 * Adds a new part at the end of this.
+	 * @param tail	The part that should get added
+	 * @return	true if the tail was added, false if it already has a tail
+	 */
+	public boolean addTail (SnakePart tail) {
+		if (nextPart == null) return false;
+		nextPart = tail;
+		return true;
+	}
+	
+	
+	/**
+	 * Checks if this part has a tail.
+	 * @return true if it has a tail, false otherwise
+	 */
+	public boolean checkTail () {
+		if (nextPart == null) return false;
+		return true;
+	}
+
 }
