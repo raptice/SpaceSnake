@@ -14,6 +14,7 @@ extends WorldObject
 	
 	protected Vector2D velocity;
 	protected Vector2D velocity_diff = new Vector2D(0,0);
+	private double collision_damping = 0.999;
 	
 
 	/**
@@ -62,5 +63,38 @@ extends WorldObject
 	 */
 	public Vector2D getVelocity(){
 		return velocity;
+	}
+	
+	public void collisions (WorldCollection data) {
+		for(WorldObject obj : data.getCollection()){
+			if(!obj.equals(this) && collides(obj))
+			{
+				collide(obj);
+			}
+		}
+	}
+	
+	protected boolean collides(WorldObject other) 
+	{
+		double r = radius+other.getRadius();
+		return r*r > position.sub(other.getPosition()).lengthsquared();
+	}
+	
+	protected void collide (WorldObject other)
+	{
+		if (other instanceof Moveable) 
+		{
+			Moveable moveable = (Moveable) other;
+			double dot = velocity.sub(moveable.getVelocity()).dot(position.sub(moveable.getPosition()));
+			Vector2D dv = position.sub(moveable.getPosition());
+			dv = dv.scale(  dot/position.sub(moveable.getPosition()).lengthsquared());
+			dv = dv.div(mass+moveable.getMass());
+			velocity_diff = velocity_diff.sub(dv.scale(collision_damping*2*moveable.getMass()));
+		} else {
+			double dot = velocity.dot(position.sub(other.getPosition()));
+			Vector2D dv = position.sub(other.getPosition());
+			dv = dv.scale(  dot/position.sub(other.getPosition()).lengthsquared());
+			velocity_diff = velocity_diff.sub(dv.scale(collision_damping*2));
+		}
 	}
 }
