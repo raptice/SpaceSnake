@@ -107,7 +107,6 @@ implements MouseListener, GameObserver, ActionListener
         
         //Set center to (0,0)
         g2.translate(this.getWidth()-mapSize/2-margin,this.getHeight()-mapSize/2-margin); 
-        
         // Set zoom
         g2.scale(mapSize/worldSize, mapSize/worldSize);
         
@@ -124,17 +123,14 @@ implements MouseListener, GameObserver, ActionListener
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);
         g2.setPaint(rgrad);
         
-        
-        
     	g2.setColor(border_color);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
         g2.drawLine(0, 0, 0, 0);
-        //g2.setColor(new Color(255,255,255,200));
         g2.setPaint(rgrad);
         g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
         
-        g2.setStroke(new BasicStroke(4*worldSize/mapSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         //Draw all items:
+        g2.setStroke(new BasicStroke(4*worldSize/mapSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         for (MapFigure figure : theList)
         {
         	g2.setColor(figure.getColor());
