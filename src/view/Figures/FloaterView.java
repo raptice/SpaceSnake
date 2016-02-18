@@ -16,7 +16,6 @@ extends GameFigure {
 
 	public FloaterView(double x, double y, double size, JComponent parent){
 		super(x, y, size, parent);
-		setColor(new Color(0,0,0));
 	}
 
     /**
