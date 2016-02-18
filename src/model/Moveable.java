@@ -6,10 +6,10 @@ import util.*;
  * @author Victor
  *
  */
-public class Moveable extends WorldObject{
+public class Moveable extends WorldObject implements IMovable{
 	protected Vector2D velocity;
-	public Moveable(double xSpeed, double ySpeed, double xPos, double yPos, double mass){
-		super(xPos, yPos, mass);
+	public Moveable(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
+		super(xPos, yPos, mass, radius);
 		velocity = new Vector2D(xSpeed, ySpeed);
 	}
 	/**

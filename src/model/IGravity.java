@@ -5,7 +5,7 @@ import util.*;
  * @author Victor
  *
  */
-public interface Gravity {
+public interface IGravity {
 	public double getGravity();
 	public Vector2D calcuateGravity(WorldObject arg);
 	public void gravityPull(WorldCollection data);
