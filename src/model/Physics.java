@@ -18,7 +18,7 @@ public class Physics {
 				//System.out.println("Distance between:" + length);
 				//System.out.println("Combined radiuses:" + radlength);
 				if(length < radlength){
-					System.out.println("COLLISION DETECTED");
+					//System.out.println("COLLISION DETECTED");
 					return true;
 				}
 			}
