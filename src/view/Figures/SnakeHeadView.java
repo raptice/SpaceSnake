@@ -21,7 +21,6 @@ extends GameFigure {
 
 	public SnakeHeadView(double x, double y, double size, GameView parent){
 		super(x, y, size, (JComponent)parent);
-		setColor(new Color(0,0,0));
 	}
 
     /**

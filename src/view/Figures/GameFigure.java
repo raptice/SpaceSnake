@@ -30,8 +30,6 @@ implements Observer
 	protected double size;
 	protected double x,y;
 
-	protected Color color;
-	
 	//Extra buffer when determining bounds
 	int extra=1;
 	
@@ -56,29 +54,9 @@ implements Observer
         this.parent=parent;
         
         this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
-        this.color = new Color(255,0,0);
     }
 	
     
-    /**
-     * Set a new size for the figure
-     * @param new_size	The new size
-     */
-    private void resize (double new_size) {
-    	size = new_size;
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
-    	parent.repaint();
-	}
-    
-    /**
-     * Returns the color of itself to be used in the map.
-     */
-    public Color getColor() {
-    	return color;
-    }
-    public void setColor(Color c) {
-    	color = c;
-    }
     
     /**
      * Paints itself.
@@ -135,10 +113,16 @@ implements Observer
     	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
 		parent.repaint();
 	}
-	public double positionX() {
-		return this.x;
+	
+	
+	/**
+     * Set a new size for the figure
+     * @param new_size	The new size
+     */
+    private void resize (double new_size) {
+    	size = new_size;
+    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
+    	parent.repaint();
 	}
-	public double positionY() {
-		return this.y;
-	}
+    
 }
