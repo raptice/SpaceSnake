@@ -3,6 +3,8 @@ package model.objects;
 import util.Config;
 import util.Vector2D;
 import model.Moveable;
+import model.WorldCollection;
+import model.WorldObject;
 
 /**
  * An moveable object...
@@ -81,4 +83,34 @@ extends Moveable
 		return true;
 	}
 
+	@Override
+	/*public void collision (WorldCollection data) {
+		for(WorldObject obj : data.getCollection()){
+			if(!obj.equals(this) && collides(obj))
+			{
+				if (obj instanceof SnakePart)
+				{
+					SnakePart other = (SnakePart)obj;
+					if (!other.equals(nextPart) && !this.equals(other.nextPart))
+							collide(obj);
+				}
+				else collide(obj);
+			}
+		}
+	}*/
+	
+	public void collision(WorldCollection data){
+		for(WorldObject obj : data.getCollection()){
+			if(!this.equals(obj) && collides(obj))
+			{
+				if (obj instanceof SnakePart)
+				{
+					if (!obj.equals(nextPart) && !((SnakePart)obj).nextPart.equals(this))
+						velocity_diff = velocity_diff.sub(CollisionResponse(obj));
+				}
+				else
+					velocity_diff = velocity_diff.sub(CollisionResponse(obj));
+			}
+		}
+	}
 }

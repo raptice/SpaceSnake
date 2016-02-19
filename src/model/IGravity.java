@@ -1,5 +1,5 @@
 package model;
-import util.*;
+
 /**
  * Interface with methods representing generic gravitational functionality.
  * @author Victor

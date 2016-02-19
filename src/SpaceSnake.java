@@ -7,6 +7,7 @@ public class SpaceSnake {
 	public static void main(String[] args) {
 		
 		//Load configuration
+		@SuppressWarnings("unused")
 		Config c = new Config("config.txt");
 		
 		// Start the GUI:

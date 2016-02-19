@@ -10,7 +10,7 @@ public class BufferedWorldObject implements IGravity {
 	}
 	@Override
 	public double getGravity() { return decoObj.getGravity(); }
-	@Override
+	
 	public Vector2D calcuateGravity(WorldObject arg) { return decoObj.calcuateGravity(arg); }
 	@Override
 	public void gravityPull(WorldCollection data) { decoObj.gravityPull(data); }

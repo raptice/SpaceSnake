@@ -39,6 +39,9 @@ public class Floater extends Moveable implements IGravity{
 	 */
 	public Vector2D calcuateGravity(WorldObject arg) {
 		Vector2D temp = Vector2D.diff(this.getPosition(), arg.getPosition());
+		double r = radius + arg.getRadius();
+		if (r*r>temp.lengthsquared())
+			return new Vector2D(0,0);
 		temp = temp.normalize();
 		temp = temp.scale(mass*GRAVITY*arg.getMass());
 		temp = temp.div(this.getPosition().distancesquared(arg.getPosition()));

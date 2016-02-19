@@ -13,6 +13,8 @@ import java.awt.event.MouseWheelListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.SwingUtilities;
+
 
 import model.Floater;
 import model.WorldCollection;
@@ -92,17 +94,6 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	{
 		//Use coordinates for positioning
 		this.setLayout(null);
-		
-		//For testing
-		/*for (int i=0;i<10;i++) {
-			if (Math.random()>0.7)
-				this.add(new GameFigure((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-			else if (Math.random()>0.5)
-				this.add(new BlackHole((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-			else
-				this.add(new FloaterView((int)(Math.random()*400)-200, (int)(Math.random()*100)-50, 50,this));
-			
-		}*/
 	}
 
 	
@@ -118,14 +109,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
         //Set center to (0,0)
         g2.translate(this.getWidth()/2 - snakePosition.getX()*zoom, this.getHeight()/2 - snakePosition.getY()*zoom); 
         
-        //Set center to SnakePosition
-        //g2.translate(, -snakePosition.getY()*zoom); 
-        
         // Set zoom
         g2.scale(zoom, zoom);
-        
        
-        
         // Draw the world
         g2.setRenderingHint(
     	        RenderingHints.KEY_ANTIALIASING,
@@ -205,12 +191,10 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 */
 	@Override //Something happened in the world!!!
 	public void update(Observable who, Object what) {
-		
+		//If it was a worldObject: add it.
 		if (what instanceof WorldObject) {
 			addItem((WorldObject) what);
 		}
-		//System.out.println("Update i GameView");
-		
 	}
 	
 	
@@ -219,31 +203,29 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 * @param what	The item to add
 	 */
 	private void addItem (WorldObject what) {
-		
-		//Check what for type
+		final GameFigure figure;
 		if (what instanceof Floater) {
-			GameFigure figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
-			this.add(figure);
-			what.addObserver(figure);
+			figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 		} else if (what instanceof SnakeHead) {
-			GameFigure figure = new SnakeHeadView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
-			this.add(figure);
-			what.addObserver(figure);
+			figure = new SnakeHeadView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 		} else if (what instanceof SnakeTail) {
-			GameFigure figure = new SnakeTailView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
-			this.add(figure);
-			what.addObserver(figure);
+			figure = new SnakeTailView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 		} else {
-			GameFigure figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
-			this.add(figure);
-			what.addObserver(figure);
+			figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 		}
-		//figure = new GameFigureType(...);
-		
-		//model.addObsever(figure);
-		
-		//this.add(figure);
-		
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() { addFigure(figure); }	    
+		});
+		what.addObserver(figure);		
+	}
+	
+	
+	/**
+	 * Adds a GameFigure too this so it gets painted.
+	 * @param figure
+	 */
+	private void addFigure (GameFigure figure) {
+		this.add(figure);
 	}
 	
 	
