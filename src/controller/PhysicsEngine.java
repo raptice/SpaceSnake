@@ -47,7 +47,7 @@ public class PhysicsEngine extends Thread
             }
             for(WorldObject obj : data.getCollection()){
             	if(obj instanceof Moveable)
-            		((Moveable)obj).Collision(data);
+            		((Moveable)obj).collision(data);
             }
             for(WorldObject obj : data.getCollection()){
             	if(obj instanceof Moveable){

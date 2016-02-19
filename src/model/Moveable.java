@@ -73,7 +73,7 @@ extends WorldObject
 	 * @param WorldCollection the rest of the world
 	 * @return void f
 	 */
-	public void Collision(WorldCollection data){
+	public void collision(WorldCollection data){
 		for(WorldObject obj : data.getCollection()){
 			if(!this.equals(obj) && collides(obj)){
 					velocity_diff = velocity_diff.sub(CollisionResponse(obj));
@@ -95,13 +95,9 @@ extends WorldObject
 	 * @param WorldObject the object this Moveable collides with
 	 * @return Vector2D the collisionvector
 	 */
-	public Vector2D CollisionResponse(WorldObject obj){
-		
-		
+	protected Vector2D CollisionResponse(WorldObject obj){
 		if (obj instanceof Moveable) 
-		{
-			
-			
+		{	
 			Vector2D v1 = this.getVelocity();
 			Vector2D v2 = ((Moveable)obj).getVelocity();
 			Vector2D p1 = this.getPosition();
@@ -131,9 +127,7 @@ extends WorldObject
 			Vector2D dv = position.sub(obj.getPosition());
 			dv = dv.scale(  dot/position.sub(obj.getPosition()).lengthsquared());
 			return dv.scale(collision_damping*2);
-		}
-		
-		
-		
+		}	
 	}
+	
 }
