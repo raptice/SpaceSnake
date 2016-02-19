@@ -84,7 +84,7 @@ extends Moveable
 	}
 
 	@Override
-	public void collisions (WorldCollection data) {
+	/*public void collision (WorldCollection data) {
 		for(WorldObject obj : data.getCollection()){
 			if(!obj.equals(this) && collides(obj))
 			{
@@ -95,6 +95,21 @@ extends Moveable
 							collide(obj);
 				}
 				else collide(obj);
+			}
+		}
+	}*/
+	
+	public void collision(WorldCollection data){
+		for(WorldObject obj : data.getCollection()){
+			if(!this.equals(obj) && collides(obj))
+			{
+				if (obj instanceof SnakePart)
+				{
+					if (!obj.equals(nextPart) && !((SnakePart)obj).nextPart.equals(this))
+						velocity_diff = velocity_diff.sub(CollisionResponse(obj));
+				}
+				else
+					velocity_diff = velocity_diff.sub(CollisionResponse(obj));
 			}
 		}
 	}
