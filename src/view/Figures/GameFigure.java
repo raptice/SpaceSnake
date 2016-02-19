@@ -47,12 +47,10 @@ implements Observer
 	 */
     public GameFigure(double x, double y, double size, JComponent parent)
     {
-    	
         this.x=x;
         this.y=y;
         this.size=size;
         this.parent=parent;
-        
         this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
     }
 	
@@ -88,6 +86,7 @@ implements Observer
 	@Override //Movement (or something)
 	public void update(Observable who, Object what) {
 		
+		//If it was a vector: move there.
 		if (what instanceof Vector2D) {
 			final Vector2D position = new Vector2D((Vector2D) what);
 			SwingUtilities.invokeLater(new Runnable() {
@@ -96,7 +95,6 @@ implements Observer
 		}
 		
 		//System.out.println("Update i GameView: "+what);
-		
 		// if (moved) move(new_x, new_y);
 		// if (died) parent.removeItem(this);
 		// if (resized) resize(new_size);
