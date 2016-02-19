@@ -84,6 +84,16 @@ extends WorldObject
 			}
 		}
 	}
+	
+	/**
+	 * Check if this object collides with another
+	 */
+	protected boolean collides(WorldObject other) {
+		double lengthsqr = this.position.sub(other.getPosition()).lengthsquared();
+		double radlength = this.getRadius() + other.getRadius();
+		return (lengthsqr < radlength*radlength);
+	}
+	
 	/**
 	 * Calculates the collisionvector as elastic between this object and the object it collides with.
 	 * @param WorldObject the object this Moveable collides with
