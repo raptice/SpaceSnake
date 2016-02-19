@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 
@@ -81,6 +82,7 @@ implements MouseListener, GameObserver, ActionListener
 		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
 		
 		t = new Timer(500,this); //Only needed if nothing is repainted in the gameview.
+		t.setActionCommand("Repaint");
         t.start();
 	}
 	
@@ -122,7 +124,6 @@ implements MouseListener, GameObserver, ActionListener
         Color[] colors = {bg_color1, bg_color2, bg_color3};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);
         g2.setPaint(rgrad);
-        
     	g2.setColor(border_color);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
         g2.drawLine(0, 0, 0, 0);
@@ -163,8 +164,10 @@ implements MouseListener, GameObserver, ActionListener
 	 * Update function run by the observable (through notifyobservers).
 	 */
 	@Override //Something happened in the world!!!
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	public void update(Observable who, Object what) {
+		if (what instanceof WorldObject) {
+			addItem((WorldObject) what);
+		}
 	}
 	
 	
@@ -192,7 +195,7 @@ implements MouseListener, GameObserver, ActionListener
 	 * @param what	The item to add
 	 */
 	private void addItem (WorldObject what) {
-		MapFigure figure;
+		final MapFigure figure;
 		if (what instanceof Floater) {
 			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,155,0));
 		} else if (what instanceof SnakeHead) {
@@ -202,7 +205,9 @@ implements MouseListener, GameObserver, ActionListener
 		} else {
 			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,0,0));
 		}
-		theList.add(figure);
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() { theList.add(figure); }	    
+		});
 		what.addObserver(figure);
 	}
 	
@@ -222,6 +227,8 @@ implements MouseListener, GameObserver, ActionListener
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		repaint();
+		//If it was a timer event
+		if (e.getActionCommand().equals("Repaint"))
+			repaint();
 	}
 }

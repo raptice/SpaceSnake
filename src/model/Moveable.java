@@ -14,7 +14,7 @@ extends WorldObject
 	
 	protected Vector2D velocity;
 	protected Vector2D velocity_diff = new Vector2D(0,0);
-	private double collision_damping = 0.999;
+	private double collision_damping = 0.99;
 	
 
 	/**
@@ -31,6 +31,7 @@ extends WorldObject
 	public Moveable (Vector2D velocity, Vector2D position, double mass, double radius) {
 		super(position, mass, radius);
 		this.velocity = velocity;
+		collision_damping = Double.parseDouble(Config.get("Collision_damping"));
 	}
 	
 	
