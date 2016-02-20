@@ -641,14 +641,14 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	 * Calculates the length squared of this vector.
 	 */
 	public double lengthsquared() {
-		return this.x*this.x+this.y*this.y;
+		return this.dot(this);
 	}
 	
 	/**
 	 * Calculates the length squared of a vector.
 	 */
 	public static double lengthsquared(Vector2D vector) {
-		return vector.getX()*vector.getX()+vector.getY()*vector.getY();
+		return dot(vector,vector);
 	}
 	
 	
@@ -660,14 +660,14 @@ implements Comparable<Vector2D> 	// If sorting based on distance is needed
 	 * Calculate the scalar product of two vectors
 	 */
 	public static double dot (Vector2D first, Vector2D second) {
-		return first.getX()*second.getY()+first.getY()*second.getX();
+		return first.getX()*second.getX()+first.getY()*second.getY();
 	}
 	
 	/**
 	 * Calculate the scalar product of this and another vector
 	 */
 	public double dot (Vector2D second) {
-		return x*second.getY()+y*second.getX();
+		return x*second.getX()+y*second.getY();
 	}
 	
 	/**

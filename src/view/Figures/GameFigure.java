@@ -30,8 +30,6 @@ implements Observer
 	protected double size;
 	protected double x,y;
 
-	protected Color color;
-	
 	//Extra buffer when determining bounds
 	int extra=1;
 	
@@ -49,36 +47,14 @@ implements Observer
 	 */
     public GameFigure(double x, double y, double size, JComponent parent)
     {
-    	
         this.x=x;
         this.y=y;
         this.size=size;
         this.parent=parent;
-        
         this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
-        this.color = new Color(255,0,0);
     }
 	
     
-    /**
-     * Set a new size for the figure
-     * @param new_size	The new size
-     */
-    private void resize (double new_size) {
-    	size = new_size;
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
-    	parent.repaint();
-	}
-    
-    /**
-     * Returns the color of itself to be used in the map.
-     */
-    public Color getColor() {
-    	return color;
-    }
-    public void setColor(Color c) {
-    	color = c;
-    }
     
     /**
      * Paints itself.
@@ -86,10 +62,7 @@ implements Observer
      */
     @Override
     public void paintComponent(Graphics g_in) {
-		//super.paintComponent(g);
-		
-    	Graphics2D g = (Graphics2D)g_in;
-
+		Graphics2D g = (Graphics2D)g_in;
     	g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, 
     						RenderingHints.VALUE_ANTIALIAS_ON);
     	
@@ -104,16 +77,6 @@ implements Observer
         Rectangle2D r = g.getFont().getStringBounds(text, g.getFontRenderContext());
         g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));
         
-        //g.drawLine(x + 20, y + 10, x + 20, y + 20);
-        //g.drawLine(x + 30, y + 10, x + 30, y + 20);
-        
-        //g.drawArc(x + 15, y + 15, 20, 20, 180, 180);
-        //Graphics2D g2 = (Graphics2D)g;
-
-        //Line2D line = new Line2D.Double(10, 10, 40, 40);
-        //g2.setColor(Color.blue);
-        //g2.setStroke(new BasicStroke(10));
-        //g2.draw(line);
     }
     
     
@@ -123,6 +86,7 @@ implements Observer
 	@Override //Movement (or something)
 	public void update(Observable who, Object what) {
 		
+		//If it was a vector: move there.
 		if (what instanceof Vector2D) {
 			final Vector2D position = new Vector2D((Vector2D) what);
 			SwingUtilities.invokeLater(new Runnable() {
@@ -131,7 +95,6 @@ implements Observer
 		}
 		
 		//System.out.println("Update i GameView: "+what);
-		
 		// if (moved) move(new_x, new_y);
 		// if (died) parent.removeItem(this);
 		// if (resized) resize(new_size);
@@ -148,10 +111,16 @@ implements Observer
     	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
 		parent.repaint();
 	}
-	public double positionX() {
-		return this.x;
+	
+	
+	/**
+     * Set a new size for the figure
+     * @param new_size	The new size
+     */
+    private void resize (double new_size) {
+    	size = new_size;
+    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
+    	parent.repaint();
 	}
-	public double positionY() {
-		return this.y;
-	}
+    
 }

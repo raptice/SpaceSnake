@@ -5,9 +5,7 @@ import java.awt.event.KeyEvent;
 
 import util.Command;
 
-import view.GameObserver;
 import view.View;
-import view.GameView;
 
 /**
  * Creates view and model, handles events from the keyboard and implements actions from subcontrollers
@@ -93,8 +91,8 @@ public class MainController implements ActionListener {
 	public void startNewGame() {
 		gameController.newGame();
 		view.hideStartupMenu();			
-		gameController.addObserver(view.showGame(gameController));
-		gameController.addObserver(view.showMap());
+		gameController.addObserver(view.showNewGame(gameController));
+		gameController.addObserver(view.showNewMap());
 		gameController.runPhysics();
 		state = GAME_VIEW;
 	}
@@ -119,6 +117,7 @@ public class MainController implements ActionListener {
 	public void resumeGame() {
 		view.hideIngameMenu();
 		view.showGame(gameController);
+		gameController.resumePhysics();
 		state = GAME_VIEW;
 	}
 	
@@ -133,13 +132,14 @@ public class MainController implements ActionListener {
 	 * Exits the game from the ingame menu and shows the startup menu
 	 */
 	public void exitMenu() {
+		gameController.stopPhysics();
 		view.hideIngameMenu();
 		view.showStartupMenu(startupMenuController);
-		gameController.stopPhysics();
 		state = STARTUP_MENU;
 	}
 	
 	public void exitGame() {
+		gameController.pausePhysics();
 		view.hideGame();
 		view.showIngameMenu(ingameMenuController);
 		state = INGAME_MENU;

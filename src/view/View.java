@@ -114,7 +114,11 @@ public class View
 		
 		return gameView;
 	}
-	
+	public GameObserver showNewGame(ActionListener AL)
+	{
+		gameView.clear();
+		return showGame(AL);
+	}
 	
 	/**
 	 * Shows a Map in which everything happens.
@@ -125,7 +129,11 @@ public class View
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		return mapView;
 	}
-	
+	public GameObserver showNewMap()
+	{
+		mapView.clear();
+		return showMap();
+	}
 	
 	/**
 	 * Hides the game.
