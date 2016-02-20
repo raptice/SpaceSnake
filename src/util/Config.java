@@ -52,7 +52,7 @@ public class Config {
 	 * Randomizes a world size.
 	 * @return		The value associated with the size of the world.
 	 */
-	public int randomWorldSize() {
+	public static int randomWorldSize() {
 		Random random = new Random();
 		int worldSize = random.nextInt(1000) + 500;
 		return worldSize;
