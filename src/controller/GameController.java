@@ -134,15 +134,6 @@ public class GameController implements ActionListener {
 		return spawns;
 	}
 	
-	public int randomWorldSize() {
-		Random random = new Random();
-		
-		//storlek bana -> ett tal som är slumpat mellan olika värden
-		int worldSize = random.nextInt(1000) + 500;
-		
-		return worldSize;
-	}
-	
 	/**
 	 * Handles events in the game
 	 * @param e		The ActionEvent sent from a mouse press

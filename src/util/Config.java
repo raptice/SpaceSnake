@@ -54,7 +54,7 @@ public class Config {
 	 */
 	public static int randomWorldSize() {
 		Random random = new Random();
-		int worldSize = random.nextInt(1000) + 500;
+		int worldSize = random.nextInt((1000 - 500) + 1) + 500;
 		return worldSize;
 	}
 	
