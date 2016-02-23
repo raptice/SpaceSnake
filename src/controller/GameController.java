@@ -51,7 +51,7 @@ public class GameController implements ActionListener {
 	 */
 	public void newGame () {
 		worldCollection = new WorldCollection();
-		physicsEngine = new PhysicsEngine(worldCollection, longValue);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldCollection.setWorldSize(randomWorldSize());
 		
 		head = null;
@@ -171,7 +171,14 @@ public class GameController implements ActionListener {
 		}
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
-				gameObjects.add( new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10) );
+				//x = more++ ;
+				//y = more++;
+				double z = 0;
+				double u = 0;
+				double v = 10;
+				double o = 10;
+				
+				gameObjects.add( new Edible(x,y,z,u,v,o) );
 			}
 		}
 	}
