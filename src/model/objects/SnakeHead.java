@@ -1,4 +1,4 @@
-package objects;
+package model.objects;
 
 import util.Vector2D;
 
@@ -14,7 +14,7 @@ extends SnakePart
 
 	public SnakeHead(double xSpeed, double ySpeed, double xPos, double yPos,
 			double mass, double radius) {
-		super(xSpeed, ySpeed, xPos, yPos, mass, radius);
+		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
 	}
 	
 	public SnakeHead(Vector2D velocity, Vector2D position, double mass, double radius) {
