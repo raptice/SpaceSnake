@@ -199,17 +199,17 @@ implements MouseListener, GameObserver, ActionListener
 	private void addItem (WorldObject what) {
 		final MapFigure figure;
 		if (what instanceof Floater) {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,155,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,155,0));
 		} else if (what instanceof BlackHole) {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,0,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,0,0));
 		} else if (what instanceof Edible) {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,255,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,255,0));
 		} else if (what instanceof SnakeHead) {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(125,125,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(125,125,0));
 		} else if (what instanceof SnakeTail) {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(155,155,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(155,155,0));
 		} else {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(255,0,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(255,0,0));
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 		    public void run() { theList.add(figure); }	    
@@ -222,7 +222,7 @@ implements MouseListener, GameObserver, ActionListener
 	 * Remove some item from the world. Called from the items themselves.
 	 * @param who	The item to remove
 	 */
-	public void removeMe(GameFigure who) {
+	public void removeMe(MapFigure who) {
 		theList.remove(who);
 	}
 

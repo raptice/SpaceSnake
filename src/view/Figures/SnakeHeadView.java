@@ -20,7 +20,7 @@ public class SnakeHeadView
 extends GameFigure {
 
 	public SnakeHeadView(double x, double y, double size, GameView parent){
-		super(x, y, size, (JComponent)parent);
+		super(x, y, size, parent);
 	}
 
     /**

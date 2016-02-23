@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import util.Vector2D;
+import view.GameView;
 
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
@@ -34,7 +35,7 @@ implements Observer
 	int extra=1;
 	
 	//Needed to repaint the containing panel and to delete itself
-	JComponent parent;
+	GameView parent;
 	
 	
 	/**
@@ -45,7 +46,7 @@ implements Observer
 	 * @param size	The size of the GameFigure
 	 * @param parent	The containing GameView
 	 */
-    public GameFigure(double x, double y, double size, JComponent parent)
+    public GameFigure(double x, double y, double size, GameView parent)
     {
         this.x=x;
         this.y=y;
@@ -94,6 +95,13 @@ implements Observer
 			});
 		}
 		
+		// if (died) parent.removeItem(this);
+		if (what instanceof String) {
+			if (((String)what).equals("Died"))
+				//Die!
+				parent.removeMe(this);
+		}
+				
 		//System.out.println("Update i GameView: "+what);
 		// if (moved) move(new_x, new_y);
 		// if (died) parent.removeItem(this);

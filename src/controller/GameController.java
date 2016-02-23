@@ -230,37 +230,38 @@ public class GameController implements ActionListener {
 		{
 			
 			//Do stuff here:
+			
+			//Find the last and second last part of the snake
 			SnakePart last = head;
 			SnakePart second_last = head;
-			
 			while (last.getTail() != null)
 			{
 				second_last = last;
 				last = last.getTail();
 			}
+			
+			//Build a tailpart
 			SnakeTail tail;
 			if (last.equals(head))
-			{
 				tail = new SnakeTail(head.getVelocity(), 
 						head.getPosition().sub(head.getVelocity().normalize().scale(head.getRadius()+new_Tail_radius)),
 						new_Tail_radius,new_Tail_mass);
-			}
 			else
-			{
 				tail = new SnakeTail(
 						last.getVelocity(), 
 						last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
 						new_Tail_radius,new_Tail_mass);
-			}
 			
+			// Add the tailpart
 			last.addTail(tail);
 			worldCollection.add(tail);
 			
-			//System.out.println("Hit an edible!");
+			//kill the edible object
+			what.kill();
+			worldCollection.remove(what);
 			
-			//Add extra tail and kill the edible object
-			//Get points
-			//other actions
+			//Get points?
+			//other actions?
 			
 			return false;
 		}
