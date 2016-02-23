@@ -1,4 +1,6 @@
 package model;
+import java.util.ArrayList;
+
 import util.*;
 /**
  * Floater class represents a generic floating object in space
@@ -8,7 +10,7 @@ import util.*;
  * @version 1.0.0.0
  */
 public class Floater extends Moveable implements IGravity{
-	protected final static double GRAVITY=1;
+	protected final static double GRAVITY=2;
 	
 	
 	public Floater(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
@@ -25,8 +27,8 @@ public class Floater extends Moveable implements IGravity{
 	 * @param Affecting WorldObject
 	 * @return	void
 	 */
-	public void gravityPull(WorldCollection data) {
-		for(WorldObject obj : data.getCollection()){
+	public void gravityPull(ArrayList<WorldObject> data) {
+		for(WorldObject obj : data){
 			if(!obj.equals(this) && obj instanceof Moveable)
 				((Moveable)obj).accelerate(this.calcuateGravity(obj));
 		}
