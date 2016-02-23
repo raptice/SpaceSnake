@@ -23,7 +23,7 @@ extends Observable
 		this.worldSize = worldSize;
 	}
 	
-	public int getWorldSize(int worldSize) {
+	public int getWorldSize() {
 		return worldSize;
 	}
 	

@@ -39,7 +39,6 @@ implements ActionListener, Observer
 	private static final int MAX_SPAWN = 10;
 	private static final int MIN_SPAWN = 3;
 
-	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
 	/**
@@ -147,8 +146,7 @@ implements ActionListener, Observer
 	}
 	
 	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
-		Random random = new Random();
-		double more = 1; 
+		Random randomPos = new Random();
 		Vector2D speed;
 		Vector2D pos;
 		double mass;
@@ -156,10 +154,8 @@ implements ActionListener, Observer
 		
 		if( spawn.containsKey("Floater") ){
 			for(int i=0; i< spawn.get("Floater"); i++){
-				more = more + i; 
 				speed = new Vector2D(0,0);
-				pos = new Vector2D(20*i+100,20*i+100);
-				radius = 50;
+				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
 					
@@ -168,8 +164,7 @@ implements ActionListener, Observer
 		}
 		if( spawn.containsKey("BlackHole") ){
 			for(int i=0; i< spawn.get("BlackHole"); i++){
-				more = more + i; 
-				pos = new Vector2D(80*i,50*i);
+				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
 					
@@ -179,7 +174,7 @@ implements ActionListener, Observer
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
 				speed = new Vector2D(0,0);
-				pos = new Vector2D(50*i,50*i);
+				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 10;
 				radius = 10;
 				
