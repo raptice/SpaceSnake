@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 
-import util.Command;
+import util.GameEvent;
 import util.Config;
 import util.Parser;
 
@@ -53,9 +53,9 @@ extends GameComponent{
 		Color bg_color = Parser.ColorFromString(Config.get("Startup_button_bg_color"));
 		Color border_color = Parser.ColorFromString(Config.get("Startup_button_border_color"));
 		Color highlight_color = Parser.ColorFromString(Config.get("Startup_button_highlight"));
-		menuPanel.addButton(Config.get("Startup_menu_newgame"), Command.START_NEW_GAME, bg_color, border_color, highlight_color);
-		menuPanel.addButton(Config.get("Startup_menu_loadgame"), Command.LOAD_GAME, bg_color, border_color, highlight_color);
-		menuPanel.addButton(Config.get("Startup_menu_exit"), Command.EXIT, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Startup_menu_newgame"), GameEvent.START_NEW_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Startup_menu_loadgame"), GameEvent.LOAD_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Startup_menu_exit"), GameEvent.EXIT, bg_color, border_color, highlight_color);
 		
 		this.add(menuPanel);
 		this.setOpaque(false);

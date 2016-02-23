@@ -1,0 +1,36 @@
+package view.Figures;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
+import javax.swing.JComponent;
+
+import util.Vector2D;
+
+@SuppressWarnings("serial")
+public class EdibleView 
+extends GameFigure {
+
+	public EdibleView(double x, double y, double size, JComponent parent){
+		super(x, y, size, parent);
+	}
+	public EdibleView(Vector2D position, double size, JComponent parent){
+		super(position.getX(), position.getY(), size, parent);
+	}
+
+    /**
+     * Paints itself.
+     * @param g
+     */
+    @Override
+    public void paintComponent(Graphics g_in) {
+    	Graphics2D g = (Graphics2D)g_in;
+    	g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, 
+    						RenderingHints.VALUE_ANTIALIAS_ON);
+    	g.setColor(new Color(0,255,0));
+        g.fillOval(0, 0, (int)size, (int)size);
+    }
+
+}

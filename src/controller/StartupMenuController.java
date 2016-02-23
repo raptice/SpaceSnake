@@ -3,7 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import util.Command;
+import util.GameEvent;
 
 /**
  * Handles events from the StartupMenu
@@ -24,15 +24,15 @@ public class StartupMenuController implements ActionListener {
 	 * @param e		The ActionEvent sent from a button press
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == Command.START_NEW_GAME) {
+		if (e.getActionCommand() == GameEvent.START_NEW_GAME) {
 			System.out.println("StartupMenuController: Start game");
 			parent.startNewGame();
 		}
-		else if (e.getActionCommand() == Command.LOAD_GAME) {
+		else if (e.getActionCommand() == GameEvent.LOAD_GAME) {
 			System.out.println("StartupMenuController: Load game");
 			parent.loadGame();
 		}
-		else if (e.getActionCommand() == Command.EXIT) {
+		else if (e.getActionCommand() == GameEvent.EXIT) {
 			System.out.println("StartupMenuController: Exit");
 			parent.exit();
 		}

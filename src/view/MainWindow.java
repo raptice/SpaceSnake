@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.KeyStroke;
 
-import util.Command;
+import util.GameEvent;
 import util.Config;
 import util.FillAllLayout;
 
@@ -126,7 +126,7 @@ implements WindowListener
 	    actionMap.put(code, new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	    		fireEvent(new ActionEvent(this,ActionEvent.ACTION_PERFORMED, command, System.currentTimeMillis(), 0));
+	    		fireEvent(new GameEvent(this, command));
 	        }
 	    });
 	}
@@ -174,7 +174,7 @@ implements WindowListener
 	public void windowClosed(WindowEvent e) {}
 	@Override
 	public void windowClosing(WindowEvent e) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.WINDOW_CLOSED, System.currentTimeMillis(), 0));
+		fireEvent(new GameEvent(this, GameEvent.WINDOW_CLOSED));
 	}
 	@Override
 	public void windowDeactivated(WindowEvent e) {}
