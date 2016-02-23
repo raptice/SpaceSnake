@@ -23,6 +23,8 @@ import javax.swing.Timer;
 import model.Floater;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.BlackHole;
+import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakeTail;
 
@@ -198,12 +200,16 @@ implements MouseListener, GameObserver, ActionListener
 		final MapFigure figure;
 		if (what instanceof Floater) {
 			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,155,0));
+		} else if (what instanceof BlackHole) {
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,0,0));
+		} else if (what instanceof Edible) {
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,255,0));
 		} else if (what instanceof SnakeHead) {
 			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(125,125,0));
 		} else if (what instanceof SnakeTail) {
 			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(155,155,0));
 		} else {
-			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(0,0,0));
+			figure = new MapFigure(what.getPosition(), what.getRadius()*2, new Color(255,0,0));
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 		    public void run() { theList.add(figure); }	    
