@@ -200,17 +200,18 @@ public class GameController implements ActionListener {
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
 			//System.out.println("GameController: Mouse pressed: "+e.getVector());
-			head.accelerate(e.getVector().div(100), 1);
+			this.physicsEngine.SnakePull(e.getVector().div(100));
 			//Maybe should set something in the physicsengine that released unsets?
 			//head.startAccelerating();
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
 			//System.out.println("GameController: Mouse released: "+e.getVector());
 			//head.stopAccelerating();
+			this.physicsEngine.SnakePull(null);
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());
-			head.accelerate(e.getVector().div(100), 1);
+			this.physicsEngine.SnakePull(e.getVector().div(100));
 			//head.changeAccelerationDirection();
 		}
 		else {
