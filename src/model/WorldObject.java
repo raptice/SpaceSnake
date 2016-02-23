@@ -68,4 +68,8 @@ public abstract class WorldObject extends Observable{
 		setChanged();
 		notifyObservers(position);
 	}
+	public void kill(){
+		setChanged();
+		notifyObservers("Died");
+	}
 }
