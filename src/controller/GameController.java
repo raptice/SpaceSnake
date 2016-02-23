@@ -6,35 +6,34 @@ import java.util.List;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.HashMap;
+
 
 import model.*;
+import model.objects.Edible;
 import model.objects.SnakeHead;
+import model.objects.SnakePart;
 import model.objects.SnakeTail;
-import model.objects.BlackHole;
 import view.*;
 
-import util.Command;
+import util.GameEvent;
+import util.Vector2D;
 
 /**
  * Handles events from the GameView
  */
 public class GameController implements ActionListener {
 	private WorldCollection worldCollection;
-	//private WorldObject worldObject;
-	//private WorldObject worldObject2;
-	//private WorldObject worldObject3;
+	private WorldObject worldObject;
+	private WorldObject worldObject2;
+	private WorldObject worldObject3;
 	private PhysicsEngine physicsEngine;
-	//private GameView gameView;
-	//private MapView mapView;
+	private GameView gameView;
+	private MapView mapView;
 	
 	SnakeHead head;
 	
 	private static final double testValue = 1;
-	private static final long longValue = 100;
-	private static final int MAX_SPAWN = 10;
-	private static final int MIN_SPAWN = 3;
+	private static final long longValue = 50;
 	
 	/**
 	 * Constructor that adds a reference to the parent controller
@@ -100,15 +99,6 @@ public class GameController implements ActionListener {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
 		//skapa en orm
-				head = new SnakeHead(-2,2,20,100,10,20);
-				SnakeTail tail = new SnakeTail(-1,0,-30,100,5,20);
-
-				head.addTail(tail);
-				SnakeTail tail2 = new SnakeTail(-4,2,-70,100,5,20);
-				tail.addTail(tail2);
-				gameObjects.add(head);
-				gameObjects.add(tail);
-				gameObjects.add(tail2);
 		
 		//randomSpawns();
 		/*worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
@@ -118,82 +108,101 @@ public class GameController implements ActionListener {
 		SnakeHead head = new SnakeHead(0,0,20,100,100,100);
 		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);*/
 
-		//worldObject = new Floater(0, 0, testValue-100, testValue, 100, 50);
-		//worldObject2 = new Floater(0, 0, testValue+100, testValue, 100, 50);
-		//gameObjects.add(worldObject);
-		//gameObjects.add(worldObject2);
+		worldObject = new Floater(0, -0.5, -100, 0, 300, 50);
+		worldObject2 = new Floater(0, 1.5, +100, 0, 100, 30);
+		gameObjects.add(worldObject);
+		gameObjects.add(worldObject2);
+		head = new SnakeHead(1,-7,20,100,10,20, this);
+		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
 
-		Map<String,Integer> spawn = randomSpawns();
+		head.addTail(tail);
+		SnakeTail tail2 = new SnakeTail(0,2,-70,100,5,15);
+		tail.addTail(tail2);
+		gameObjects.add(head);
+		gameObjects.add(tail);
+		gameObjects.add(tail2);
 		
-		//add spawns in gameObjectslist
-		//addToWorld(gameObjects, randomSpawns());
-		addToWorld(gameObjects, spawn );
-		
+		Edible eatme = new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10);
+		gameObjects.add(eatme);
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
 		}
 	}
 	
-	public Map<String,Integer> randomSpawns() {		
-		Map<String,Integer> spawns = new HashMap<String,Integer>();
+	public ArrayList<Integer> randomSpawns() {		
+		ArrayList<Integer> spawns = new ArrayList<Integer>();
 		Random random = new Random();
-		int totalObjects = random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;
-		//loop logic here, this is for test purposes only
-			int edible = 6;
-			int blackHole = 2;
-			int mobs = totalObjects - edible + blackHole;
-			
-			spawns.put("Edible",edible);
-			spawns.put("BlackHole",blackHole);
-			spawns.put("Mobs",mobs);
-			System.out.println("total objects is: " +totalObjects);
-			System.out.println(spawns);
+		
+		//antal objekt : fasta, rörliga, (ätbara)
+		int totalObjects = random.nextInt(10) + 3;
+		
 		return spawns;
 	}
 	
-	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
-		//this method has lolcode and testvalues, ignore!
-		double more = 1; 
-		double x = 0;
-		double y = 0;
-		if( spawn.containsKey("BlackHole") ){
-				for(int i =0; i< spawn.get("BlackHole"); i++){
-					more = more + i; 
-					x = more++ ;
-					y = more++;
-					double z = testValue-100+more++;
-					double u = testValue;
-					//double v = 100- more++;
-					//double o = 50-more++;
-					
-					//gameObjects.add( new Floater(x,y,z,u,v,o) );
-					gameObjects.add( new BlackHole(x,y,z,u) );
-					//System.out.println("made an object");
-					//System.out.println(spawn.get("BlackHole"));
-					//System.out.println(gameObjects);
-				}
-			}
+	public int randomWorldSize() {
+		Random random = new Random();
+		
+		//storlek bana -> ett tal som är slumpat mellan olika värden
+		int worldSize = random.nextInt(1000) + 500;
+		
+		return worldSize;
 	}
 	
 	/**
 	 * Handles events in the game
 	 * @param e		The ActionEvent sent from a mouse press
 	 */
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand() == Command.MOUSE_PRESSED) {
-			System.out.println("GameViewController: Mouse pressed");
+	public void actionPerformed(ActionEvent e_in) {
+		GameEvent e = (GameEvent) e_in;
+		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
+			//System.out.println("GameController: Mouse pressed: "+e.getVector());
+			head.accelerate(e.getVector().div(100));
+			//Maybe should set something in the physicsengine that released unsets?
 			//head.startAccelerating();
 		}
-		else if (e.getActionCommand() == Command.MOUSE_RELEASED) {
-			System.out.println("GameViewController: Mouse released");
+		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
+			//System.out.println("GameController: Mouse released: "+e.getVector());
 			//head.stopAccelerating();
 		}
-		else if (e.getActionCommand() == Command.MOUSE_DRAGGED) {
-			System.out.println("GameViewController: Mouse dragged");
+		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
+			//System.out.println("GameController: Mouse dragged: "+e.getVector());
+			head.accelerate(e.getVector().div(100));
 			//head.changeAccelerationDirection();
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
+		}
+	}
+	
+	/**
+	 * Method called from the snakehead upon collision that determines what should happen. 
+	 * Returns true if it should be a normal collision.
+	 * @param what
+	 * @return	true if it should be a normal collision
+	 */
+	public boolean snakeCollision (WorldObject what) {
+		if (what instanceof Edible)
+		{
+			
+			//Do stuff here:
+			SnakePart last = head;
+			while (last.getTail() != null)
+				last = last.getTail();
+			SnakeTail tail = new SnakeTail(new Vector2D(0,0),new Vector2D(0,0),10,10);
+			last.addTail(tail);
+			worldCollection.add(tail);
+			
+			System.out.println("Hit an edible!");
+			
+			//Add extra tail and kill the edible object
+			//Get points
+			//other actions
+			
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 }

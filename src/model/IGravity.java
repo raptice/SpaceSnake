@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Interface with methods representing generic gravitational functionality.
  * @author Victor
@@ -20,5 +22,5 @@ public interface IGravity {
 	 * @param Affecting WorldObject
 	 * @return	void
 	 */
-	public void gravityPull(WorldCollection data);
+	public void gravityPull(ArrayList<WorldObject> data);
 }
