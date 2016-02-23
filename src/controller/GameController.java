@@ -124,7 +124,7 @@ public class GameController implements ActionListener {
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
 		
-		int totalObjects = 0; /*random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;*/
+		int totalObjects = random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;
 		//loop logic here, this is for test purposes only
 			int floater = 1;
 			int edible = 1;
@@ -142,43 +142,43 @@ public class GameController implements ActionListener {
 	}
 	
 	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
+		Random random = new Random();
 		double more = 1; 
-		double x = 0;
-		double y = 0;
+		Vector2D speed;
+		Vector2D pos;
+		double mass;
+		double radius;
+		
 		if( spawn.containsKey("Floater") ){
 			for(int i=0; i< spawn.get("Floater"); i++){
 				more = more + i; 
-				//x = more++ ;
-				//y = more++;
-				double z = testValue-100+more++;
-				double u = testValue;
-				double v = 100- more++;
-				double o = 50-more++;
+				speed = new Vector2D(0,0);
+				pos = new Vector2D(20*i+100,20*i+100);
+				radius = 50;
+				mass = 100;
+				radius = 50;
 					
-				gameObjects.add( new Floater(x,y,z,u,v,o) );
+				gameObjects.add( new Floater(speed, pos, mass, radius) );
 			}
 		}
 		if( spawn.containsKey("BlackHole") ){
 			for(int i=0; i< spawn.get("BlackHole"); i++){
 				more = more + i; 
-				//x = more++ ;
-				//y = more++;
-				double z = testValue-100+more++;
-				double u = testValue;
+				pos = new Vector2D(80*i,50*i);
+				mass = 100;
+				radius = 50;
 					
-				gameObjects.add( new BlackHole(x,y,z,u) );
+				gameObjects.add( new BlackHole(pos, mass, radius) );
 			}
 		}
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
-				//x = more++ ;
-				//y = more++;
-				double z = 0;
-				double u = 0;
-				double v = 10;
-				double o = 10;
+				speed = new Vector2D(0,0);
+				pos = new Vector2D(50*i,50*i);
+				mass = 10;
+				radius = 10;
 				
-				gameObjects.add( new Edible(x,y,z,u,v,o) );
+				gameObjects.add( new Edible(speed, pos, mass, radius) );
 			}
 		}
 	}
