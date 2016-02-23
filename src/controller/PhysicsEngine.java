@@ -16,13 +16,16 @@ import model.objects.SnakePart;
  */
 public class PhysicsEngine extends Thread
 {
-    private long interval;
+    private double dT;
     private WorldCollection data;
     private boolean setPaused;
+    private double gameSpeed;
+    
 
-    public PhysicsEngine(WorldCollection data, long interval){
+    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
+    	this.gameSpeed = gameSpeed;
     	this.data = data;
-        this.interval = interval;
+        this.dT = dT;
     }
     public void collisionResolve(){
     	
@@ -31,7 +34,7 @@ public class PhysicsEngine extends Thread
     	Thread thisThread = Thread.currentThread();
         while ( ! isInterrupted() ) {
             try{ 
-                sleep(interval);
+                sleep((long)dT*(long)gameSpeed);
                 synchronized(this) {
                 	while(setPaused) {
                 		thisThread.wait();
@@ -57,7 +60,7 @@ public class PhysicsEngine extends Thread
             }
             for(WorldObject obj : collection){
             	if(obj instanceof Moveable){
-            		((Moveable)obj).move();
+            		((Moveable)obj).move(dT);
             	}
             }
             for(WorldObject obj : collection){
