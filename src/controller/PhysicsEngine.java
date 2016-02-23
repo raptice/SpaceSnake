@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.IGravity;
 import model.Moveable;
 import model.WorldCollection;
@@ -40,21 +42,25 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            for(WorldObject obj : data.getCollection()){
+            //Make a clone so changes (additions and deletions only affect next iteration
+            ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
+    		
+            
+            for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){
-            		((IGravity)obj).gravityPull(data);
+            		((IGravity)obj).gravityPull(collection);
             	}       	
             }
-            for(WorldObject obj : data.getCollection()){
+            for(WorldObject obj : collection){
             	if(obj instanceof Moveable)
-            		((Moveable)obj).collision(data);
+            		((Moveable)obj).collisions(collection);
             }
-            for(WorldObject obj : data.getCollection()){
+            for(WorldObject obj : collection){
             	if(obj instanceof Moveable){
             		((Moveable)obj).move();
             	}
             }
-            for(WorldObject obj : data.getCollection()){
+            for(WorldObject obj : collection){
             	if(obj instanceof SnakePart ){
             		((SnakePart)obj).pullAtNext();
             	}

@@ -20,4 +20,5 @@ extends SnakePart
 	public SnakeTail(Vector2D velocity, Vector2D position, double mass, double radius) {
 		super(velocity, position, mass, radius);
 	}
+	
 }

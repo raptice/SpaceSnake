@@ -1,5 +1,6 @@
 package model.objects;
 
+import model.Moveable;
 import util.Vector2D;
 
 /**
@@ -9,7 +10,7 @@ import util.Vector2D;
  */
 
 public class Edible 
-extends SnakePart
+extends Moveable
 {
 
 	public Edible(double xSpeed, double ySpeed, double xPos, double yPos,

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
-import util.Command;
+import util.GameEvent;
 import util.Config;
 import util.Parser;
 
@@ -56,8 +56,8 @@ extends GameComponent
 		Color bg_color = Parser.ColorFromString(Config.get("Gamemenu_button_bg_color"));
 		Color border_color = Parser.ColorFromString(Config.get("Gamemenu_button_border_color"));
 		Color highlight_color = Parser.ColorFromString(Config.get("Gamemenu_button_highlight"));
-		menuPanel.addButton("+", Command.ZOOM_IN, bg_color, border_color, highlight_color);
-		menuPanel.addButton("-", Command.ZOOM_OUT, bg_color, border_color, highlight_color); //"−" eller "\u2212"
+		menuPanel.addButton("+", GameEvent.ZOOM_IN, bg_color, border_color, highlight_color);
+		menuPanel.addButton("-", GameEvent.ZOOM_OUT, bg_color, border_color, highlight_color); //"−" eller "\u2212"
 		
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		this.add(menuPanel);//, BorderLayout.NORTH);
