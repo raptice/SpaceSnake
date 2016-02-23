@@ -27,10 +27,10 @@ public class Floater extends Moveable implements IGravity{
 	 * @param Affecting WorldObject
 	 * @return	void
 	 */
-	public void gravityPull(ArrayList<WorldObject> data) {
+	public void gravityPull(ArrayList<WorldObject> data, double dT) {
 		for(WorldObject obj : data){
 			if(!obj.equals(this) && obj instanceof Moveable)
-				((Moveable)obj).accelerate(this.calcuateGravity(obj));
+				((Moveable)obj).accelerate(this.calcuateGravity(obj), dT);
 		}
 	}
 	/**

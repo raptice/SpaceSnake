@@ -51,7 +51,7 @@ public class PhysicsEngine extends Thread
             
             for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){
-            		((IGravity)obj).gravityPull(collection);
+            		((IGravity)obj).gravityPull(collection, dT);
             	}       	
             }
             for(WorldObject obj : collection){
@@ -65,7 +65,7 @@ public class PhysicsEngine extends Thread
             }
             for(WorldObject obj : collection){
             	if(obj instanceof SnakePart ){
-            		((SnakePart)obj).pullAtNext();
+            		((SnakePart)obj).pullAtNext(dT);
             	}
             }
             
