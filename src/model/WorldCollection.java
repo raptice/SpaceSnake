@@ -1,6 +1,13 @@
 package model;
 import java.util.*;
-public class WorldCollection extends Observable{
+
+import model.objects.SnakeHead;
+
+
+public class WorldCollection 
+extends Observable
+{
+
 	private ArrayList<WorldObject> data;
 	private int worldSize;
 	
@@ -16,7 +23,7 @@ public class WorldCollection extends Observable{
 		this.worldSize = worldSize;
 	}
 	
-	public int getWorldSize(int worldSize) {
+	public int getWorldSize() {
 		return worldSize;
 	}
 	
@@ -37,7 +44,8 @@ public class WorldCollection extends Observable{
 	
 	public boolean addcheck(WorldObject obj){/* Check if position is free for requested object*/ return true;}
 	public void delete(WorldObject obj){ 
-		
+		if (obj instanceof SnakeHead)
+			gameover();
 	}
 	public ArrayList<WorldObject> surrounding(WorldObject obj){
 		return new ArrayList<WorldObject>();
@@ -45,5 +53,9 @@ public class WorldCollection extends Observable{
 	public void update(WorldObject obj){
 		setChanged();
 		notifyObservers(obj);
+	}
+	public void gameover() {
+		setChanged();
+		notifyObservers(new String("GAMEOVER"));
 	}
 }
