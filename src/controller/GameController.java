@@ -35,9 +35,6 @@ public class GameController implements ActionListener {
 	private static final int MAX_SPAWN = 10;
 	private static final int MIN_SPAWN = 3;
 
-	private double new_Tail_radius = 10;
-	private double new_Tail_mass = 10;
-
 	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
@@ -105,7 +102,7 @@ public class GameController implements ActionListener {
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
-		head = new SnakeHead(1,-7,20,100,10,20, this);
+		head = new SnakeHead(1,-7,20,100,10,20, worldCollection);
 		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
 		SnakeTail tail2 = new SnakeTail(0,2,-70,100,5,15);
 		
@@ -174,7 +171,14 @@ public class GameController implements ActionListener {
 		}
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
-				gameObjects.add( new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10) );
+				//x = more++ ;
+				//y = more++;
+				double z = 0;
+				double u = 0;
+				double v = 10;
+				double o = 10;
+				
+				gameObjects.add( new Edible(x,y,z,u,v,o) );
 			}
 		}
 	}
@@ -214,55 +218,4 @@ public class GameController implements ActionListener {
 		}
 	}
 	
-	/**
-	 * Method called from the snakehead upon collision that determines what should happen. 
-	 * Returns true if it should be a normal collision.
-	 * @param what
-	 * @return	true if it should be a normal collision
-	 */
-	public boolean snakeCollision (WorldObject what) {
-		if (what instanceof Edible)
-		{
-			
-			//Do stuff here:
-			
-			//Find the last and second last part of the snake
-			SnakePart last = head;
-			SnakePart second_last = head;
-			while (last.getTail() != null)
-			{
-				second_last = last;
-				last = last.getTail();
-			}
-			
-			//Build a tailpart
-			SnakeTail tail;
-			if (last.equals(head))
-				tail = new SnakeTail(head.getVelocity(), 
-						head.getPosition().sub(head.getVelocity().normalize().scale(head.getRadius()+new_Tail_radius)),
-						new_Tail_radius,new_Tail_mass);
-			else
-				tail = new SnakeTail(
-						last.getVelocity(), 
-						last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
-						new_Tail_radius,new_Tail_mass);
-			
-			// Add the tailpart
-			last.addTail(tail);
-			worldCollection.add(tail);
-			
-			//kill the edible object
-			what.kill();
-			worldCollection.remove(what);
-			
-			//Get points?
-			//other actions?
-			
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
 }
