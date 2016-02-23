@@ -190,7 +190,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 			addItem(thing);
 		}
 		System.out.println("Addworld i GameView");
-		worldSize=world.getWorldSize();
+		
 	}
 	
 	

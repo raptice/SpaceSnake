@@ -23,13 +23,14 @@ public class PhysicsEngine extends Thread
     private boolean setPaused;
     private double gameSpeed;
     private Vector2D MouseDir = new Vector2D (0,0);
-    private double MouseAccPower = 1;
+    private double MouseAccPower;
     
 
-    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
+    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed, double MouseAccPower){
     	this.gameSpeed = gameSpeed;
     	this.data = data;
         this.dT = dT;
+        this.MouseAccPower = MouseAccPower;
     }
     public void SnakePull(Vector2D acc){
     	if(acc==null)
