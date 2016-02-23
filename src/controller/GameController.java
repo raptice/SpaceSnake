@@ -32,6 +32,9 @@ public class GameController implements ActionListener {
 	
 	SnakeHead head;
 	
+	private double new_Tail_radius = 10;
+	private double new_Tail_mass = 10;
+	
 	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
@@ -186,9 +189,31 @@ public class GameController implements ActionListener {
 			
 			//Do stuff here:
 			SnakePart last = head;
+			SnakePart second_last = head;
+			
 			while (last.getTail() != null)
+			{
+				//System.out.println(last.getTail());
+				second_last = last;
 				last = last.getTail();
-			SnakeTail tail = new SnakeTail(new Vector2D(0,0),new Vector2D(0,0),10,10);
+			}
+			SnakeTail tail;
+			if (last.equals(head))
+			{
+				System.out.println("A");
+				tail = new SnakeTail(head.getVelocity(), 
+						head.getPosition().sub(head.getVelocity().normalize().scale(head.getRadius()+new_Tail_radius)),
+						new_Tail_radius,new_Tail_mass);
+			}
+			else
+			{
+				System.out.println("B");
+				tail = new SnakeTail(
+						last.getVelocity(), 
+						last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
+						new_Tail_radius,new_Tail_mass);
+			}
+			
 			last.addTail(tail);
 			worldCollection.add(tail);
 			

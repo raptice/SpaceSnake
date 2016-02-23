@@ -258,8 +258,8 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(Command.ZOOM_IN)) zoom(10);
-		else if (e.getActionCommand().equals(Command.ZOOM_OUT)) zoom(-10);
+		if (e.getActionCommand().equals(GameEvent.ZOOM_IN)) zoom(10);
+		else if (e.getActionCommand().equals(GameEvent.ZOOM_OUT)) zoom(-10);
 		
 	}
 }
