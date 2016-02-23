@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 
 
 /**
@@ -47,7 +48,15 @@ public class Config {
 		return value;
 	}
 	
-	
+	/**
+	 * Randomizes a world size.
+	 * @return		The value associated with the size of the world.
+	 */
+	public static int randomWorldSize() {
+		Random random = new Random();
+		int worldSize = random.nextInt((1000 - 500) + 1) + 500;
+		return worldSize;
+	}
 	
 	
 }
