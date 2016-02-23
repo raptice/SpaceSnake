@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +26,9 @@ import util.Vector2D;
 /**
  * Handles events from the GameView
  */
-public class GameController implements ActionListener {
+public class GameController 
+implements ActionListener, Observer 
+{
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
@@ -50,6 +54,7 @@ public class GameController implements ActionListener {
 	 */
 	public void newGame () {
 		worldCollection = new WorldCollection();
+		worldCollection.addObserver(this);
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldCollection.setWorldSize(randomWorldSize());
 		
@@ -195,21 +200,34 @@ public class GameController implements ActionListener {
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
 			//System.out.println("GameController: Mouse pressed: "+e.getVector());
-			head.accelerate(e.getVector().div(100), 1);
+			this.physicsEngine.SnakePull(e.getVector().div(100));
 			//Maybe should set something in the physicsengine that released unsets?
 			//head.startAccelerating();
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
 			//System.out.println("GameController: Mouse released: "+e.getVector());
 			//head.stopAccelerating();
+			this.physicsEngine.SnakePull(null);
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());
-			head.accelerate(e.getVector().div(100), 1);
+			this.physicsEngine.SnakePull(e.getVector().div(100));
 			//head.changeAccelerationDirection();
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(arg1 instanceof String)
+		{	
+			if (((String)arg1).equals("GAMEOVER"))
+			{
+				System.out.println("GAME OVER");
+				pausePhysics(); //Bad!
+			}
 		}
 	}
 	
