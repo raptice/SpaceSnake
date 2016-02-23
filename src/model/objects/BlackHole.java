@@ -35,12 +35,12 @@ implements IGravity
 	}
 
 	@Override
-	public void gravityPull(ArrayList<WorldObject> data) {
+	public void gravityPull(ArrayList<WorldObject> data, double dT) {
 		for(WorldObject obj : data){
 			if(obj instanceof Moveable)
 			{
 				Vector2D distance = position.sub(obj.getPosition());
-				((Moveable)obj).accelerate(distance.normalize().scale(gravity_constant*mass*obj.getMass()/distance.lengthsquared()));
+				((Moveable)obj).accelerate(distance.normalize().scale(gravity_constant*mass*obj.getMass()/distance.lengthsquared()), dT);
 			}
 		}
 	}
