@@ -193,21 +193,18 @@ public class GameController implements ActionListener {
 			
 			while (last.getTail() != null)
 			{
-				//System.out.println(last.getTail());
 				second_last = last;
 				last = last.getTail();
 			}
 			SnakeTail tail;
 			if (last.equals(head))
 			{
-				System.out.println("A");
 				tail = new SnakeTail(head.getVelocity(), 
 						head.getPosition().sub(head.getVelocity().normalize().scale(head.getRadius()+new_Tail_radius)),
 						new_Tail_radius,new_Tail_mass);
 			}
 			else
 			{
-				System.out.println("B");
 				tail = new SnakeTail(
 						last.getVelocity(), 
 						last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
@@ -217,7 +214,7 @@ public class GameController implements ActionListener {
 			last.addTail(tail);
 			worldCollection.add(tail);
 			
-			System.out.println("Hit an edible!");
+			//System.out.println("Hit an edible!");
 			
 			//Add extra tail and kill the edible object
 			//Get points
