@@ -26,9 +26,6 @@ import util.Vector2D;
  */
 public class GameController implements ActionListener {
 	private WorldCollection worldCollection;
-	private WorldObject worldObject;
-	//private WorldObject worldObject2;
-	//private WorldObject worldObject3;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
 	private MapView mapView;
@@ -102,7 +99,7 @@ public class GameController implements ActionListener {
 		gameObserver.addWorld(worldCollection);
 	}
 	
-	//TODO: Create snake, create randomized object
+	//TODO: Create randomized object
 	//		fill world with objects
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
@@ -119,9 +116,6 @@ public class GameController implements ActionListener {
 		gameObjects.add(tail2);
 		
 		addToWorld(gameObjects, randomSpawns());
-		
-		//Edible edible = new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10);
-		//gameObjects.add(edible);
 		
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
