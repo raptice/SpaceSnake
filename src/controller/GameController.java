@@ -107,38 +107,22 @@ public class GameController implements ActionListener {
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
-		//skapa en orm
-		
-		//randomSpawns();
-		/*worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
-		gameObjects.add(worldObject);
-
-		gameObjects.add(worldObject2);
-		SnakeHead head = new SnakeHead(0,0,20,100,100,100);
-		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);*/
-
-		worldObject = new Floater(0, -0.5, -100, 0, 300, 50);
-		//worldObject2 = new Floater(0, 1.5, +100, 0, 100, 30);
-		gameObjects.add(worldObject);
-		//gameObjects.add(worldObject2);
 		head = new SnakeHead(1,-7,20,100,10,20, this);
 		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
-
-		head.addTail(tail);
 		SnakeTail tail2 = new SnakeTail(0,2,-70,100,5,15);
+		
+		head.addTail(tail);
 		tail.addTail(tail2);
+		
 		gameObjects.add(head);
 		gameObjects.add(tail);
 		gameObjects.add(tail2);
 		
-		Map<String,Integer> spawn = randomSpawns();
+		addToWorld(gameObjects, randomSpawns());
 		
-		//add spawns in gameObjectslist  NYTT
-		//addToWorld(gameObjects, randomSpawns());
-		addToWorld(gameObjects, spawn );
+		//Edible edible = new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10);
+		//gameObjects.add(edible);
 		
-		Edible eatme = new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10);
-		gameObjects.add(eatme);
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
 		}
@@ -146,23 +130,21 @@ public class GameController implements ActionListener {
 	
 	public Map<String,Integer> randomSpawns() {		
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
-		//ArrayList<Integer> spawns = new ArrayList<Integer>(); GAMMALT
 		Random random = new Random();
 		
-		int totalObjects = random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;
+		int totalObjects = 0; /*random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;*/
 		//loop logic here, this is for test purposes only
-			int edible = 6;
-			int blackHole = 1;
+			int floater = 1;
+			int edible = 1;
+			int blackHole = 0;
 			int mobs = totalObjects - edible + blackHole;
 			
+			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
 			spawns.put("Mobs",mobs);
-			System.out.println("total objects is: " +totalObjects);
+			//System.out.println("total objects is: " +totalObjects);
 			System.out.println(spawns);
-			
-		/*//antal objekt : fasta, rörliga, (ätbara) GAMMALT
-		int totalObjects = random.nextInt(10) + 3;*/
 		
 		return spawns;
 	}
@@ -171,38 +153,33 @@ public class GameController implements ActionListener {
 		double more = 1; 
 		double x = 0;
 		double y = 0;
-		if( spawn.containsKey("Edible") ){
-			for(int i =0; i< spawn.get("Edible"); i++){
+		if( spawn.containsKey("Floater") ){
+			for(int i=0; i< spawn.get("Floater"); i++){
 				more = more + i; 
-				x = more++ ;
-				y = more++;
+				//x = more++ ;
+				//y = more++;
 				double z = testValue-100+more++;
 				double u = testValue;
 				double v = 100- more++;
 				double o = 50-more++;
 					
 				gameObjects.add( new Floater(x,y,z,u,v,o) );
-				//gameObjects.add( new BlackHole(x,y,z,u) );
-				//System.out.println("made an object");
-				//System.out.println(spawn.get("Edible"));
-				//System.out.println(gameObjects);
 			}
 		}
-		else if( spawn.containsKey("BlackHole") ){
-			for(int i =0; i< spawn.get("BlackHole"); i++){
+		if( spawn.containsKey("BlackHole") ){
+			for(int i=0; i< spawn.get("BlackHole"); i++){
 				more = more + i; 
-				x = more++ ;
-				y = more++;
+				//x = more++ ;
+				//y = more++;
 				double z = testValue-100+more++;
 				double u = testValue;
-				//double v = 100- more++;
-				//double o = 50-more++;
 					
-				//gameObjects.add( new Floater(x,y,z,u,v,o) );
 				gameObjects.add( new BlackHole(x,y,z,u) );
-				//System.out.println("made an object");
-				//System.out.println(spawn.get("BlackHole"));
-				//System.out.println(gameObjects);
+			}
+		}
+		if( spawn.containsKey("Edible") ){
+			for(int i=0; i< spawn.get("Edible"); i++){
+				gameObjects.add( new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10) );
 			}
 		}
 	}
