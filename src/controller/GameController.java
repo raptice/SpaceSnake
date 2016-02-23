@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +26,9 @@ import util.Vector2D;
 /**
  * Handles events from the GameView
  */
-public class GameController implements ActionListener {
+public class GameController 
+implements ActionListener, Observer 
+{
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
@@ -51,6 +55,7 @@ public class GameController implements ActionListener {
 	 */
 	public void newGame () {
 		worldCollection = new WorldCollection();
+		worldCollection.addObserver(this);
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldCollection.setWorldSize(randomWorldSize());
 		
@@ -128,7 +133,7 @@ public class GameController implements ActionListener {
 		//loop logic here, this is for test purposes only
 			int floater = 1;
 			int edible = 1;
-			int blackHole = 0;
+			int blackHole = 1;
 			int mobs = totalObjects - edible + blackHole;
 			
 			spawns.put("Floater",floater);
@@ -161,12 +166,12 @@ public class GameController implements ActionListener {
 		if( spawn.containsKey("BlackHole") ){
 			for(int i=0; i< spawn.get("BlackHole"); i++){
 				more = more + i; 
-				//x = more++ ;
-				//y = more++;
+				x = more++ ;
+				y = more++;
 				double z = testValue-100+more++;
 				double u = testValue;
 					
-				gameObjects.add( new BlackHole(x,y,z,u) );
+				gameObjects.add( new BlackHole(100,0,100,50) );
 			}
 		}
 		if( spawn.containsKey("Edible") ){
@@ -215,6 +220,18 @@ public class GameController implements ActionListener {
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(arg1 instanceof String)
+		{	
+			if (((String)arg1).equals("GAMEOVER"))
+			{
+				System.out.println("GAME OVER");
+				pausePhysics(); //Bad!
+			}
 		}
 	}
 	
