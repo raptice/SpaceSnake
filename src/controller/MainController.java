@@ -137,7 +137,9 @@ public class MainController implements ActionListener {
 		view.showStartupMenu(startupMenuController);
 		state = STARTUP_MENU;
 	}
-	
+	/**
+	 * Puases, and exits, a running game and shows the in game menu
+	 */
 	public void exitGame() {
 		gameController.pausePhysics();
 		view.hideGame();
