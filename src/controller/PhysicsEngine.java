@@ -6,7 +6,9 @@ import model.IGravity;
 import model.Moveable;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.SnakeHead;
 import model.objects.SnakePart;
+import util.Vector2D;
 
 /**
  * Write a description of class GameThread here.
@@ -20,12 +22,25 @@ public class PhysicsEngine extends Thread
     private WorldCollection data;
     private boolean setPaused;
     private double gameSpeed;
+    private Vector2D MouseDir = new Vector2D (0,0);
+    private double MouseAccPower = 1;
     
 
     public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
     	this.gameSpeed = gameSpeed;
     	this.data = data;
         this.dT = dT;
+    }
+    public void SnakePull(Vector2D acc){
+    	if(acc==null)
+    	{
+    		MouseDir = new Vector2D (0,0);
+    	}
+    	else
+    	{
+    		MouseDir = acc.scale(MouseAccPower);
+    	}
+    	
     }
     public void collisionResolve(){
     	
@@ -67,6 +82,11 @@ public class PhysicsEngine extends Thread
             	if(obj instanceof SnakePart ){
             		((SnakePart)obj).pullAtNext(dT);
             	}
+            }
+            for(WorldObject obj : collection){
+            	if(obj instanceof SnakeHead){
+            		((SnakeHead)obj).accelerate(MouseDir,dT);
+            	}	
             }
             
             
