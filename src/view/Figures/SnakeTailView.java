@@ -10,11 +10,13 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 
+import view.GameView;
+
 @SuppressWarnings("serial")
 public class SnakeTailView 
 extends GameFigure {
 
-	public SnakeTailView(double x, double y, double size, JComponent parent){
+	public SnakeTailView(double x, double y, double size, GameView parent){
 		super(x, y, size, parent);
 	}
 
