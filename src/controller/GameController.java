@@ -2,13 +2,16 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 import model.*;
+import model.objects.BlackHole;
 import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakePart;
@@ -24,14 +27,16 @@ import util.Vector2D;
 public class GameController implements ActionListener {
 	private WorldCollection worldCollection;
 	private WorldObject worldObject;
-	private WorldObject worldObject2;
-	private WorldObject worldObject3;
+	//private WorldObject worldObject2;
+	//private WorldObject worldObject3;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
 	private MapView mapView;
 	
 	SnakeHead head;
 	
+	private static final int MAX_SPAWN = 10;
+	private static final int MIN_SPAWN = 3;
 	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
@@ -109,9 +114,9 @@ public class GameController implements ActionListener {
 		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);*/
 
 		worldObject = new Floater(0, -0.5, -100, 0, 300, 50);
-		worldObject2 = new Floater(0, 1.5, +100, 0, 100, 30);
+		//worldObject2 = new Floater(0, 1.5, +100, 0, 100, 30);
 		gameObjects.add(worldObject);
-		gameObjects.add(worldObject2);
+		//gameObjects.add(worldObject2);
 		head = new SnakeHead(1,-7,20,100,10,20, this);
 		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
 
@@ -122,6 +127,12 @@ public class GameController implements ActionListener {
 		gameObjects.add(tail);
 		gameObjects.add(tail2);
 		
+		Map<String,Integer> spawn = randomSpawns();
+		
+		//add spawns in gameObjectslist  NYTT
+		//addToWorld(gameObjects, randomSpawns());
+		addToWorld(gameObjects, spawn );
+		
 		Edible eatme = new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10);
 		gameObjects.add(eatme);
 		for (WorldObject worldObject: gameObjects) {
@@ -129,14 +140,67 @@ public class GameController implements ActionListener {
 		}
 	}
 	
-	public ArrayList<Integer> randomSpawns() {		
-		ArrayList<Integer> spawns = new ArrayList<Integer>();
+	public Map<String,Integer> randomSpawns() {		
+		Map<String,Integer> spawns = new HashMap<String,Integer>();
+		//ArrayList<Integer> spawns = new ArrayList<Integer>(); GAMMALT
 		Random random = new Random();
 		
-		//antal objekt : fasta, rörliga, (ätbara)
-		int totalObjects = random.nextInt(10) + 3;
+		int totalObjects = random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;
+		//loop logic here, this is for test purposes only
+			int edible = 6;
+			int blackHole = 1;
+			int mobs = totalObjects - edible + blackHole;
+			
+			spawns.put("Edible",edible);
+			spawns.put("BlackHole",blackHole);
+			spawns.put("Mobs",mobs);
+			System.out.println("total objects is: " +totalObjects);
+			System.out.println(spawns);
+			
+		/*//antal objekt : fasta, rörliga, (ätbara) GAMMALT
+		int totalObjects = random.nextInt(10) + 3;*/
 		
 		return spawns;
+	}
+	
+	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
+		double more = 1; 
+		double x = 0;
+		double y = 0;
+		if( spawn.containsKey("Edible") ){
+			for(int i =0; i< spawn.get("Edible"); i++){
+				more = more + i; 
+				x = more++ ;
+				y = more++;
+				double z = testValue-100+more++;
+				double u = testValue;
+				double v = 100- more++;
+				double o = 50-more++;
+					
+				gameObjects.add( new Floater(x,y,z,u,v,o) );
+				//gameObjects.add( new BlackHole(x,y,z,u) );
+				//System.out.println("made an object");
+				//System.out.println(spawn.get("Edible"));
+				//System.out.println(gameObjects);
+			}
+		}
+		else if( spawn.containsKey("BlackHole") ){
+			for(int i =0; i< spawn.get("BlackHole"); i++){
+				more = more + i; 
+				x = more++ ;
+				y = more++;
+				double z = testValue-100+more++;
+				double u = testValue;
+				//double v = 100- more++;
+				//double o = 50-more++;
+					
+				//gameObjects.add( new Floater(x,y,z,u,v,o) );
+				gameObjects.add( new BlackHole(x,y,z,u) );
+				//System.out.println("made an object");
+				//System.out.println(spawn.get("BlackHole"));
+				//System.out.println(gameObjects);
+			}
+		}
 	}
 	
 	public int randomWorldSize() {
