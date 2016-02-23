@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import util.Vector2D;
+import view.MapView;
 
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
@@ -34,7 +35,7 @@ implements Observer
 	int extra=1;
 	
 	//Needed to repaint the containing panel and to delete itself
-	JComponent parent;
+	MapView parent;
 	
 	
 	/**
@@ -45,8 +46,9 @@ implements Observer
 	 * @param size	The size of the GameFigure
 	 * @param parent	The containing GameView
 	 */
-    public MapFigure(Vector2D position, double size, Color color)
+    public MapFigure(MapView parent, Vector2D position, double size, Color color)
     {
+    	this.parent = parent;
         this.position = position;
         this.size=size;
         this.color = color;
@@ -93,6 +95,12 @@ implements Observer
 		}
 		
 		// if (died) parent.removeItem(this);
+		if (what instanceof String) {
+			if (((String)what).equals("Died"))
+				//Die!
+				parent.removeMe(this);
+		}
+		
 		// if (resized) resize(new_size);
 	}
 	

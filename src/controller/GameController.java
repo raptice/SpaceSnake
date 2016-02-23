@@ -2,13 +2,16 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 import model.*;
+import model.objects.BlackHole;
 import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakePart;
@@ -23,15 +26,18 @@ import util.Vector2D;
  */
 public class GameController implements ActionListener {
 	private WorldCollection worldCollection;
-	private WorldObject worldObject;
-	private WorldObject worldObject2;
-	private WorldObject worldObject3;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
 	private MapView mapView;
 	
 	SnakeHead head;
-	
+
+	private static final int MAX_SPAWN = 10;
+	private static final int MIN_SPAWN = 3;
+
+	private double new_Tail_radius = 10;
+	private double new_Tail_mass = 10;
+
 	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
@@ -49,6 +55,7 @@ public class GameController implements ActionListener {
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+		worldCollection.setWorldSize(randomWorldSize());
 		
 		head = null;
 		createObjects();
@@ -93,50 +100,83 @@ public class GameController implements ActionListener {
 		gameObserver.addWorld(worldCollection);
 	}
 	
-	//TODO: Create snake, create randomized object
+	//TODO: Create randomized object
 	//		fill world with objects
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
-		//skapa en orm
-		
-		//randomSpawns();
-		/*worldObject = new Floater(0, 0, testValue-100, testValue, testValue+100, testValue);
-		gameObjects.add(worldObject);
-
-		gameObjects.add(worldObject2);
-		SnakeHead head = new SnakeHead(0,0,20,100,100,100);
-		SnakeTail tail = new SnakeTail(0,0,-20,100,100,100);*/
-
-		worldObject = new Floater(0, -0.5, -100, 0, 300, 50);
-		worldObject2 = new Floater(0, 1.5, +100, 0, 100, 30);
-		gameObjects.add(worldObject);
-		gameObjects.add(worldObject2);
 		head = new SnakeHead(1,-7,20,100,10,20, this);
 		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
-
-		head.addTail(tail);
 		SnakeTail tail2 = new SnakeTail(0,2,-70,100,5,15);
+		
+		head.addTail(tail);
 		tail.addTail(tail2);
+		
 		gameObjects.add(head);
 		gameObjects.add(tail);
 		gameObjects.add(tail2);
 		
-		Edible eatme = new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10);
-		gameObjects.add(eatme);
+		addToWorld(gameObjects, randomSpawns());
+		
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
 		}
 	}
 	
-	public ArrayList<Integer> randomSpawns() {		
-		ArrayList<Integer> spawns = new ArrayList<Integer>();
+	public Map<String,Integer> randomSpawns() {		
+		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
 		
-		//antal objekt : fasta, rörliga, (ätbara)
-		int totalObjects = random.nextInt(10) + 3;
+		int totalObjects = 0; /*random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;*/
+		//loop logic here, this is for test purposes only
+			int floater = 1;
+			int edible = 1;
+			int blackHole = 0;
+			int mobs = totalObjects - edible + blackHole;
+			
+			spawns.put("Floater",floater);
+			spawns.put("Edible",edible);
+			spawns.put("BlackHole",blackHole);
+			spawns.put("Mobs",mobs);
+			//System.out.println("total objects is: " +totalObjects);
+			System.out.println(spawns);
 		
 		return spawns;
+	}
+	
+	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
+		double more = 1; 
+		double x = 0;
+		double y = 0;
+		if( spawn.containsKey("Floater") ){
+			for(int i=0; i< spawn.get("Floater"); i++){
+				more = more + i; 
+				//x = more++ ;
+				//y = more++;
+				double z = testValue-100+more++;
+				double u = testValue;
+				double v = 100- more++;
+				double o = 50-more++;
+					
+				gameObjects.add( new Floater(x,y,z,u,v,o) );
+			}
+		}
+		if( spawn.containsKey("BlackHole") ){
+			for(int i=0; i< spawn.get("BlackHole"); i++){
+				more = more + i; 
+				//x = more++ ;
+				//y = more++;
+				double z = testValue-100+more++;
+				double u = testValue;
+					
+				gameObjects.add( new BlackHole(x,y,z,u) );
+			}
+		}
+		if( spawn.containsKey("Edible") ){
+			for(int i=0; i< spawn.get("Edible"); i++){
+				gameObjects.add( new Edible(new Vector2D(0,0), new Vector2D(0,0),10,10) );
+			}
+		}
 	}
 	
 	public int randomWorldSize() {
@@ -185,18 +225,38 @@ public class GameController implements ActionListener {
 		{
 			
 			//Do stuff here:
+			
+			//Find the last and second last part of the snake
 			SnakePart last = head;
+			SnakePart second_last = head;
 			while (last.getTail() != null)
+			{
+				second_last = last;
 				last = last.getTail();
-			SnakeTail tail = new SnakeTail(new Vector2D(0,0),new Vector2D(0,0),10,10);
+			}
+			
+			//Build a tailpart
+			SnakeTail tail;
+			if (last.equals(head))
+				tail = new SnakeTail(head.getVelocity(), 
+						head.getPosition().sub(head.getVelocity().normalize().scale(head.getRadius()+new_Tail_radius)),
+						new_Tail_radius,new_Tail_mass);
+			else
+				tail = new SnakeTail(
+						last.getVelocity(), 
+						last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
+						new_Tail_radius,new_Tail_mass);
+			
+			// Add the tailpart
 			last.addTail(tail);
 			worldCollection.add(tail);
 			
-			System.out.println("Hit an edible!");
+			//kill the edible object
+			what.kill();
+			worldCollection.remove(what);
 			
-			//Add extra tail and kill the edible object
-			//Get points
-			//other actions
+			//Get points?
+			//other actions?
 			
 			return false;
 		}
