@@ -200,7 +200,7 @@ public class GameController implements ActionListener {
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
 			//System.out.println("GameController: Mouse pressed: "+e.getVector());
-			head.accelerate(e.getVector().div(100));
+			head.accelerate(e.getVector().div(100), 1);
 			//Maybe should set something in the physicsengine that released unsets?
 			//head.startAccelerating();
 		}
@@ -210,7 +210,7 @@ public class GameController implements ActionListener {
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());
-			head.accelerate(e.getVector().div(100));
+			head.accelerate(e.getVector().div(100), 1);
 			//head.changeAccelerationDirection();
 		}
 		else {

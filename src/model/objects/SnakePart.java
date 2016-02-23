@@ -43,19 +43,19 @@ extends Moveable
 	/**
 	 * Calculates an accelerates this and the next part depending on a spring constant
 	 */
-	public void pullAtNext () {
+	public void pullAtNext (double dT) {
 		if (nextPart != null) {
 			
 			//Elastic pull/push
 			Vector2D distance = this.position.sub( nextPart.getPosition() );
 			double x = distance.length() - linkLength;
-			this.accelerate( distance.normalize().scale(-x*stiffness) );
-			nextPart.accelerate( distance.normalize().scale(x*stiffness) );
+			this.accelerate( distance.normalize().scale(-x*stiffness), dT );
+			nextPart.accelerate( distance.normalize().scale(x*stiffness), dT );
 			
 			//Damping
 			Vector2D v = this.velocity.sub(nextPart.getVelocity());
-			this.accelerate(v.scale(-damping));
-			nextPart.accelerate(v.scale(damping));
+			this.accelerate(v.scale(-damping), dT);
+			nextPart.accelerate(v.scale(damping), dT);
 			
 		}
 	}

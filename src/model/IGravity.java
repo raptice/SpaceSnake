@@ -22,5 +22,5 @@ public interface IGravity {
 	 * @param Affecting WorldObject
 	 * @return	void
 	 */
-	public void gravityPull(ArrayList<WorldObject> data);
+	public void gravityPull(ArrayList<WorldObject> data, double dT);
 }
