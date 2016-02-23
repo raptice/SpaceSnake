@@ -17,7 +17,6 @@ extends WorldObject
 	protected Vector2D velocity;
 	protected Vector2D velocity_diff = new Vector2D(0,0);
 	private double collision_damping = 0.99;
-	
 
 	/**
 	 * Constructor
@@ -43,10 +42,10 @@ extends WorldObject
 	 * @param dt - delta time
 	 * @return void
 	 */
-	public void move(){
-		velocity = velocity.add(velocity_diff);
+	public void move(double dT){
+		velocity = velocity.add(velocity_diff);	// V1 = V1 + A*dT
 		velocity_diff = new Vector2D(0,0);
-		position = position.add(velocity);
+		position = position.add(velocity.scale(dT));		//P1=P1 + V * dT
 		update();
 	}
 	
@@ -55,8 +54,8 @@ extends WorldObject
 	 * Accelerates this using some force.
 	 * @param force
 	 */
-	public void accelerate(Vector2D force) {
-		velocity_diff = velocity_diff.add(force.div(mass));
+	public void accelerate(Vector2D force, double dT) {
+		velocity_diff = velocity_diff.add(force.div(mass).scale(dT));
 	}
 	
 	
