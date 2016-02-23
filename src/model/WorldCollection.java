@@ -15,6 +15,16 @@ public class WorldCollection extends Observable{
 			update(obj);
 		}
 	}
+	
+	/**
+	 * Removes an object from the world
+	 * @param obj the object that gets removed
+	 */
+	public void remove(WorldObject obj) {
+		data.remove(obj);
+	}
+	
+	
 	public boolean addcheck(WorldObject obj){/* Check if position is free for requested object*/ return true;}
 	public void delete(WorldObject obj){ 
 		
