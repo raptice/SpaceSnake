@@ -48,7 +48,7 @@ public class GameController implements ActionListener {
 	 */
 	public void newGame () {
 		worldCollection = new WorldCollection();
-		physicsEngine = new PhysicsEngine(worldCollection, longValue);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		
 		head = null;
 		createObjects();
