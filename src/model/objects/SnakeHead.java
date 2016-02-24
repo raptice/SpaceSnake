@@ -3,6 +3,7 @@ package model.objects;
 import controller.GameController;
 import model.WorldCollection;
 import model.WorldObject;
+import util.Config;
 import util.Vector2D;
 
 /**
@@ -23,17 +24,19 @@ extends SnakePart
 	
 	public SnakeHead(double xSpeed, double ySpeed, double xPos, double yPos,
 			double mass, double radius, WorldCollection world) {
-		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-		this.theWorld = world;
+		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius, world);
 	}
 	
-	public SnakeHead(Vector2D velocity, Vector2D position, double mass, double radius) {
+	public SnakeHead(Vector2D velocity, Vector2D position, double mass, double radius, WorldCollection world) {
 		super(velocity, position, mass, radius);
+		this.theWorld = world;
+		new_Tail_radius = Double.parseDouble(Config.get("new_Tail_radius"));
+		new_Tail_mass = Double.parseDouble(Config.get("new_Tail_mass"));
 	}
 	
 	
 	/**
-	 * Overrides function in SnakePart to only make collisions happen if the controller lets it
+	 * Overrides function in SnakePart to make fun stuff happen
 	 */
 	@Override
 	public void collision (WorldObject obj) {
