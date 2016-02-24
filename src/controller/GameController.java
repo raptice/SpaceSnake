@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +26,9 @@ import util.Vector2D;
 /**
  * Handles events from the GameView
  */
-public class GameController implements ActionListener {
+public class GameController 
+implements ActionListener, Observer 
+{
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
 	private GameView gameView;
@@ -35,7 +39,6 @@ public class GameController implements ActionListener {
 	private static final int MAX_SPAWN = 10;
 	private static final int MIN_SPAWN = 3;
 
-	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
 	/**
@@ -51,7 +54,8 @@ public class GameController implements ActionListener {
 	 */
 	public void newGame () {
 		worldCollection = new WorldCollection();
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue,3);
+		worldCollection.addObserver(this);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldCollection.setWorldSize(randomWorldSize());
 		
 		head = null;
@@ -128,7 +132,7 @@ public class GameController implements ActionListener {
 		//loop logic here, this is for test purposes only
 			int floater = 1;
 			int edible = 1;
-			int blackHole = 0;
+			int blackHole = 1;
 			int mobs = totalObjects - edible + blackHole;
 			
 			spawns.put("Floater",floater);
@@ -142,8 +146,7 @@ public class GameController implements ActionListener {
 	}
 	
 	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
-		Random random = new Random();
-		double more = 1; 
+		Random randomPos = new Random();
 		Vector2D speed;
 		Vector2D pos;
 		double mass;
@@ -151,10 +154,8 @@ public class GameController implements ActionListener {
 		
 		if( spawn.containsKey("Floater") ){
 			for(int i=0; i< spawn.get("Floater"); i++){
-				more = more + i; 
 				speed = new Vector2D(0,0);
-				pos = new Vector2D(20*i+100,20*i+100);
-				radius = 50;
+				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
 					
@@ -163,8 +164,7 @@ public class GameController implements ActionListener {
 		}
 		if( spawn.containsKey("BlackHole") ){
 			for(int i=0; i< spawn.get("BlackHole"); i++){
-				more = more + i; 
-				pos = new Vector2D(80*i,50*i);
+				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
 					
@@ -174,7 +174,7 @@ public class GameController implements ActionListener {
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
 				speed = new Vector2D(0,0);
-				pos = new Vector2D(50*i,50*i);
+				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 10;
 				radius = 10;
 				
@@ -216,6 +216,18 @@ public class GameController implements ActionListener {
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(arg1 instanceof String)
+		{	
+			if (((String)arg1).equals("GAMEOVER"))
+			{
+				System.out.println("GAME OVER");
+				pausePhysics(); //Bad!
+			}
 		}
 	}
 	
