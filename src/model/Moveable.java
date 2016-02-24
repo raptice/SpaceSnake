@@ -1,4 +1,6 @@
 package model;
+import java.util.ArrayList;
+
 import util.*;
 
 /**
@@ -15,7 +17,6 @@ extends WorldObject
 	protected Vector2D velocity;
 	protected Vector2D velocity_diff = new Vector2D(0,0);
 	private double collision_damping = 0.99;
-	
 
 	/**
 	 * Constructor
@@ -41,10 +42,10 @@ extends WorldObject
 	 * @param dt - delta time
 	 * @return void
 	 */
-	public void move(){
-		velocity = velocity.add(velocity_diff);
+	public void move(double dT){
+		velocity = velocity.add(velocity_diff);	// V1 = V1 + A*dT
 		velocity_diff = new Vector2D(0,0);
-		position = position.add(velocity);
+		position = position.add(velocity.scale(dT));		//P1=P1 + V * dT
 		update();
 	}
 	
@@ -53,8 +54,8 @@ extends WorldObject
 	 * Accelerates this using some force.
 	 * @param force
 	 */
-	public void accelerate(Vector2D force) {
-		velocity_diff = velocity_diff.add(force.div(mass));
+	public void accelerate(Vector2D force, double dT) {
+		velocity_diff = velocity_diff.add(force.div(mass).scale(dT));
 	}
 	
 	
@@ -73,10 +74,10 @@ extends WorldObject
 	 * @param WorldCollection the rest of the world
 	 * @return void f
 	 */
-	public void collision(WorldCollection data){
-		for(WorldObject obj : data.getCollection()){
+	public void collisions(ArrayList<WorldObject> data){
+		for(WorldObject obj : data){
 			if(!this.equals(obj) && collides(obj)){
-					velocity_diff = velocity_diff.sub(CollisionResponse(obj));
+				collision(obj);
 			}
 		}
 	}
@@ -95,7 +96,7 @@ extends WorldObject
 	 * @param WorldObject the object this Moveable collides with
 	 * @return Vector2D the collisionvector
 	 */
-	protected Vector2D CollisionResponse(WorldObject obj){
+	protected void collision(WorldObject obj){
 		if (obj instanceof Moveable) 
 		{	
 			Vector2D v1 = this.getVelocity();
@@ -111,7 +112,7 @@ extends WorldObject
 			double dot = Vector2D.dot(v1minusv2, p1minusp2);
 			double constant = (massScalar * dot)/dstsqr;
 			Vector2D newV1 = p1minusp2.scale(constant*collision_damping);
-			return newV1; //the collision response: velocity_diff 
+			velocity_diff = velocity_diff.sub( newV1 );
 			
 			/*
 			Moveable moveable = (Moveable) obj;
@@ -126,7 +127,7 @@ extends WorldObject
 			double dot = velocity.dot(position.sub(obj.getPosition()));
 			Vector2D dv = position.sub(obj.getPosition());
 			dv = dv.scale(  dot/position.sub(obj.getPosition()).lengthsquared());
-			return dv.scale(collision_damping*2);
+			velocity_diff = velocity_diff.sub( dv.scale(collision_damping*2) );
 		}	
 	}
 	

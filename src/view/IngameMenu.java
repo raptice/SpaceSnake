@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
-import util.Command;
+import util.GameEvent;
 import util.Config;
 import util.Parser;
 
@@ -52,9 +52,9 @@ extends GameComponent{
 		Color bg_color = Parser.ColorFromString(Config.get("Ingame_button_bg_color"));
 		Color border_color = Parser.ColorFromString(Config.get("Ingame_button_border_color"));
 		Color highlight_color = Parser.ColorFromString(Config.get("Ingame_button_highlight"));
-		menuPanel.addButton(Config.get("Ingame_menu_resume"), Command.RETURN_TO_GAME, bg_color, border_color, highlight_color);
-		menuPanel.addButton(Config.get("Ingame_menu_save"), Command.SAVE_GAME, bg_color, border_color, highlight_color);
-		menuPanel.addButton(Config.get("Ingame_menu_exitgame"), Command.EXIT_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Ingame_menu_resume"), GameEvent.RETURN_TO_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Ingame_menu_save"), GameEvent.SAVE_GAME, bg_color, border_color, highlight_color);
+		menuPanel.addButton(Config.get("Ingame_menu_exitgame"), GameEvent.EXIT_GAME, bg_color, border_color, highlight_color);
 
 		this.add(menuPanel);
 		this.setOpaque(false);

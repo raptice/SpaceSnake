@@ -15,7 +15,7 @@ import model.WorldObject;
 public class SnakePart
 extends Moveable 
 {
-	private SnakePart nextPart;
+	protected SnakePart nextPart;
 	private double stiffness = 10;
 	private double linkLength = 40;
 	private double damping = 0.9;
@@ -43,19 +43,19 @@ extends Moveable
 	/**
 	 * Calculates an accelerates this and the next part depending on a spring constant
 	 */
-	public void pullAtNext () {
+	public void pullAtNext (double dT) {
 		if (nextPart != null) {
 			
 			//Elastic pull/push
 			Vector2D distance = this.position.sub( nextPart.getPosition() );
 			double x = distance.length() - linkLength;
-			this.accelerate( distance.normalize().scale(-x*stiffness) );
-			nextPart.accelerate( distance.normalize().scale(x*stiffness) );
+			this.accelerate( distance.normalize().scale(-x*stiffness), dT );
+			nextPart.accelerate( distance.normalize().scale(x*stiffness), dT );
 			
 			//Damping
 			Vector2D v = this.velocity.sub(nextPart.getVelocity());
-			this.accelerate(v.scale(-damping));
-			nextPart.accelerate(v.scale(damping));
+			this.accelerate(v.scale(-damping), dT);
+			nextPart.accelerate(v.scale(damping), dT);
 			
 		}
 	}
@@ -75,42 +75,37 @@ extends Moveable
 	
 	
 	/**
-	 * Checks if this part has a tail.
-	 * @return true if it has a tail, false otherwise
+	 * Returns the tail
+	 * @return the tail
 	 */
-	public boolean checkTail () {
-		if (nextPart == null) return false;
-		return true;
+	public SnakePart getTail () {
+		return nextPart;
 	}
 
+
+	/**
+	 * Overrides function in Moveable to only make collisions happen if it is not the next neighbor.
+	 */
 	@Override
-	/*public void collision (WorldCollection data) {
-		for(WorldObject obj : data.getCollection()){
-			if(!obj.equals(this) && collides(obj))
-			{
-				if (obj instanceof SnakePart)
-				{
-					SnakePart other = (SnakePart)obj;
-					if (!other.equals(nextPart) && !this.equals(other.nextPart))
-							collide(obj);
-				}
-				else collide(obj);
-			}
-		}
-	}*/
+	public void collision (WorldObject obj) {
+		if (!isNeighbor(obj)) 
+			super.collision(obj);
+	}
 	
-	public void collision(WorldCollection data){
-		for(WorldObject obj : data.getCollection()){
-			if(!this.equals(obj) && collides(obj))
-			{
-				if (obj instanceof SnakePart)
-				{
-					if (!obj.equals(nextPart) && !((SnakePart)obj).nextPart.equals(this))
-						velocity_diff = velocity_diff.sub(CollisionResponse(obj));
-				}
-				else
-					velocity_diff = velocity_diff.sub(CollisionResponse(obj));
-			}
+	
+	/**
+	 * Checks if a obj is the neighbor of this one.
+	 * @param obj
+	 * @return
+	 */
+	protected boolean isNeighbor (WorldObject obj) {
+		if (obj instanceof SnakePart)
+		{
+			if (((SnakePart) obj).nextPart != null && ((SnakePart) obj).nextPart.equals(this))
+				return true;
+			if (nextPart !=null && obj.equals(nextPart))
+				return true;
 		}
+		return false;
 	}
 }

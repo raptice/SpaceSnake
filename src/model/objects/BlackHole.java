@@ -1,5 +1,7 @@
 package model.objects;
 
+import java.util.ArrayList;
+
 import model.IGravity;
 import model.Moveable;
 import model.WorldCollection;
@@ -33,12 +35,12 @@ implements IGravity
 	}
 
 	@Override
-	public void gravityPull(WorldCollection data) {
-		for(WorldObject obj : data.getCollection()){
+	public void gravityPull(ArrayList<WorldObject> data, double dT) {
+		for(WorldObject obj : data){
 			if(obj instanceof Moveable)
 			{
 				Vector2D distance = position.sub(obj.getPosition());
-				((Moveable)obj).accelerate(distance.normalize().scale(gravity_constant*mass*obj.getMass()/distance.lengthsquared()));
+				((Moveable)obj).accelerate(distance.normalize().scale(gravity_constant*mass*obj.getMass()/distance.lengthsquared()), dT);
 			}
 		}
 	}

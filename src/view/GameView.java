@@ -2,6 +2,7 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +23,7 @@ import model.WorldObject;
 import model.objects.SnakeHead;
 import model.objects.SnakeTail;
 
-import util.Command;
+import util.GameEvent;
 import util.Vector2D;
 import view.Figures.*;
 
@@ -157,22 +158,28 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	@Override //Start accelerating
 	public void mousePressed(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_PRESSED, System.currentTimeMillis(), 0));
+		fireEvent(new GameEvent(this, GameEvent.MOUSE_PRESSED, relativePosition(arg0.getPoint())));
 	}
 	
 	@Override //Stop accelerating
 	public void mouseReleased(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_RELEASED, System.currentTimeMillis(), 0));
+		fireEvent(new GameEvent(this, GameEvent.MOUSE_RELEASED, relativePosition(arg0.getPoint())));
 	}
 	
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
-		fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, Command.MOUSE_DRAGGED, System.currentTimeMillis(), 0));
+		fireEvent(new GameEvent(this, GameEvent.MOUSE_DRAGGED, relativePosition(arg0.getPoint())));
 	}
 	
 	@Override //Should do nothing
 	public void mouseMoved(MouseEvent arg0) {}
 	
+	/**
+	 * Calculate a relative position on the screen compared to the snake
+	 */
+	private Vector2D relativePosition(Point point) {
+		return (new Vector2D(point)).sub(new Vector2D(this.getWidth()/2,this.getHeight()/2)).div(zoom);
+	}
 	
 	/**
 	 * Adds a new world to the view including all objects and all constants.
@@ -182,7 +189,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 			addItem(thing);
 		}
 		System.out.println("Addworld i GameView");
-		
+		worldSize=world.getWorldSize();
 	}
 	
 	
@@ -251,8 +258,8 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(Command.ZOOM_IN)) zoom(10);
-		else if (e.getActionCommand().equals(Command.ZOOM_OUT)) zoom(-10);
+		if (e.getActionCommand().equals(GameEvent.ZOOM_IN)) zoom(10);
+		else if (e.getActionCommand().equals(GameEvent.ZOOM_OUT)) zoom(-10);
 		
 	}
 }

@@ -1,10 +1,14 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.IGravity;
 import model.Moveable;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.SnakeHead;
 import model.objects.SnakePart;
+import util.Vector2D;
 
 /**
  * Write a description of class GameThread here.
@@ -14,13 +18,29 @@ import model.objects.SnakePart;
  */
 public class PhysicsEngine extends Thread
 {
-    private long interval;
+    private double dT;
     private WorldCollection data;
     private boolean setPaused;
+    private double gameSpeed;
+    private Vector2D MouseDir = new Vector2D (0,0);
+    private double MouseAccPower = 1;
+    
 
-    public PhysicsEngine(WorldCollection data, long interval){
+    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
+    	this.gameSpeed = gameSpeed;
     	this.data = data;
-        this.interval = interval;
+        this.dT = dT;
+    }
+    public void SnakePull(Vector2D acc){
+    	if(acc==null)
+    	{
+    		MouseDir = new Vector2D (0,0);
+    	}
+    	else
+    	{
+    		MouseDir = acc.scale(MouseAccPower);
+    	}
+    	
     }
     public void collisionResolve(){
     	
@@ -29,7 +49,7 @@ public class PhysicsEngine extends Thread
     	Thread thisThread = Thread.currentThread();
         while ( ! isInterrupted() ) {
             try{ 
-                sleep(interval);
+                sleep((long)dT*(long)gameSpeed);
                 synchronized(this) {
                 	while(setPaused) {
                 		thisThread.wait();
@@ -40,24 +60,33 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            for(WorldObject obj : data.getCollection()){
+            //Make a clone so changes (additions and deletions only affect next iteration
+            ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
+    		
+            
+            for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){
-            		((IGravity)obj).gravityPull(data);
+            		((IGravity)obj).gravityPull(collection, dT);
             	}       	
             }
-            for(WorldObject obj : data.getCollection()){
+            for(WorldObject obj : collection){
             	if(obj instanceof Moveable)
-            		((Moveable)obj).collision(data);
+            		((Moveable)obj).collisions(collection);
             }
-            for(WorldObject obj : data.getCollection()){
+            for(WorldObject obj : collection){
             	if(obj instanceof Moveable){
-            		((Moveable)obj).move();
+            		((Moveable)obj).move(dT);
             	}
             }
-            for(WorldObject obj : data.getCollection()){
+            for(WorldObject obj : collection){
             	if(obj instanceof SnakePart ){
-            		((SnakePart)obj).pullAtNext();
+            		((SnakePart)obj).pullAtNext(dT);
             	}
+            }
+            for(WorldObject obj : collection){
+            	if(obj instanceof SnakeHead){
+            		((SnakeHead)obj).accelerate(MouseDir,dT);
+            	}	
             }
             
             
