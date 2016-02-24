@@ -23,14 +23,14 @@ public class PhysicsEngine extends Thread
     private boolean setPaused;
     private double gameSpeed;
     private Vector2D MouseDir = new Vector2D (0,0);
-    private double MouseAccPower;
+    private double MouseAccPower = 1;
+    private double worldsize=0;
     
 
-    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed, double MouseAccPower){
+    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
     	this.gameSpeed = gameSpeed;
     	this.data = data;
         this.dT = dT;
-        this.MouseAccPower = MouseAccPower;
     }
     public void SnakePull(Vector2D acc){
     	if(acc==null)
@@ -63,7 +63,8 @@ public class PhysicsEngine extends Thread
            
             //Make a clone so changes (additions and deletions only affect next iteration
             ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
-    		
+    		worldsize=800;
+    		//worldsize = (double)data.getWorldSize();
             
             for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){
@@ -73,6 +74,10 @@ public class PhysicsEngine extends Thread
             for(WorldObject obj : collection){
             	if(obj instanceof Moveable)
             		((Moveable)obj).collisions(collection);
+            }
+            for(WorldObject obj : collection){
+            	if(obj instanceof Moveable)
+            		((Moveable)obj).wallCollide(worldsize);
             }
             for(WorldObject obj : collection){
             	if(obj instanceof Moveable){
