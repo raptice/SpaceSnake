@@ -55,8 +55,8 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldCollection.setWorldSize(randomWorldSize());
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		
 		head = null;
 		createObjects();
@@ -187,7 +187,7 @@ implements ActionListener, Observer
 		Random random = new Random();
 		
 		//storlek bana -> ett tal som är slumpat mellan olika värden
-		int worldSize = random.nextInt(1000) + 500;
+		int worldSize = random.nextInt(10000) + 5000;
 		
 		return worldSize;
 	}

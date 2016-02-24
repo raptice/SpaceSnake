@@ -29,6 +29,7 @@ implements Serializable
 	
 	public void setWorldSize(int worldSize) {
 		this.worldSize = worldSize;
+		//Needs to notify the view and physics engine
 	}
 	
 	public int getWorldSize() {
