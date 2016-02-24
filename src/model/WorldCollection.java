@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.util.*;
 
 import model.objects.SnakeHead;
@@ -6,7 +7,14 @@ import model.objects.SnakeHead;
 
 public class WorldCollection 
 extends Observable
+implements Serializable
 {
+
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 
 	private ArrayList<WorldObject> data;
 	private int worldSize;
@@ -21,6 +29,7 @@ extends Observable
 	
 	public void setWorldSize(int worldSize) {
 		this.worldSize = worldSize;
+		//Needs to notify the view and physics engine
 	}
 	
 	public int getWorldSize() {

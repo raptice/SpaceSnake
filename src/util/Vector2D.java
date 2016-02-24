@@ -1,6 +1,7 @@
 package util;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.Serializable;
 
 /**
  * Class for all 2d-vector calculations. This class is non-modifying, meaning that 
@@ -26,9 +27,17 @@ import java.awt.Point;
 
 
 public class Vector2D 
-implements Comparable<Vector2D> 	// If sorting based on distance is needed
+implements 
+	Comparable<Vector2D>, 	// If sorting based on distance is needed
+	Serializable
 {
 
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	public double x,y;
 	
 

@@ -20,6 +20,8 @@ import javax.swing.SwingUtilities;
 import model.Floater;
 import model.WorldCollection;
 import model.WorldObject;
+import model.objects.BlackHole;
+import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakeTail;
 
@@ -213,6 +215,10 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		final GameFigure figure;
 		if (what instanceof Floater) {
 			figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+		} else if (what instanceof Edible) {
+			figure = new EdibleView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+		} else if (what instanceof BlackHole) {
+			figure = new BlackHoleView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 		} else if (what instanceof SnakeHead) {
 			figure = new SnakeHeadView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
 		} else if (what instanceof SnakeTail) {
