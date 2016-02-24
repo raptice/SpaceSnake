@@ -40,18 +40,13 @@ extends SnakePart
 	 */
 	@Override
 	public void collision (WorldObject obj) {
-		if (obj instanceof Edible) {
+		if (obj instanceof Edible)
+		{
 			eat((Edible)obj);
-		} else if (obj instanceof BlackHole){
-			 die();
-		} else {
+		} else 
 			super.collision(obj);
-		}
 	}
 	
-	private void die() {
-		theWorld.gameover();
-	}
 	
 	private void eat(Edible what)
 	{

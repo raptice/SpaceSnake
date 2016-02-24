@@ -15,6 +15,7 @@ implements Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
+
 	private ArrayList<WorldObject> data;
 	private int worldSize;
 	
@@ -30,7 +31,7 @@ implements Serializable
 		this.worldSize = worldSize;
 	}
 	
-	public int getWorldSize() {
+	public int getWorldSize(int worldSize) {
 		return worldSize;
 	}
 	
@@ -51,8 +52,7 @@ implements Serializable
 	
 	public boolean addcheck(WorldObject obj){/* Check if position is free for requested object*/ return true;}
 	public void delete(WorldObject obj){ 
-		if (obj instanceof SnakeHead)
-			gameover();
+		
 	}
 	public ArrayList<WorldObject> surrounding(WorldObject obj){
 		return new ArrayList<WorldObject>();
@@ -60,9 +60,5 @@ implements Serializable
 	public void update(WorldObject obj){
 		setChanged();
 		notifyObservers(obj);
-	}
-	public void gameover() {
-		setChanged();
-		notifyObservers(new String("GAMEOVER"));
 	}
 }
