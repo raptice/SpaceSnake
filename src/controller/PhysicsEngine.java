@@ -31,6 +31,7 @@ public class PhysicsEngine extends Thread
     	this.gameSpeed = gameSpeed;
     	this.data = data;
         this.dT = dT;
+        worldsize=data.getWorldSize();
     }
     public void SnakePull(Vector2D acc){
     	if(acc==null)
@@ -63,7 +64,7 @@ public class PhysicsEngine extends Thread
            
             //Make a clone so changes (additions and deletions only affect next iteration
             ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
-    		worldsize=800;
+    		//worldsize=;
     		//worldsize = (double)data.getWorldSize();
             
             for(WorldObject obj : collection){
