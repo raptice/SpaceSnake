@@ -31,7 +31,6 @@ public class MainController implements ActionListener {
 	 * @param view	Reference to the view
 	 */
 	public MainController(View view){
-		System.out.println("Controller: adding view");
 		this.view = view;
 		state = STARTUP_MENU;
 		
@@ -180,7 +179,6 @@ public class MainController implements ActionListener {
 			}
 		}
 		else if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
-			System.out.println("MainController: Window closed");
 			exit();
 		}
 		else {

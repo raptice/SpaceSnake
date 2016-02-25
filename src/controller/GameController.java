@@ -120,7 +120,6 @@ implements ActionListener, Observer
 		{	
 			if (((String)arg1).equals("GAMEOVER"))
 			{
-				System.out.println("GAME OVER");
 				parent.setGameOver();
 				pausePhysics(); //Bad!
 			}

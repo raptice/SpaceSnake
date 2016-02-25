@@ -25,7 +25,6 @@ public class GameOverMenuController implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == GameEvent.BACK_TO_MENU) {
-			System.out.println("GameOverMenuController: Back to menu");
 			parent.exitMenu();
 		}
 		else {

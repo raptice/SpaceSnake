@@ -25,15 +25,12 @@ public class StartupMenuController implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == GameEvent.START_NEW_GAME) {
-			System.out.println("StartupMenuController: Start game");
 			parent.startNewGame();
 		}
 		else if (e.getActionCommand() == GameEvent.LOAD_GAME) {
-			System.out.println("StartupMenuController: Load game");
 			parent.loadGame();
 		}
 		else if (e.getActionCommand() == GameEvent.EXIT) {
-			System.out.println("StartupMenuController: Exit");
 			parent.exit();
 		}
 		else {
