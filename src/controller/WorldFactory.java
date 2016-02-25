@@ -87,7 +87,7 @@ public class WorldFactory {
 			floater = totalObjects;
 			edible = totalObjects *2;
 			blackHole = totalObjects /2;
-			System.out.println("size 15000 or lesstotalobjects = "+totalObjects);
+			System.out.println("size 15000 or less totalobjects = "+totalObjects);
 		}
 		 
 			spawns.put("Floater",floater);
