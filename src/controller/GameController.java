@@ -32,6 +32,7 @@ implements ActionListener, Observer
 	private PhysicsEngine physicsEngine;
 	
 	SnakeHead head;
+	MainController parent;
 
 	private static final int MAX_SPAWN = 50;
 	private static final int MIN_SPAWN = 20;
@@ -266,6 +267,7 @@ implements ActionListener, Observer
 			if (((String)arg1).equals("GAMEOVER"))
 			{
 				System.out.println("GAME OVER");
+				parent.setGameOver();
 				pausePhysics(); //Bad!
 			}
 		}
