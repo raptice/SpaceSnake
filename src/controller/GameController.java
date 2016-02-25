@@ -43,7 +43,7 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		worldCollection.setWorldSize(Config.randomWorldSize());
+		worldCollection.setWorldSize(randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldFactory = new WorldFactory(this, worldCollection);
 	}
@@ -74,6 +74,18 @@ implements ActionListener, Observer
 		}
 	}
 	
+	/**
+	 * Randomizes the size of the map
+	 * @return worldSize	Randomized double to be used when creating a new map
+	 * TODO: Change from int to double?
+	 */
+	private int randomWorldSize() {
+		Random random = new Random();
+		
+		int worldSize = random.nextInt(10000) + 5000;
+		
+		return worldSize;
+	}
 	
 	/*public void addView(GameView gameView) {
 		this.gameView = gameView;
