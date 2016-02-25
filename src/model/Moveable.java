@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import util.*;
@@ -12,7 +13,13 @@ import util.*;
 
 public class Moveable 
 extends WorldObject 
+implements Serializable
 {
+	
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	protected Vector2D velocity;
 	protected Vector2D velocity_diff = new Vector2D(0,0);
