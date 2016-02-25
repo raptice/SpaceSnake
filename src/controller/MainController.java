@@ -101,6 +101,11 @@ public class MainController implements ActionListener {
 	 * TODO: Add method to save game
 	 */
 	public void saveGame() {
+		//Läs in filnamn från gui
+		String filename = view.saveGameFileChooser();
+		System.out.println(filename);
+		//hämta worldcollection
+		//spara
 	}
 	
 	/**
