@@ -3,7 +3,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,7 +15,6 @@ import model.*;
 import model.objects.BlackHole;
 import model.objects.Edible;
 import model.objects.SnakeHead;
-import model.objects.SnakePart;
 import model.objects.SnakeTail;
 import view.*;
 
@@ -32,8 +30,6 @@ implements ActionListener, Observer
 {
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
-	private GameView gameView;
-	private MapView mapView;
 	
 	SnakeHead head;
 
@@ -47,7 +43,7 @@ implements ActionListener, Observer
 	 * It will always create one when you press "New Game" in the start menu, 
 	 * so it does this twice, thereby throwing away the first one?
 	 */
-	public GameController(MainController parent){
+	public GameController(){
 		newGame();
 	}
 	
