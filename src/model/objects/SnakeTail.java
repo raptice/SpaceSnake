@@ -39,11 +39,15 @@ extends SnakePart
 		while (next != null)
 		{
 			next.kill();
-			//theWorld.remove(next);
+			theWorld.remove(next);
 			next=next.getTail();
 		}
 		this.kill();
-		//theWorld.remove(this);
+		theWorld.remove(this);
+		for (WorldObject item : theWorld.getCollection()) {
+			if (item instanceof SnakePart && ((SnakePart)item).getTail() != null && ((SnakePart)item).getTail().equals(this))
+				((SnakePart)item).removeTail();
+		}
 		//set previous parts tail to null.
 		
 	}
