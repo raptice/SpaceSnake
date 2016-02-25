@@ -37,7 +37,7 @@ extends GameFigure {
        	Point2D center = new Point2D.Double(centerx, centery);
         Point2D focus = center;//new Point2D.Float(40, 40);
         float[] dist = {0.0f, 0.8f, 1.0f};
-        Color[] colors = {new Color(0,255,0,0), new Color(0,255,0,255), new Color(0,255,0,255)};
+        Color[] colors = {new Color(0,0,255,0), new Color(0,0,255,255), new Color(0,0,255,255)};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) radius, focus, dist, colors, CycleMethod.NO_CYCLE);
         g.setPaint(rgrad);
         //g.fillRect(20, 20, 300, 40);
