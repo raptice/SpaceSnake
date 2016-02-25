@@ -43,7 +43,7 @@ implements ActionListener, Observer
 	 * It will always create one when you press "New Game" in the start menu, 
 	 * so it does this twice, thereby throwing away the first one?
 	 */
-	public GameController(){
+	public GameController(MainController parent){
 		newGame();
 	}
 	
