@@ -49,14 +49,16 @@ public class Config {
 	}
 	
 	/**
-	 * Randomizes a world size.
-	 * @return		The value associated with the size of the world.
+	 * Randomizes the size of the map
+	 * @return worldSize	Randomized double to be used when creating a new map
+	 * TODO: Change from int to double?
 	 */
 	public static int randomWorldSize() {
 		Random random = new Random();
-		int worldSize = random.nextInt((1000 - 500) + 1) + 500;
+		
+		int worldSize = random.nextInt(10000) + 5000;
+		
 		return worldSize;
 	}
-	
 	
 }
