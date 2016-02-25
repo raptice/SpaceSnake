@@ -33,8 +33,8 @@ implements ActionListener, Observer
 	
 	SnakeHead head;
 
-	private static final int MAX_SPAWN = 10;
-	private static final int MIN_SPAWN = 3;
+	private static final int MAX_SPAWN = 50;
+	private static final int MIN_SPAWN = 20;
 
 	private static final long longValue = 50;
 	
@@ -134,19 +134,17 @@ implements ActionListener, Observer
 	public Map<String,Integer> randomSpawns() {		
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
-		
-		int totalObjects = random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;
-		//loop logic here, this is for test purposes only
-			int floater = 1;
-			int edible = 1;
-			int blackHole = 1;
-			int mobs = totalObjects - edible + blackHole;
+		int size = worldCollection.getWorldSize();
+		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
 			
+			int floater = totalObjects/3;
+			int edible = totalObjects - floater;
+			int blackHole = totalObjects /4;
+		 
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
-			spawns.put("Mobs",mobs);
-			//System.out.println("total objects is: " +totalObjects);
+
 			System.out.println(spawns);
 		
 		return spawns;
