@@ -20,7 +20,7 @@ public class GameOverMenuController implements ActionListener {
 	}
 	
 	/**
-	 * Handles events coming from buttons on the startup menu
+	 * Handles events coming from buttons on the gameover menu
 	 * @param e		The ActionEvent sent from a button press
 	 */
 	public void actionPerformed(ActionEvent e) {
