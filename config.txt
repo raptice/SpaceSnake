@@ -31,6 +31,14 @@ Startup_menu_newgame        = New game
 Startup_menu_loadgame       = Load game
 Startup_menu_exit           = Exit
 
+GameOver_menu_title			= Game Over
+GameOver_bg_color           = 240,200,200,200
+GameOver_border_color       = 140,100,100,200
+GameOver_button_bg_color    = 240,220,220,255
+GameOver_button_border_color = 180,120,120,255
+GameOver_button_highlight   = 200,50,50,255
+Gameover_menu_back_to_menu  = Back to menu
+
 Gamemenu_bg_color            = 200,200,200,200
 Gamemenu_border_color        = 100,100,100,200
 Gamemenu_button_bg_color     = 220,220,220,255
