@@ -17,8 +17,9 @@ import util.Vector2D;
 
 public class WorldFactory {
 	
-	private static final int MAX_SPAWN = 50;
+	private static final int MAX_SPAWN = 40;
 	private static final int MIN_SPAWN = 20;
+	private static final int ZERO = 0;
 	
 	SnakeHead head;
 	GameController parent;
@@ -69,9 +70,9 @@ public class WorldFactory {
 		System.out.println("world size = "+WorldSize);
 		
 		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
-		int floater =0;
-		int edible =0;
-		int blackHole =0;
+		int floater = ZERO;
+		int edible = ZERO;
+		int blackHole = ZERO;
 		
 		if(WorldSize.intValue() <= 5000 && WorldSize.intValue() >= 7400 ){
 			
