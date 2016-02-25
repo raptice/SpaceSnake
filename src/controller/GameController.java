@@ -3,6 +3,7 @@ package controller;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
