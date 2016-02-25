@@ -158,7 +158,10 @@ implements ActionListener, Observer
 				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
-					
+				
+				while ( !isInsideWorld(pos) ) {
+					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				}
 				gameObjects.add( new Floater(speed, pos, mass, radius) );
 			}
 		}
@@ -167,7 +170,10 @@ implements ActionListener, Observer
 				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
-					
+				
+				while ( !isInsideWorld(pos) ) {
+					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				}
 				gameObjects.add( new BlackHole(pos, mass, radius) );
 			}
 		}
@@ -178,11 +184,34 @@ implements ActionListener, Observer
 				mass = 10;
 				radius = 10;
 				
+				while ( !isInsideWorld(pos) ) {
+					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				}
 				gameObjects.add( new Edible(speed, pos, mass, radius) );
 			}
 		}
 	}
 	
+	/**
+	 * Checks if a coordinates is inside the map
+	 * @param pos	Vector with x and y coordinates that are to be checked
+	 * @return 	true if coordinates are inside of the map
+	 * 			false if coordinates are outside of the map
+	 */
+	public boolean isInsideWorld(Vector2D pos) {
+		int worldRadius = worldCollection.getWorldSize()/2;
+		if (pos.getX()*pos.getX() + pos.getY()*pos.getY() < worldRadius*worldRadius) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	/**
+	 * Randomizes the size of the map
+	 * @return worldSize	Randomized double to be used when creating a new map
+	 * TODO: Change from int to double?
+	 */
 	public int randomWorldSize() {
 		Random random = new Random();
 		
