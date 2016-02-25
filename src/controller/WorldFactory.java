@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.lang.Double;
 
 import model.Floater;
 import model.WorldCollection;
@@ -16,8 +17,9 @@ import util.Vector2D;
 
 public class WorldFactory {
 	
-	private static final int MAX_SPAWN = 50;
+	private static final int MAX_SPAWN = 40;
 	private static final int MIN_SPAWN = 20;
+	private static final int ZERO = 0;
 	
 	SnakeHead head;
 	GameController parent;
@@ -64,12 +66,29 @@ public class WorldFactory {
 	public Map<String,Integer> randomSpawns() {		
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
-		//int size = worldCollection.getWorldSize();
+		Double WorldSize = worldCollection.getWorldSize();
+		System.out.println("world size = "+WorldSize);
+		
 		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
+		int floater = ZERO;
+		int edible = ZERO;
+		int blackHole = ZERO;
+		
+		if(WorldSize.intValue() <= 5000 && WorldSize.intValue() >= 7400 ){
 			
-			int floater = totalObjects/3;
-			int edible = totalObjects - floater;
-			int blackHole = totalObjects /4;
+			floater = totalObjects/3;
+			edible = totalObjects;
+			blackHole = totalObjects /4;
+			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
+		}
+		
+		else {
+			
+			floater = totalObjects;
+			edible = totalObjects *2;
+			blackHole = totalObjects /2;
+			System.out.println("size 15000 or less totalobjects = "+totalObjects);
+		}
 		 
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
@@ -116,7 +135,7 @@ public class WorldFactory {
 				speed = randomSpeed();
 				pos = randomPosition();
 				mass = 10;
-				radius = 10;
+				radius = 30;
 
 				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
