@@ -1,5 +1,7 @@
 package model.objects;
 
+import java.io.Serializable;
+
 import controller.GameController;
 import model.WorldCollection;
 import model.WorldObject;
@@ -14,8 +16,14 @@ import util.Vector2D;
 
 public class SnakeHead 
 extends SnakePart
+implements Serializable 
 {
 
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private double new_Tail_radius = 10;
 	private double new_Tail_mass = 10;
 
