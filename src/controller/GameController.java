@@ -17,7 +17,7 @@ import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakeTail;
 import view.*;
-
+import util.Config;
 import util.GameEvent;
 import util.Vector2D;
 
@@ -54,7 +54,7 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		worldCollection.setWorldSize(randomWorldSize());
+		worldCollection.setWorldSize(Config.randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		
 		head = null;
@@ -219,19 +219,6 @@ implements ActionListener, Observer
 			return false;
 	}
 	
-	/**
-	 * Randomizes the size of the map
-	 * @return worldSize	Randomized double to be used when creating a new map
-	 * TODO: Change from int to double?
-	 */
-	public int randomWorldSize() {
-		Random random = new Random();
-		
-		//storlek bana -> ett tal som är slumpat mellan olika värden
-		int worldSize = random.nextInt(10000) + 5000;
-		
-		return worldSize;
-	}
 	
 	/**
 	 * Handles events in the game
