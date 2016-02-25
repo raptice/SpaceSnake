@@ -97,8 +97,12 @@ implements Observer
 		// if (died) parent.removeItem(this);
 		if (what instanceof String) {
 			if (((String)what).equals("Died"))
-				//Die!
-				parent.removeMe(this);
+			{
+				final MapFigure reference = this;
+				SwingUtilities.invokeLater(new Runnable() {
+				    public void run() { parent.removeMe(reference); }	    
+				});
+			}
 		}
 		
 		// if (resized) resize(new_size);
