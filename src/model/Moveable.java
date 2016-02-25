@@ -24,6 +24,7 @@ implements Serializable
 	protected Vector2D velocity;
 	protected Vector2D velocity_diff = new Vector2D(0,0);
 	private double collision_damping = 0.99;
+	private double max_speed_sqr = 2500;
 
 	/**
 	 * Constructor
@@ -40,6 +41,8 @@ implements Serializable
 		super(world, position, mass, radius);
 		this.velocity = velocity;
 		collision_damping = Double.parseDouble(Config.get("Collision_damping"));
+		double max_speed = Double.parseDouble(Config.get("Max_speed"));
+		max_speed_sqr = max_speed * max_speed;
 	}
 	
 	
@@ -51,6 +54,8 @@ implements Serializable
 	 */
 	public void move(double dT){
 		velocity = velocity.add(velocity_diff);	// V1 = V1 + A*dT
+		if (velocity.lengthsquared() > max_speed_sqr)
+			velocity = velocity.scale(0.9);
 		velocity_diff = new Vector2D(0,0);
 		position = position.add(velocity.scale(dT));		//P1=P1 + V * dT
 		update();
@@ -140,11 +145,13 @@ implements Serializable
 	public void wallCollide(){
 		double r = theWorld.getWorldSize()/2-this.getRadius();
 		if(position.lengthsquared() > r*r){
-			Vector2D temp = position.normalize();
-			double projection = velocity.dot(temp);
-			temp = temp.scale(projection);
-			velocity_diff = velocity_diff.sub(temp);
-			velocity_diff = velocity_diff.sub(temp);
+			Vector2D p_norm = position.normalize();
+			double projection = velocity.dot(p_norm);
+			if (projection > 0) //Only if we are heading outwards
+			{
+				p_norm = p_norm.scale(2*collision_damping*projection);
+				velocity_diff = velocity_diff.sub(p_norm);
+			}
 		}
 	}
 	
