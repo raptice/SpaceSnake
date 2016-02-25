@@ -17,6 +17,7 @@ public class MainController implements ActionListener {
 	private static final String STARTUP_MENU = "Startup Menu";
 	private static final String INGAME_MENU = "Ingame Menu";
 	private static final String GAME_VIEW = "Game View";
+	private static final String GAME_OVER = "Game Over";
 	
 	private StartupMenuController startupMenuController;
 	private IngameMenuController ingameMenuController;
@@ -147,6 +148,10 @@ public class MainController implements ActionListener {
 		state = INGAME_MENU;
 	}
 	
+	public void setGameOver() {
+		state = GAME_OVER;
+	}
+	
 	/**
 	 * Handles events coming from the ESC button on the keyboard and from when the window is closed
 	 * @param e		The ActionEvent sent from a button press or by closing the window
@@ -162,6 +167,7 @@ public class MainController implements ActionListener {
 				break;
 			case GAME_VIEW: exitGame();
 				break;
+			case GAME_OVER:
 			}
 		}
 		else if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
