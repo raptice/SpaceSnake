@@ -181,7 +181,7 @@ implements MouseListener, GameObserver, ActionListener
 			addItem(thing);
 		}
 		System.out.println("Addworld i MapView");
-		worldSize=world.getWorldSize();
+		worldSize=(int)world.getWorldSize();
 	}
 	
 	
