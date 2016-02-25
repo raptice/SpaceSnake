@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 import model.*;
 import view.*;
-import util.Config;
 import util.GameEvent;
 
 /**
