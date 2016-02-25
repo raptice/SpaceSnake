@@ -1,25 +1,16 @@
 
 package controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 import model.*;
-import model.objects.BlackHole;
-import model.objects.Edible;
-import model.objects.SnakeHead;
-import model.objects.SnakeTail;
 import view.*;
 import util.Config;
 import util.GameEvent;
-import util.Vector2D;
 
 /**
  * Handles events from the GameView, creates a new world, creates objects and adds them to world...
