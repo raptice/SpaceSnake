@@ -3,8 +3,9 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,36 +15,35 @@ import model.*;
 import model.objects.BlackHole;
 import model.objects.Edible;
 import model.objects.SnakeHead;
-import model.objects.SnakePart;
 import model.objects.SnakeTail;
 import view.*;
-
+import util.Config;
 import util.GameEvent;
 import util.Vector2D;
 
 /**
- * Handles events from the GameView
+ * Handles events from the GameView, creates a new world, creates objects and adds them to world...
+ * TODO: Create new classes with more specified roles
  */
-public class GameController implements ActionListener {
+public class GameController 
+implements ActionListener, Observer 
+{
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
-	private GameView gameView;
-	private MapView mapView;
+	private WorldFactory worldFactory;
 	
-	SnakeHead head;
+	MainController parent;
 
-	private static final int MAX_SPAWN = 10;
-	private static final int MIN_SPAWN = 3;
 
-	private static final double testValue = 1;
 	private static final long longValue = 50;
 	
 	/**
-	 * Constructor that adds a reference to the parent controller
-	 * @param parent	The parent controller
+	 * TODO: Do we need to create a new game here? 
+	 * It will always create one when you press "New Game" in the start menu, 
+	 * so it does this twice, thereby throwing away the first one?
 	 */
 	public GameController(MainController parent){
-		newGame();
+		this.parent = parent;
 	}
 	
 	/**
@@ -51,11 +51,10 @@ public class GameController implements ActionListener {
 	 */
 	public void newGame () {
 		worldCollection = new WorldCollection();
+		worldCollection.addObserver(this);
+		worldCollection.setWorldSize(Config.randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
-		worldCollection.setWorldSize(randomWorldSize());
-		
-		head = null;
-		createObjects();
+		worldFactory = new WorldFactory(this, worldCollection);
 	}
 	
 	/**
@@ -95,102 +94,7 @@ public class GameController implements ActionListener {
 	public void addObserver(GameObserver gameObserver) {
 		worldCollection.addObserver(gameObserver);
 		gameObserver.addWorld(worldCollection);
-	}
-	
-	//TODO: Create randomized object
-	//		fill world with objects
-	public void createObjects() {
-		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
-		
-		head = new SnakeHead(1,-7,20,100,10,20, worldCollection);
-		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
-		SnakeTail tail2 = new SnakeTail(0,2,-70,100,5,15);
-		
-		head.addTail(tail);
-		tail.addTail(tail2);
-		
-		gameObjects.add(head);
-		gameObjects.add(tail);
-		gameObjects.add(tail2);
-		
-		addToWorld(gameObjects, randomSpawns());
-		
-		for (WorldObject worldObject: gameObjects) {
-			worldCollection.add(worldObject);
-		}
-	}
-	
-	public Map<String,Integer> randomSpawns() {		
-		Map<String,Integer> spawns = new HashMap<String,Integer>();
-		Random random = new Random();
-		
-		int totalObjects = random.nextInt((MAX_SPAWN - MIN_SPAWN) + 1)+ MIN_SPAWN;
-		//loop logic here, this is for test purposes only
-			int floater = 1;
-			int edible = 1;
-			int blackHole = 0;
-			int mobs = totalObjects - edible + blackHole;
-			
-			spawns.put("Floater",floater);
-			spawns.put("Edible",edible);
-			spawns.put("BlackHole",blackHole);
-			spawns.put("Mobs",mobs);
-			//System.out.println("total objects is: " +totalObjects);
-			System.out.println(spawns);
-		
-		return spawns;
-	}
-	
-	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
-		Random random = new Random();
-		double more = 1; 
-		Vector2D speed;
-		Vector2D pos;
-		double mass;
-		double radius;
-		
-		if( spawn.containsKey("Floater") ){
-			for(int i=0; i< spawn.get("Floater"); i++){
-				more = more + i; 
-				speed = new Vector2D(0,0);
-				pos = new Vector2D(20*i+100,20*i+100);
-				radius = 50;
-				mass = 100;
-				radius = 50;
-					
-				gameObjects.add( new Floater(speed, pos, mass, radius) );
-			}
-		}
-		if( spawn.containsKey("BlackHole") ){
-			for(int i=0; i< spawn.get("BlackHole"); i++){
-				more = more + i; 
-				pos = new Vector2D(80*i,50*i);
-				mass = 100;
-				radius = 50;
-					
-				gameObjects.add( new BlackHole(pos, mass, radius) );
-			}
-		}
-		if( spawn.containsKey("Edible") ){
-			for(int i=0; i< spawn.get("Edible"); i++){
-				speed = new Vector2D(0,0);
-				pos = new Vector2D(50*i,50*i);
-				mass = 10;
-				radius = 10;
-				
-				gameObjects.add( new Edible(speed, pos, mass, radius) );
-			}
-		}
-	}
-	
-	public int randomWorldSize() {
-		Random random = new Random();
-		
-		//storlek bana -> ett tal som är slumpat mellan olika värden
-		int worldSize = random.nextInt(1000) + 500;
-		
-		return worldSize;
-	}
+	}	
 	
 	/**
 	 * Handles events in the game
@@ -216,6 +120,19 @@ public class GameController implements ActionListener {
 		}
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(arg1 instanceof String)
+		{	
+			if (((String)arg1).equals("GAMEOVER"))
+			{
+				System.out.println("GAME OVER");
+				parent.setGameOver();
+				pausePhysics(); //Bad!
+			}
 		}
 	}
 	

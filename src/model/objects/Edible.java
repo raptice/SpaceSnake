@@ -1,6 +1,7 @@
 package model.objects;
 
 import model.Moveable;
+import model.WorldCollection;
 import util.Vector2D;
 
 /**
@@ -13,12 +14,12 @@ public class Edible
 extends Moveable
 {
 
-	public Edible(double xSpeed, double ySpeed, double xPos, double yPos,
+	/*public Edible(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
 			double mass, double radius) {
-		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}
+		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
+	}*/
 	
-	public Edible(Vector2D velocity, Vector2D position, double mass, double radius) {
-		super(velocity, position, mass, radius);
+	public Edible(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
+		super(world, velocity, position, mass, radius);
 	}
 }

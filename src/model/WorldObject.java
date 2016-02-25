@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.util.Observable;
 
 import util.*;
@@ -8,27 +9,37 @@ import util.*;
  * 
  * @author Model-team
  */
-public abstract class WorldObject extends Observable{
+public abstract class WorldObject 
+extends Observable 
+implements Serializable
+{
+	
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected Vector2D position;
 	protected double radius;
 	protected double mass;
-	
+	protected WorldCollection theWorld;
 	
 	/**
 	 * Constructor using xpos and ypos
 	 */
-	public WorldObject(double xPos, double yPos, double mass, double radius){
-			this(new Vector2D(xPos,yPos),mass,radius);
-	}
+	/*public WorldObject(WorldCollection world, double xPos, double yPos, double mass, double radius){
+			this(world, new Vector2D(xPos,yPos),mass,radius);
+	}*/
 	
 	
 	/**
 	 * Constructor using vectors.
 	 */
-	public WorldObject(Vector2D position, double mass, double radius) {
+	public WorldObject(WorldCollection world, Vector2D position, double mass, double radius) {
 		this.position = position;
 		this.radius = radius;
 		this.mass = mass;
+		theWorld = world;
 	}
 	
 	

@@ -8,15 +8,16 @@ import java.awt.RenderingHints;
 import javax.swing.JComponent;
 
 import util.Vector2D;
+import view.GameView;
 
 @SuppressWarnings("serial")
 public class EdibleView 
 extends GameFigure {
 
-	public EdibleView(double x, double y, double size, JComponent parent){
+	public EdibleView(double x, double y, double size, GameView parent){
 		super(x, y, size, parent);
 	}
-	public EdibleView(Vector2D position, double size, JComponent parent){
+	public EdibleView(Vector2D position, double size, GameView parent){
 		super(position.getX(), position.getY(), size, parent);
 	}
 
