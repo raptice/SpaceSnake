@@ -24,6 +24,7 @@ public class GameEvent extends ActionEvent{
 	START_NEW_GAME = "Start new game",
 	LOAD_GAME = "Load game",
 	EXIT = "Exit",
+	BACK_TO_MENU = "Back to menu",
 	MOUSE_PRESSED = "Mouse pressed",
 	MOUSE_RELEASED = "Mouse released",
 	MOUSE_DRAGGED = "Mouse dragged",

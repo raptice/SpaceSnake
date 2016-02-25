@@ -22,6 +22,7 @@ public class MainController implements ActionListener {
 	private StartupMenuController startupMenuController;
 	private IngameMenuController ingameMenuController;
 	private GameController gameController;
+	private GameOverMenuController gameOverMenuController;
 	
 	/**
 	 * Constructor that adds a reference to the view, configures the view and adds
@@ -39,6 +40,7 @@ public class MainController implements ActionListener {
 		startupMenuController = new StartupMenuController(this);
 		ingameMenuController = new IngameMenuController(this);
 		gameController = new GameController(this);
+		gameOverMenuController = new GameOverMenuController(this);
 		
 		view.showStartupMenu(startupMenuController);
 	}
@@ -134,7 +136,12 @@ public class MainController implements ActionListener {
 	 */
 	public void exitMenu() {
 		gameController.stopPhysics();
-		view.hideIngameMenu();
+		switch (state) {
+		case INGAME_MENU: view.hideIngameMenu();
+			break;
+		case GAME_OVER: view.hideGameOverMenu();
+			break;
+		}
 		view.hideGame();
 		view.showStartupMenu(startupMenuController);
 		state = STARTUP_MENU;
@@ -149,6 +156,7 @@ public class MainController implements ActionListener {
 	}
 	
 	public void setGameOver() {
+		view.showGameOverMenu(gameOverMenuController);
 		state = GAME_OVER;
 	}
 	
@@ -168,6 +176,7 @@ public class MainController implements ActionListener {
 			case GAME_VIEW: exitGame();
 				break;
 			case GAME_OVER:
+				break;
 			}
 		}
 		else if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
