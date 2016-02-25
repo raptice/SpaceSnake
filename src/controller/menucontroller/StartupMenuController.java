@@ -1,8 +1,9 @@
-package controller;
+package controller.menucontroller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.MainController;
 import util.GameEvent;
 
 /**
