@@ -109,7 +109,7 @@ extends WorldObject
 			Vector2D p1minusp2 = p1.sub(p2);
 			Vector2D v1minusv2 = v1.sub(v2);
 			double dstsqr = p1minusp2.lengthsquared();
-			double dot = Vector2D.dot(v1minusv2, p1minusp2);
+			double dot = -Math.abs(Vector2D.dot(v1minusv2, p1minusp2));
 			double constant = (massScalar * dot)/dstsqr;
 			Vector2D newV1 = p1minusp2.scale(constant*collision_damping);
 			velocity_diff = velocity_diff.sub( newV1 );
