@@ -140,7 +140,7 @@ public class WorldFactory {
 	 * 			false if coordinates are outside of the map
 	 */
 	public boolean isInsideWorld(Vector2D pos) {
-		int worldRadius = worldCollection.getWorldSize()/2;
+		double worldRadius = worldCollection.getWorldSize()/2;
 		if (pos.getX()*pos.getX() + pos.getY()*pos.getY() < worldRadius*worldRadius) {
 			return true;
 		}

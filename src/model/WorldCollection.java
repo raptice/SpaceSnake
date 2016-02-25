@@ -17,7 +17,7 @@ implements Serializable
 	
 
 	private ArrayList<WorldObject> data;
-	private int worldSize;
+	private double worldSize;
 	
 	public WorldCollection(){
 		data = new ArrayList<>();
@@ -27,12 +27,12 @@ implements Serializable
 		return data;
 	}
 	
-	public void setWorldSize(int worldSize) {
+	public void setWorldSize(double worldSize) {
 		this.worldSize = worldSize;
 		//Needs to notify the view and physics engine
 	}
 	
-	public int getWorldSize() {
+	public double getWorldSize() {
 		return worldSize;
 	}
 	
