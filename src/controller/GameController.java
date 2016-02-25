@@ -108,9 +108,9 @@ implements ActionListener, Observer
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
-		head = new SnakeHead(1,-7,20,100,10,20, worldCollection);
-		SnakeTail tail = new SnakeTail(0,0,-30,100,5,15);
-		SnakeTail tail2 = new SnakeTail(0,2,-70,100,5,15);
+		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,20);
+		SnakeTail tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,15);
+		SnakeTail tail2 = new SnakeTail(worldCollection, new Vector2D(0,2), new Vector2D(-70,100) ,5,15);
 		
 		head.addTail(tail);
 		tail.addTail(tail2);
@@ -175,7 +175,7 @@ implements ActionListener, Observer
 				while ( !isInsideWorld(pos) ) {
 					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				}
-				gameObjects.add( new Floater(speed, pos, mass, radius) );
+				gameObjects.add( new Floater(worldCollection, speed, pos, mass, radius) );
 			}
 		}
 		if( spawn.containsKey("BlackHole") ){
@@ -187,7 +187,7 @@ implements ActionListener, Observer
 				while ( !isInsideWorld(pos) ) {
 					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				}
-				gameObjects.add( new BlackHole(pos, mass, radius) );
+				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
 		}
 		if( spawn.containsKey("Edible") ){
@@ -200,7 +200,7 @@ implements ActionListener, Observer
 				while ( !isInsideWorld(pos) ) {
 					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				}
-				gameObjects.add( new Edible(speed, pos, mass, radius) );
+				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
 		}
 	}

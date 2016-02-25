@@ -22,12 +22,12 @@ implements IGravity
 
 	private double gravity = 18;
 	
-	public BlackHole(double xPos, double yPos, double mass, double radius) {
-		this(new Vector2D(xPos, yPos), mass, radius);
-	}
+	/*public BlackHole(WorldCollection world, double xPos, double yPos, double mass, double radius) {
+		this(world, new Vector2D(xPos, yPos), mass, radius);
+	}*/
 	
-	public BlackHole(Vector2D position, double mass, double radius) {
-		super(position, mass, radius);
+	public BlackHole(WorldCollection world, Vector2D position, double mass, double radius) {
+		super(world, position, mass, radius);
 		gravity=Double.parseDouble(Config.get("Gravity_constant"));
 	}
 
