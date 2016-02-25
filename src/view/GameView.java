@@ -47,7 +47,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 {
 
 	//Temp variable until the proper world gets used
-	double worldSize=800;
+	int worldSize=800;
 	
 	// Determines the zoom level
 	protected float zoom = 1;
