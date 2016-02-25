@@ -18,6 +18,7 @@ public class View
 	private GameViewMenu gameViewMenu;
 	private MapView mapView;
 	private StartupMenu startupMenu;
+	private GameOverMenu gameOverMenu;
 	private MainWindow mainWindow;
 
 	
@@ -34,6 +35,7 @@ public class View
 		mapView = new MapView();
 		startupMenu = new StartupMenu();
 		ingameMenu = new IngameMenu();
+		gameOverMenu = new GameOverMenu();
 	}
 	
 	
@@ -77,7 +79,7 @@ public class View
 	
 	
 	/**
-	 * Shows the ingame menu. Not implemented!
+	 * Shows the ingame menu.
 	 * 
 	 * @param AL		The ActionListener that handles the generated events..
 	 */
@@ -94,6 +96,26 @@ public class View
 	public void hideIngameMenu()
 	{
 		mainWindow.remove(ingameMenu);
+	}
+	
+	/**
+	 * Shows the gameover menu.
+	 * 
+	 * @param AL		The ActionListener that handles the generated events..
+	 */
+	public void showGameOverMenu(ActionListener AL)
+	{
+		gameOverMenu.addActionListener(AL);
+		mainWindow.addGameComponent(gameOverMenu,MainWindow.GAMEMENULAYER);
+	}
+
+	
+	/**
+	 * removes the gameover menu from the main window.
+	 */
+	public void hideGameOverMenu()
+	{
+		mainWindow.remove(gameOverMenu);
 	}
 	
 	
