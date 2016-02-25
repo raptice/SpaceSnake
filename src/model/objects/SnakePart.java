@@ -24,17 +24,17 @@ extends Moveable
 	/**
 	 * Constructor with doubles
 	 */
-	public SnakePart(double xSpeed, double ySpeed, double xPos, double yPos,
+	/*public SnakePart(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
 			double mass, double radius) {
-		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}
+		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
+	}*/
 	
 	
 	/**
 	 * Constructor with vectors
 	 */
-	public SnakePart(Vector2D velocity, Vector2D position, double mass, double radius) {
-		super(velocity, position, mass, radius);
+	public SnakePart(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
+		super(world, velocity, position, mass, radius);
 		stiffness = Double.parseDouble(Config.get("Snake_link_stiffness"));
 		damping = Double.parseDouble(Config.get("Snake_link_damping"));
 	}
