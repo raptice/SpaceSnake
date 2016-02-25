@@ -117,7 +117,7 @@ public class MainController implements ActionListener {
 	 */
 	public void resumeGame() {
 		view.hideIngameMenu();
-		view.showGame(gameController);
+		view.showMap();
 		gameController.resumePhysics();
 		state = GAME_VIEW;
 	}
@@ -135,15 +135,15 @@ public class MainController implements ActionListener {
 	public void exitMenu() {
 		gameController.stopPhysics();
 		view.hideIngameMenu();
+		view.hideGame();
 		view.showStartupMenu(startupMenuController);
 		state = STARTUP_MENU;
 	}
 	/**
-	 * Puases, and exits, a running game and shows the in game menu
+	 * Pauses, and exits, a running game and shows the in game menu
 	 */
 	public void exitGame() {
 		gameController.pausePhysics();
-		view.hideGame();
 		view.showIngameMenu(ingameMenuController);
 		state = INGAME_MENU;
 	}

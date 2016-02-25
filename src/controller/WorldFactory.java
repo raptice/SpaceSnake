@@ -87,7 +87,6 @@ public class WorldFactory {
 	 * 		that returns a Vector2D of random position, which also checks if it's in the map
 	 */
 	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
-		Random randomPos = new Random();
 		Vector2D speed;
 		Vector2D pos;
 		double mass;
@@ -96,41 +95,40 @@ public class WorldFactory {
 		if( spawn.containsKey("Floater") ){
 			for(int i=0; i< spawn.get("Floater"); i++){
 				speed = new Vector2D(0,0);
-				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				pos = randomPosition();
 				mass = 100;
 				radius = 50;
 				
-				while ( !isInsideWorld(pos) ) {
-					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
-				}
 				gameObjects.add( new Floater(worldCollection, speed, pos, mass, radius) );
 			}
 		}
 		if( spawn.containsKey("BlackHole") ){
 			for(int i=0; i< spawn.get("BlackHole"); i++){
-				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				pos = randomPosition();
 				mass = 100;
 				radius = 50;
 				
-				while ( !isInsideWorld(pos) ) {
-					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
-				}
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
 		}
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
 				speed = new Vector2D(0,0);
-				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				pos = randomPosition();
 				mass = 10;
 				radius = 10;
-				
-				while ( !isInsideWorld(pos) ) {
-					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
-				}
+
 				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
 		}
+	}
+	
+	public Vector2D randomPosition() {
+		Vector2D pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
+		while ( !isInsideWorld(pos) ) {
+			pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
+		}
+		return pos;
 	}
 	
 	/**
@@ -140,7 +138,7 @@ public class WorldFactory {
 	 * 			false if coordinates are outside of the map
 	 */
 	public boolean isInsideWorld(Vector2D pos) {
-		int worldRadius = worldCollection.getWorldSize()/2;
+		double worldRadius = worldCollection.getWorldSize()/2;
 		if (pos.getX()*pos.getX() + pos.getY()*pos.getY() < worldRadius*worldRadius) {
 			return true;
 		}

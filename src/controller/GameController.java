@@ -1,9 +1,9 @@
 
 package controller;
 
+import java.lang.Math;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,9 +30,8 @@ implements ActionListener, Observer
 	private static final long longValue = 50;
 	
 	/**
-	 * TODO: Do we need to create a new game here? 
-	 * It will always create one when you press "New Game" in the start menu, 
-	 * so it does this twice, thereby throwing away the first one?
+	 * Constructor that adds a reference to the parent controller
+	 * @param parent	The parent controller
 	 */
 	public GameController(MainController parent){
 		this.parent = parent;
@@ -78,23 +77,11 @@ implements ActionListener, Observer
 	/**
 	 * Randomizes the size of the map
 	 * @return worldSize	Randomized double to be used when creating a new map
-	 * TODO: Change from int to double?
 	 */
-	private int randomWorldSize() {
-		Random random = new Random();
-		
-		int worldSize = random.nextInt(10000) + 5000;
-		
-		return worldSize;
+	private double randomWorldSize() {
+		return (Math.random() * 10000) + 5000;
 	}
 	
-	/*public void addView(GameView gameView) {
-		this.gameView = gameView;
-		this.mapView = mapView;
-		worldCollection.addObserver(gameView);
-		worldCollection.addObserver(mapView);
-		gameView.addWorld(worldCollection);
-	}*/
 	public void addObserver(GameObserver gameObserver) {
 		worldCollection.addObserver(gameObserver);
 		gameObserver.addWorld(worldCollection);
