@@ -75,6 +75,14 @@ extends Moveable
 	
 	
 	/**
+	 * Removes the tail (in case it died)
+	 */
+	public void removeTail () {
+		nextPart = null;
+	}
+	
+	
+	/**
 	 * Returns the tail
 	 * @return the tail
 	 */
