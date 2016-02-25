@@ -130,8 +130,8 @@ extends WorldObject
 			velocity_diff = velocity_diff.sub( dv.scale(collision_damping*2) );
 		}	
 	}
-	public void wallCollide(double size){
-		double r = size/2-this.getRadius();
+	public void wallCollide(){
+		double r = theWorld.getWorldSize()/2-this.getRadius();
 		if(position.lengthsquared() > r*r){
 			Vector2D temp = position.normalize();
 			double projection = velocity.dot(temp);
