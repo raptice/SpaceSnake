@@ -21,16 +21,16 @@ extends WorldObject
 	/**
 	 * Constructor
 	 */
-	public Moveable(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
-		this(new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}
+	/*public Moveable(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
+		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
+	}*/
 	
 	
 	/**
 	 * Constructor
 	 */
-	public Moveable (Vector2D velocity, Vector2D position, double mass, double radius) {
-		super(position, mass, radius);
+	public Moveable (WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
+		super(world, position, mass, radius);
 		this.velocity = velocity;
 		collision_damping = Double.parseDouble(Config.get("Collision_damping"));
 	}
@@ -130,8 +130,8 @@ extends WorldObject
 			velocity_diff = velocity_diff.sub( dv.scale(collision_damping*2) );
 		}	
 	}
-	public void wallCollide(double size){
-		double r = size/2-this.getRadius();
+	public void wallCollide(){
+		double r = theWorld.getWorldSize()/2-this.getRadius();
 		if(position.lengthsquared() > r*r){
 			Vector2D temp = position.normalize();
 			double projection = velocity.dot(temp);
