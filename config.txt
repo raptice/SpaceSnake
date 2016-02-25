@@ -55,6 +55,6 @@ Snake_link_damping   = 0.99
 new_Tail_radius = 10
 new_Tail_mass = 10
 	
-Collision_damping = 0.995
+Collision_damping = 0.95
 Gravity_constant = 50
-
+Max_speed = 50
