@@ -1,5 +1,6 @@
 package model.objects;
 
+import model.WorldObject;
 import util.Vector2D;
 
 /**
@@ -21,4 +22,28 @@ extends SnakePart
 		super(velocity, position, mass, radius);
 	}
 	
+	/**
+	 * Overrides function in SnakePart to only make collisions happen if the controller lets it
+	 */
+	@Override
+	public void collision (WorldObject obj) {
+		if (obj instanceof BlackHole){
+			 die();
+		} else {
+			super.collision(obj);
+		}
+	}
+	private void die() {
+		SnakePart next = nextPart;
+		while (next != null)
+		{
+			next.kill();
+			//theWorld.remove(next);
+			next=next.getTail();
+		}
+		this.kill();
+		//theWorld.remove(this);
+		//set previous parts tail to null.
+		
+	}
 }

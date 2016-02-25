@@ -3,7 +3,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,7 +15,6 @@ import model.*;
 import model.objects.BlackHole;
 import model.objects.Edible;
 import model.objects.SnakeHead;
-import model.objects.SnakePart;
 import model.objects.SnakeTail;
 import view.*;
 
@@ -24,15 +22,14 @@ import util.GameEvent;
 import util.Vector2D;
 
 /**
- * Handles events from the GameView
+ * Handles events from the GameView, creates a new world, creates objects and adds them to world...
+ * TODO: Create new classes with more specified roles
  */
 public class GameController 
 implements ActionListener, Observer 
 {
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
-	private GameView gameView;
-	private MapView mapView;
 	
 	SnakeHead head;
 
@@ -42,10 +39,11 @@ implements ActionListener, Observer
 	private static final long longValue = 50;
 	
 	/**
-	 * Constructor that adds a reference to the parent controller
-	 * @param parent	The parent controller
+	 * TODO: Do we need to create a new game here? 
+	 * It will always create one when you press "New Game" in the start menu, 
+	 * so it does this twice, thereby throwing away the first one?
 	 */
-	public GameController(MainController parent){
+	public GameController(){
 		newGame();
 	}
 	
@@ -55,8 +53,8 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldCollection.setWorldSize(randomWorldSize());
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		
 		head = null;
 		createObjects();
@@ -100,9 +98,13 @@ implements ActionListener, Observer
 		worldCollection.addObserver(gameObserver);
 		gameObserver.addWorld(worldCollection);
 	}
-	
-	//TODO: Create randomized object
-	//		fill world with objects
+
+	/**
+	 * Creates a snake and adds objects to the world
+	 * TODO: 	Probably move snake creation to a new separate method
+	 * 			so this one only has the responsibility of adding 
+	 * 			everything to the world
+	 */
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
@@ -124,6 +126,11 @@ implements ActionListener, Observer
 		}
 	}
 	
+	/**
+	 * Randomizes how many objects that should be creates and of which type
+	 * @return spawns	A hashmap of types of objects and how many of them are to be created
+	 * TODO: Randomize how many objects are to be created of different types
+	 */
 	public Map<String,Integer> randomSpawns() {		
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
@@ -145,6 +152,12 @@ implements ActionListener, Observer
 		return spawns;
 	}
 	
+	/**
+	 * Creates objects with randomized coordinates that are added to an arraylist
+	 * @param pos	Vector with x and y coordinates that are to be checked
+	 * TODO: Move randomization of position to a new separate method randomizePosition() 
+	 * 		that returns a Vector2D of random position, which also checks if it's in the map
+	 */
 	public void addToWorld(ArrayList<WorldObject> gameObjects, Map<String,Integer> spawn){
 		Random randomPos = new Random();
 		Vector2D speed;
@@ -158,7 +171,10 @@ implements ActionListener, Observer
 				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
-					
+				
+				while ( !isInsideWorld(pos) ) {
+					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				}
 				gameObjects.add( new Floater(speed, pos, mass, radius) );
 			}
 		}
@@ -167,7 +183,10 @@ implements ActionListener, Observer
 				pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
 				mass = 100;
 				radius = 50;
-					
+				
+				while ( !isInsideWorld(pos) ) {
+					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				}
 				gameObjects.add( new BlackHole(pos, mass, radius) );
 			}
 		}
@@ -178,16 +197,39 @@ implements ActionListener, Observer
 				mass = 10;
 				radius = 10;
 				
+				while ( !isInsideWorld(pos) ) {
+					pos = new Vector2D(randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2,randomPos.nextInt(worldCollection.getWorldSize()) - worldCollection.getWorldSize()/2);
+				}
 				gameObjects.add( new Edible(speed, pos, mass, radius) );
 			}
 		}
 	}
 	
+	/**
+	 * Checks if a coordinates is inside the map
+	 * @param pos	Vector with x and y coordinates that are to be checked
+	 * @return 	true if coordinates are inside of the map
+	 * 			false if coordinates are outside of the map
+	 */
+	public boolean isInsideWorld(Vector2D pos) {
+		int worldRadius = worldCollection.getWorldSize()/2;
+		if (pos.getX()*pos.getX() + pos.getY()*pos.getY() < worldRadius*worldRadius) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	/**
+	 * Randomizes the size of the map
+	 * @return worldSize	Randomized double to be used when creating a new map
+	 * TODO: Change from int to double?
+	 */
 	public int randomWorldSize() {
 		Random random = new Random();
 		
 		//storlek bana -> ett tal som är slumpat mellan olika värden
-		int worldSize = random.nextInt(1000) + 500;
+		int worldSize = random.nextInt(10000) + 5000;
 		
 		return worldSize;
 	}

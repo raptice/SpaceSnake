@@ -10,7 +10,7 @@ import util.*;
  * @version 1.0.0.0
  */
 public class Floater extends Moveable implements IGravity{
-	protected final static double GRAVITY=2;
+	private double gravity=12;
 	
 	
 	public Floater(double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
@@ -18,6 +18,7 @@ public class Floater extends Moveable implements IGravity{
 	}
 	public Floater(Vector2D velocity, Vector2D position, double mass, double radius){
 		super(velocity, position, mass, radius);
+		gravity=Double.parseDouble(Config.get("Gravity_constant"));
 	}
 	
 	
@@ -45,7 +46,7 @@ public class Floater extends Moveable implements IGravity{
 		if (r*r>temp.lengthsquared())
 			return new Vector2D(0,0);
 		temp = temp.normalize();
-		temp = temp.scale(mass*GRAVITY*arg.getMass());
+		temp = temp.scale(mass*gravity*arg.getMass());
 		temp = temp.div(this.getPosition().distancesquared(arg.getPosition()));
 		return temp;
 	}
@@ -55,7 +56,7 @@ public class Floater extends Moveable implements IGravity{
 	 * @return Double the gravity.
 	 */
 	public double getGravity() {
-		return GRAVITY;
+		return gravity;
 	}
 	/**
 	 * Return this objects velocity vector.
