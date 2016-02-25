@@ -1,9 +1,6 @@
 
 package controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -12,14 +9,9 @@ import java.awt.event.ActionListener;
 
 
 import model.*;
-import model.objects.BlackHole;
-import model.objects.Edible;
-import model.objects.SnakeHead;
-import model.objects.SnakeTail;
 import view.*;
 import util.Config;
 import util.GameEvent;
-import util.Vector2D;
 
 /**
  * Handles events from the GameView, creates a new world, creates objects and adds them to world...
@@ -52,7 +44,7 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		worldCollection.setWorldSize(Config.randomWorldSize());
+		worldCollection.setWorldSize(randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldFactory = new WorldFactory(this, worldCollection);
 	}
@@ -83,6 +75,18 @@ implements ActionListener, Observer
 		}
 	}
 	
+	/**
+	 * Randomizes the size of the map
+	 * @return worldSize	Randomized double to be used when creating a new map
+	 * TODO: Change from int to double?
+	 */
+	private int randomWorldSize() {
+		Random random = new Random();
+		
+		int worldSize = random.nextInt(10000) + 5000;
+		
+		return worldSize;
+	}
 	
 	/*public void addView(GameView gameView) {
 		this.gameView = gameView;
