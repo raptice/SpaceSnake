@@ -20,12 +20,11 @@ public class GameOverMenuController implements ActionListener {
 	}
 	
 	/**
-	 * Handles events coming from buttons on the startup menu
+	 * Handles events coming from buttons on the gameover menu
 	 * @param e		The ActionEvent sent from a button press
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == GameEvent.BACK_TO_MENU) {
-			System.out.println("GameOverMenuController: Back to menu");
 			parent.exitMenu();
 		}
 		else {

@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 import model.*;
 import view.*;
-import util.Config;
 import util.GameEvent;
 
 /**
@@ -120,7 +119,6 @@ implements ActionListener, Observer
 		{	
 			if (((String)arg1).equals("GAMEOVER"))
 			{
-				System.out.println("GAME OVER");
 				parent.setGameOver();
 				pausePhysics(); //Bad!
 			}
