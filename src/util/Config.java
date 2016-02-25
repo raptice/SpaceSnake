@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.Random;
 
 
 /**
@@ -46,19 +45,6 @@ public class Config {
 		String value = (String) configFile.get(key);
 		if (value == null) return "";
 		return value;
-	}
-	
-	/**
-	 * Randomizes the size of the map
-	 * @return worldSize	Randomized double to be used when creating a new map
-	 * TODO: Change from int to double?
-	 */
-	public static int randomWorldSize() {
-		Random random = new Random();
-		
-		int worldSize = random.nextInt(10000) + 5000;
-		
-		return worldSize;
 	}
 	
 }
