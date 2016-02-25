@@ -94,7 +94,7 @@ public class WorldFactory {
 		
 		if( spawn.containsKey("Floater") ){
 			for(int i=0; i< spawn.get("Floater"); i++){
-				speed = new Vector2D(0,0);
+				speed = randomSpeed();
 				pos = randomPosition();
 				mass = 100;
 				radius = 50;
@@ -113,7 +113,7 @@ public class WorldFactory {
 		}
 		if( spawn.containsKey("Edible") ){
 			for(int i=0; i< spawn.get("Edible"); i++){
-				speed = new Vector2D(0,0);
+				speed = randomSpeed();
 				pos = randomPosition();
 				mass = 10;
 				radius = 10;
@@ -129,6 +129,12 @@ public class WorldFactory {
 			pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
 		}
 		return pos;
+	}
+	
+	public Vector2D randomSpeed() {
+		double speedMultiplier = 30;
+		Vector2D speed = new Vector2D((Math.random() * speedMultiplier) - speedMultiplier/2, (Math.random() * speedMultiplier) - speedMultiplier/2);
+		return speed;
 	}
 	
 	/**
