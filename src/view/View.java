@@ -2,6 +2,8 @@ package view;
 import java.awt.event.ActionListener;
 import java.util.Observer;
 
+import javax.swing.JFileChooser;
+
 /**
  * This is the view class that handles every graphical interaction
  * 
@@ -145,6 +147,18 @@ public class View
 		mainWindow.remove(mapView);
 	}
 	
+	
+	/**
+	 * Opens a file dialog where the user chooses a file where the game gets saved.
+	 * @return The file and its path as a string.
+	 */
+	public String saveGameFileChooser() {
+		JFileChooser filechooser = new JFileChooser();
+		int returnVal = filechooser.showOpenDialog(mainWindow);
+	    if(returnVal == JFileChooser.APPROVE_OPTION)
+	    	return filechooser.getSelectedFile().toString();
+	    else return null;
+	}
 }
 
 
