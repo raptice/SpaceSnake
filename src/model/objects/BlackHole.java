@@ -1,5 +1,6 @@
 package model.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.IGravity;
@@ -17,9 +18,14 @@ import util.Vector2D;
 
 public class BlackHole
 extends WorldObject
-implements IGravity
+implements IGravity, Serializable
 {
 
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private double gravity = 18;
 	
 	/*public BlackHole(WorldCollection world, double xPos, double yPos, double mass, double radius) {

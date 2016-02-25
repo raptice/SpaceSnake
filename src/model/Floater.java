@@ -1,4 +1,5 @@
 package model;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import util.*;
@@ -9,7 +10,13 @@ import util.*;
  * @author Model-team 
  * @version 1.0.0.0
  */
-public class Floater extends Moveable implements IGravity{
+public class Floater extends Moveable implements IGravity, Serializable{
+	
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private double gravity=12;
 	
 	
