@@ -66,7 +66,7 @@ extends JComponent
 	 * 
 	 * @param event		The event thats get sent to the listeners
 	 */
-	protected void fireEvent (ActionEvent event){
+	public void fireEvent (ActionEvent event){
 		for (ActionListener listener : listeners)
 			listener.actionPerformed(event);
 	}

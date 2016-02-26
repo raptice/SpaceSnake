@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import util.Config;
+import view.GameComponent;
 
 @SuppressWarnings("serial")
 public class MenuPanel 
@@ -97,7 +98,7 @@ implements MouseListener, ActionListener
 	 * @param highlight_color
 	 */
 	public void addButton(String text, String command, Color bg_color, Color border_color, Color highlight_color){
-		GameButton button = new GameButton(text);
+		MenuButton button = new MenuButton(text);
 		button.setBackground(bg_color);
 		button.setBorderColor(border_color);
 		button.setHighlightColor(highlight_color);
