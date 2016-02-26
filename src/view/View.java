@@ -4,6 +4,12 @@ import java.util.Observer;
 
 import javax.swing.JFileChooser;
 
+import view.map.MapView;
+import view.menu.GameOverMenu;
+import view.menu.GameViewMenu;
+import view.menu.IngameMenu;
+import view.menu.StartupMenu;
+
 /**
  * This is the view class that handles every graphical interaction
  * 

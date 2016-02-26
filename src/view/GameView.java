@@ -27,7 +27,7 @@ import model.objects.SnakeTail;
 
 import util.GameEvent;
 import util.Vector2D;
-import view.Figures.*;
+import view.figures.*;
 
 /**
  * This is a class that just contains the game itself

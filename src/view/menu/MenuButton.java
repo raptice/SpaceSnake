@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import util.Config;
 
 @SuppressWarnings("serial")
-public class GameButton 
+public class MenuButton 
 extends JButton
 {
 	private Color bg_color = new Color(200,200,240,200);
@@ -23,7 +23,7 @@ extends JButton
 	private Color highlight_color = new Color(255,0,255,255);
 	private int corner_r = 20;
 	
-	public GameButton(String string) {
+	public MenuButton(String string) {
 		super(string);
 		setContentAreaFilled(false);
 		corner_r = Integer.parseInt(Config.get("Menu_corner_r"));

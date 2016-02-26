@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import util.GameEvent;
 import util.Config;
 import util.Parser;
+import view.GameComponent;
 
 
 /**

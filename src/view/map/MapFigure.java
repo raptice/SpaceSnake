@@ -1,4 +1,4 @@
-package view.mapfigures;
+package view.map;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,7 +11,6 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import util.Vector2D;
-import view.MapView;
 
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
