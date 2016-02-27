@@ -46,6 +46,23 @@ implements ActionListener, Observer
 	}
 	
 	/**
+	 * Loads a game
+	 */
+	public void loadGame (WorldCollection theWorld) {
+		worldCollection = theWorld;
+		worldCollection.deleteObservers();
+		worldCollection.addObserver(this);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+	}
+	
+	/**
+	 * Returns the world. Used in order to save a game.
+	 */
+	public WorldCollection getWorldCollection() {
+		return worldCollection;
+	}
+	
+	/**
 	 * Starts the thread where the physics run
 	 */
 	public void runPhysics () {
