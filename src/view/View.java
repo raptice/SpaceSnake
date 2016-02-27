@@ -182,6 +182,19 @@ public class View
 	 */
 	public String saveGameFileChooser() {
 		JFileChooser filechooser = new JFileChooser();
+		int returnVal = filechooser.showSaveDialog(mainWindow);
+	    if(returnVal == JFileChooser.APPROVE_OPTION)
+	    	return filechooser.getSelectedFile().toString();
+	    else return null;
+	}
+	
+	
+	/**
+	 * Opens a file dialog where the user chooses a file where the game gets loaded.
+	 * @return The file and its path as a string.
+	 */
+	public String loadGameFileChooser() {
+		JFileChooser filechooser = new JFileChooser();
 		int returnVal = filechooser.showOpenDialog(mainWindow);
 	    if(returnVal == JFileChooser.APPROVE_OPTION)
 	    	return filechooser.getSelectedFile().toString();
