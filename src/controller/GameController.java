@@ -13,8 +13,12 @@ import view.*;
 import util.GameEvent;
 
 /**
- * Handles events from the GameView and methods for the PhysicsEngine
+ * Class that handles events from the GameView and methods for the PhysicsEngine
+ * 
+ * @author Ingrid, Micaela
+ * @version 2016-02-28
  */
+
 public class GameController 
 implements ActionListener, Observer 
 {
@@ -43,6 +47,25 @@ implements ActionListener, Observer
 		worldCollection.setWorldSize(randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 		worldFactory = new WorldFactory(this, worldCollection);
+	}
+	
+	/**
+	 * Loads a game
+	 */
+	public void loadGame (WorldCollection theWorld) {
+		worldCollection = theWorld;
+		worldCollection.deleteObservers();
+		worldCollection.addObserver(this);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+	}
+	
+	/**
+	 * Returns the world. Used in order to save a game.
+	 * @return worldCollection	the world of the game
+	 */
+
+	public WorldCollection getWorldCollection() {
+		return worldCollection;
 	}
 	
 	/**
@@ -95,7 +118,7 @@ implements ActionListener, Observer
 	
 	/**
 	 * Handles mouse events in the game
-	 * @param e		The ActionEvent sent from a mouse press
+	 * @param e_in		The ActionEvent sent from a mouse press
 	 */
 	public void actionPerformed(ActionEvent e_in) {
 		GameEvent e = (GameEvent) e_in;

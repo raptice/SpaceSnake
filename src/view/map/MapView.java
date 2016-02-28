@@ -1,4 +1,4 @@
-package view;
+package view.map;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -30,8 +30,9 @@ import model.objects.SnakeTail;
 
 import util.Config;
 import util.Parser;
-import view.Figures.*;
-import view.mapfigures.MapFigure;
+import view.GameComponent;
+import view.GameObserver;
+import view.figures.*;
 
 /**
  * This is a class that just contains the game itself
@@ -200,7 +201,7 @@ implements MouseListener, GameObserver, ActionListener
 	private void addItem (WorldObject what) {
 		final MapFigure figure;
 		if (what instanceof Floater) {
-			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,155,0));
+			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,0,155));
 		} else if (what instanceof BlackHole) {
 			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,0,0));
 		} else if (what instanceof Edible) {
