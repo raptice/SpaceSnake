@@ -42,8 +42,8 @@ public class WorldFactory {
 	public WorldFactory(GameController parent, WorldCollection worldCollection) {
 		this.parent = parent;
 		this.worldCollection = worldCollection;
-		createObjects();
 		createSnake();
+		createObjects();
 	}
 	
 	/**
@@ -51,9 +51,8 @@ public class WorldFactory {
 	 */
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
-		
 		addSnake(gameObjects, head, tail,tail2);
-		
+		addToWorld(gameObjects, randomSpawns());
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
 		}
