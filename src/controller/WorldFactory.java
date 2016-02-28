@@ -15,6 +15,13 @@ import model.objects.SnakeHead;
 import model.objects.SnakeTail;
 import util.Vector2D;
 
+/**
+ * Class that creates objects and puts them in the world.
+ * 
+ * @author Ingrid, Micaela
+ * @version 2016-02-28
+ */
+
 public class WorldFactory {
 	
 	private static final int MAX_SPAWN = 40;
@@ -59,9 +66,10 @@ public class WorldFactory {
 	}
 	
 	/**
-	 * Randomizes how many objects that should be creates and of which type
+	 * Randomizes how many objects that should be created, and of which type.
 	 * @return spawns	A hashmap of types of objects and how many of them are to be created
-	 * TODO: Randomize how many objects are to be created of different types
+	 * TODO: 	Polish the randomization of how many objects are to be created of different types.
+	 * 			Possibly create difficulties?
 	 */
 	public Map<String,Integer> randomSpawns() {		
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
@@ -102,6 +110,8 @@ public class WorldFactory {
 	/**
 	 * Creates objects with randomized coordinates that are added to an arraylist
 	 * @param pos	Vector with x and y coordinates that are to be checked
+	 * 			gameObjects		List that can hold objects that will be put in the world
+	 * 			spawn			HashMap that holds keys mapped to the amount of certain objects that should be created.
 	 * TODO: Move randomization of position to a new separate method randomizePosition() 
 	 * 		that returns a Vector2D of random position, which also checks if it's in the map
 	 */
@@ -142,6 +152,10 @@ public class WorldFactory {
 		}
 	}
 	
+	/**
+	 * Randomizes position coordinates
+	 * @return pos	Vector with x and y coordinates
+	 */
 	public Vector2D randomPosition() {
 		Vector2D pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
 		while ( !isInsideWorld(pos) ) {
@@ -150,6 +164,10 @@ public class WorldFactory {
 		return pos;
 	}
 	
+	/**
+	 * Randomizes speed values
+	 * @return speed	Vector with two speed values
+	 */
 	public Vector2D randomSpeed() {
 		double speedMultiplier = 30;
 		Vector2D speed = new Vector2D((Math.random() * speedMultiplier) - speedMultiplier/2, (Math.random() * speedMultiplier) - speedMultiplier/2);
