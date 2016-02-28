@@ -29,36 +29,30 @@ public class WorldFactory {
 	private static final int ZERO = 0;
 	
 	SnakeHead head;
+	SnakeTail tail;
+	SnakeTail tail2;
 	GameController parent;
 	WorldCollection worldCollection;
 	
+	/**
+	 * Constructor that creates game objects and the snake.
+	 * @param	parent			Reference to GameController
+	 * 			worldCollection	the game world 
+	 */
 	public WorldFactory(GameController parent, WorldCollection worldCollection) {
 		this.parent = parent;
 		this.worldCollection = worldCollection;
 		createObjects();
+		createSnake();
 	}
 	
 	/**
-	 * Creates a snake and adds objects to the world
-	 * TODO: 	Probably move snake creation to a new separate method
-	 * 			so this one only has the responsibility of adding 
-	 * 			everything to the world
+	 * Adds a snake and  objects to the world
 	 */
 	public void createObjects() {
 		ArrayList<WorldObject> gameObjects = new ArrayList<WorldObject>();
 		
-		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,20);
-		SnakeTail tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,15);
-		SnakeTail tail2 = new SnakeTail(worldCollection, new Vector2D(0,2),new Vector2D(-70,100),5,15);
-		
-		head.addTail(tail);
-		tail.addTail(tail2);
-		
-		gameObjects.add(head);
-		gameObjects.add(tail);
-		gameObjects.add(tail2);
-		
-		addToWorld(gameObjects, randomSpawns());
+		addSnake(gameObjects, head, tail,tail2);
 		
 		for (WorldObject worldObject: gameObjects) {
 			worldCollection.add(worldObject);
@@ -66,7 +60,32 @@ public class WorldFactory {
 	}
 	
 	/**
-	 * Randomizes how many objects that should be created, and of which type.
+	 * Creates a snake with a set position
+	 */
+	public void createSnake(){
+		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,20);
+		tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,15);
+		tail2 = new SnakeTail(worldCollection, new Vector2D(0,2),new Vector2D(-70,100),5,15);
+		
+		head.addTail(tail);
+		tail.addTail(tail2);
+	}
+	
+	/**
+	 * Adds the snake to the world
+	 * @param 	gameObjects	List that holds objects in the world
+	 * 			head	the head of the snake
+	 * 			tail	the first tail of the snake
+	 * 			tail2	the second tail of the snake
+	 */
+	public void addSnake(ArrayList<WorldObject> gameObjects, SnakeHead head, SnakeTail tail, SnakeTail tail2){
+		gameObjects.add(head);
+		gameObjects.add(tail);
+		gameObjects.add(tail2);
+	}
+	
+	/**
+	 * Randomizes how many objects that should be created, and of which type, based on the size of the World.
 	 * @return spawns	A hashmap of types of objects and how many of them are to be created
 	 * TODO: 	Polish the randomization of how many objects are to be created of different types.
 	 * 			Possibly create difficulties?
