@@ -2,7 +2,16 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
+import model.WorldCollection;
+
+import controller.menucontroller.GameOverMenuController;
+import controller.menucontroller.IngameMenuController;
+import controller.menucontroller.StartupMenuController;
 import util.GameEvent;
 
 import view.View;
@@ -31,7 +40,6 @@ public class MainController implements ActionListener {
 	 * @param view	Reference to the view
 	 */
 	public MainController(View view){
-		System.out.println("Controller: adding view");
 		this.view = view;
 		state = STARTUP_MENU;
 		
@@ -52,33 +60,6 @@ public class MainController implements ActionListener {
 		view.addActionListener(this);
 		view.addKeyListener(KeyEvent.VK_ESCAPE, GameEvent.ESC_PRESSED);
 	}
-	
-	
-	/* Controller för view (vi får strängar):
-	 * 
-	 * Vi ska starta startup menu när vi startar spelet (när den skapas)
-	 *  - start new game
-	 *  - load saved game
-	 *  - exit Program
-	 *  
-	 * In Game:
-	 * +escape button stops game & shows InGame menu
-	 *   In Game Menu:
-	 *   	 - save Game
-	 *   	 - exit Game
-	 *    	 - resume Game
-	 *   MainWindow:
-	 *    	ESC <-Dynamiskt(?)
-	 *    	Close Window
-	 *   Game:
-	 * 		Mouse events:
-	 * 			- Mouse Pressed
-	 * 			- Mouse Released
-	 * 			- Mouse Drag
-	 * 	 Model:
-	 * 		-GameOver TODO: Add gameOver() method
-	 * 
-	 * */
 	
 	/* TODO: Add model and fix where to have the methods for GameController
 	public void addModel(Model model){
@@ -102,9 +83,29 @@ public class MainController implements ActionListener {
 		
 	/**
 	 * Loads the game
-	 * TODO: Add method to load game
 	 */
 	public void loadGame() {
+		//Get filename from gui
+		String filename = view.loadGameFileChooser();
+		FileInputStream fis = null;
+	    ObjectInputStream in = null;
+	    WorldCollection theWorld = null;
+	    //Load the game
+	    try {
+	    	fis = new FileInputStream(filename);
+	    	in = new ObjectInputStream(fis);
+	    	theWorld = (WorldCollection) in.readObject();
+	    	in.close();
+	    } catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }
+	    //Start the game
+	    gameController.loadGame(theWorld);
+	    view.hideStartupMenu();			
+		gameController.addObserver(view.showNewGame(gameController));
+		gameController.addObserver(view.showNewMap());
+		gameController.runPhysics();
+		state = GAME_VIEW;
 	}
 	
 	/**
@@ -126,13 +127,28 @@ public class MainController implements ActionListener {
 	
 	/**
 	 * Saves the game
-	 * TODO: Add method to save game
 	 */
 	public void saveGame() {
+		//get filename from gui
+		String filename = view.saveGameFileChooser();
+		System.out.println(filename);
+		//get worldcollection
+		WorldCollection theWorld = gameController.getWorldCollection();
+		//Save the game
+		FileOutputStream fos = null;
+	    ObjectOutputStream out = null;
+	    try {
+	    	fos = new FileOutputStream(filename);
+	    	out = new ObjectOutputStream(fos);
+	    	out.writeObject(theWorld);
+	    	out.close();
+	    } catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }		
 	}
 	
 	/**
-	 * Exits the game from the ingame menu and shows the startup menu
+	 * Exits the game from the ingame menu or gameover menu and shows the startup menu
 	 */
 	public void exitMenu() {
 		gameController.stopPhysics();
@@ -147,9 +163,9 @@ public class MainController implements ActionListener {
 		state = STARTUP_MENU;
 	}
 	/**
-	 * Pauses, and exits, a running game and shows the in game menu
+	 * Pauses a running game and shows the in game menu
 	 */
-	public void exitGame() {
+	public void pauseGame() {
 		gameController.pausePhysics();
 		view.showIngameMenu(ingameMenuController);
 		state = INGAME_MENU;
@@ -167,20 +183,18 @@ public class MainController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getActionCommand().equals(GameEvent.ESC_PRESSED)) {
-			System.out.println("MainController: ESC");
 			switch (state) {
 			case STARTUP_MENU: 
 				break;
 			case INGAME_MENU: resumeGame();
 				break;
-			case GAME_VIEW: exitGame();
+			case GAME_VIEW: pauseGame();
 				break;
 			case GAME_OVER:
 				break;
 			}
 		}
 		else if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
-			System.out.println("MainController: Window closed");
 			exit();
 		}
 		else {
