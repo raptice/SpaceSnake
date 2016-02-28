@@ -11,11 +11,13 @@ import model.objects.SnakePart;
 import util.Vector2D;
 
 /**
- * Write a description of class GameThread here.
+ * Class that governs the physics of the game.
+ * Handles input from the game world.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Ingrid, Micaela
+ * @version 2016-02-28
  */
+
 public class PhysicsEngine extends Thread
 {
     private double dT;
@@ -25,12 +27,18 @@ public class PhysicsEngine extends Thread
     private Vector2D MouseDir = new Vector2D (0,0);
     private double MouseAccPower = 1;
     
-
+    /**
+     * Constructor that sets the in-game physics
+     * @param	data		ArrayList of World Objects
+     * 			dt			
+     * 			gameSpeed	
+     */
     public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
     	this.gameSpeed = gameSpeed;
     	this.data = data;
         this.dT = dT;
     }
+
     public void SnakePull(Vector2D acc){
     	if(acc==null)
     	{
@@ -45,6 +53,10 @@ public class PhysicsEngine extends Thread
     public void collisionResolve(){
     	
     }
+    /**
+     * Starts the thread. 
+     * Pauses and resumes thread based on flags.
+     */
     public void run(){
     	Thread thisThread = Thread.currentThread();
         while ( ! isInterrupted() ) {
@@ -95,10 +107,15 @@ public class PhysicsEngine extends Thread
             
         }
     }
+    /**
+     * Sets flag used for pausing this thread.
+     */
     public void setPaused() {
     	setPaused = true;
     }
-    
+    /**
+     * Sets flag used for resuming this thread.
+     */
     public void setResumed() {
     	setPaused = false;
     }
