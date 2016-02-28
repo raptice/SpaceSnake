@@ -13,8 +13,12 @@ import view.*;
 import util.GameEvent;
 
 /**
- * Handles events from the GameView and methods for the PhysicsEngine
+ * Class that handles events from the GameView and methods for the PhysicsEngine
+ * 
+ * @author Ingrid, Micaela
+ * @version 2016-02-28
  */
+
 public class GameController 
 implements ActionListener, Observer 
 {
@@ -57,7 +61,9 @@ implements ActionListener, Observer
 	
 	/**
 	 * Returns the world. Used in order to save a game.
+	 * @return worldCollection	the world of the game
 	 */
+
 	public WorldCollection getWorldCollection() {
 		return worldCollection;
 	}
@@ -112,7 +118,7 @@ implements ActionListener, Observer
 	
 	/**
 	 * Handles mouse events in the game
-	 * @param e		The ActionEvent sent from a mouse press
+	 * @param e_in		The ActionEvent sent from a mouse press
 	 */
 	public void actionPerformed(ActionEvent e_in) {
 		GameEvent e = (GameEvent) e_in;
