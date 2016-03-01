@@ -7,10 +7,10 @@ import java.util.Observer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 import model.*;
 import view.*;
 import util.GameEvent;
+import util.Vector2D;
 
 /**
  * Class that handles events from the GameView and methods for the PhysicsEngine
@@ -136,6 +136,10 @@ implements ActionListener, Observer
 		else {
 			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
 		}
+	}
+	
+	public void accelerate(Vector2D	acc) {
+		physicsEngine.SnakePull(acc);
 	}
 
 	@Override
