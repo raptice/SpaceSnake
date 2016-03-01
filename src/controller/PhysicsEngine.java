@@ -48,9 +48,6 @@ public class PhysicsEngine extends Thread
     	}
     	
     }
-    public void collisionResolve(){
-    	
-    }
     /**
      * Starts the thread. 
      * Pauses and resumes thread based on flags.
