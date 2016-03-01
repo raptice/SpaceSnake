@@ -165,6 +165,10 @@ public class WorldFactory {
 				mass = 100;
 				radius = 130;
 				
+				while(!checkPos(pos,radius,gameObjects)){
+					pos =randomPosition();
+					System.out.println("new position BH");
+				}
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
 		}
@@ -179,6 +183,26 @@ public class WorldFactory {
 			}
 		}
 	}
+	
+	/**
+	 * Checks if a position is free for the object
+	 * @param 	pos		the x and y coordinates of the object
+	 * 			radius	the radius of the object
+	 * 			gameObjects		the array that holds objects
+	 * @return	true	if there is a free space for the object
+	 * 			false	if there is no free space for the object
+	 */
+		public boolean checkPos(Vector2D pos,double radius, ArrayList<WorldObject> gameObjects){
+			for(WorldObject objects : gameObjects){
+				double lengthsqr = pos.sub(objects.getPosition()).lengthsquared();
+				double radlength = radius + objects.getRadius();
+				
+				if(lengthsqr<radlength*radlength){
+					return false;
+				}
+			}
+			return true;
+		}
 	
 	/**
 	 * Randomizes position coordinates
