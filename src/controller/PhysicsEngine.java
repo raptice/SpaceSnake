@@ -40,13 +40,7 @@ public class PhysicsEngine extends Thread
     }
 
     public void SnakePull(Vector2D acc){
-    	if(acc==null) {
-    		mouseDir = new Vector2D (0,0);
-    	}
-    	else {
     		mouseDir = acc.scale(mouseAccPower);
-    	}
-    	
     }
     /**
      * Starts the thread. 
