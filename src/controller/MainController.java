@@ -69,6 +69,7 @@ public class MainController implements ActionListener {
 	public GameController getGameController(){
 		return this.gameController;
 	}
+	
 	/**
 	 * Starts a new game
 	 */
@@ -82,7 +83,7 @@ public class MainController implements ActionListener {
 	}
 		
 	/**
-	 * Loads the game
+	 * Loads a game
 	 */
 	public void loadGame() {
 		//Get filename from gui
