@@ -100,11 +100,20 @@ public class WorldFactory {
 		int edible = ZERO;
 		int blackHole = ZERO;
 		
-		if(WorldSize.intValue() <= 5000 && WorldSize.intValue() >= 7400 ){
+		if(WorldSize.intValue() <= 5000 || WorldSize.intValue() <= 6000 ){
 			
-			floater = totalObjects/3;
+			floater = totalObjects/5;
+			edible = totalObjects/6;
+			blackHole = totalObjects/8 ;
+			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
+		}
+
+		
+		if( WorldSize.intValue() >= 6001 && WorldSize.intValue() <= 8500 ){
+			
+			floater = totalObjects/2;
 			edible = totalObjects;
-			blackHole = totalObjects /4;
+			blackHole = totalObjects/6 ;
 			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
 		}
 		
@@ -112,7 +121,8 @@ public class WorldFactory {
 			
 			floater = totalObjects;
 			edible = totalObjects *2;
-			blackHole = totalObjects /2;
+			blackHole = totalObjects/2 ;
+
 			System.out.println("size 15000 or less totalobjects = "+totalObjects);
 		}
 		 
