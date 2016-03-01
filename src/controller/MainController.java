@@ -18,7 +18,11 @@ import view.View;
 
 /**
  * Creates view and model, handles events from the keyboard and implements actions from subcontrollers
+ * 
+ * @author Ingrid, Micaela
+ * @version 2016-02-28
  */
+
 public class MainController implements ActionListener {
 	private View view;
 	private String state;
@@ -69,6 +73,7 @@ public class MainController implements ActionListener {
 	public GameController getGameController(){
 		return this.gameController;
 	}
+	
 	/**
 	 * Starts a new game
 	 */
@@ -162,6 +167,7 @@ public class MainController implements ActionListener {
 		view.showStartupMenu(startupMenuController);
 		state = STARTUP_MENU;
 	}
+	
 	/**
 	 * Pauses a running game and shows the in game menu
 	 */
@@ -171,14 +177,17 @@ public class MainController implements ActionListener {
 		state = INGAME_MENU;
 	}
 	
+	/**
+	 * Sets Game Over state and shows the Game Over menu
+	 */
 	public void setGameOver() {
 		view.showGameOverMenu(gameOverMenuController);
 		state = GAME_OVER;
 	}
 	
 	/**
-	 * Handles events coming from the ESC button on the keyboard and from when the window is closed
-	 * @param e		The ActionEvent sent from a button press or by closing the window
+	 * Handles events coming from the ESC button on the keyboard, and from when the main window is closed
+	 * @param e		The ActionEvent sent from a button press or by closing the main window
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
