@@ -13,7 +13,7 @@ import controller.menucontroller.GameOverMenuController;
 import controller.menucontroller.IngameMenuController;
 import controller.menucontroller.StartupMenuController;
 import util.GameEvent;
-
+import util.Vector2D;
 import view.View;
 
 /**
@@ -63,6 +63,10 @@ public class MainController implements ActionListener {
 	private void configView () {
 		view.addActionListener(this);
 		view.addKeyListener(KeyEvent.VK_ESCAPE, GameEvent.ESC_PRESSED);
+		view.addKeyListener(KeyEvent.VK_UP, GameEvent.UP_PRESSED);
+		view.addKeyListener(KeyEvent.VK_DOWN, GameEvent.DOWN_PRESSED);
+		view.addKeyListener(KeyEvent.VK_RIGHT, GameEvent.RIGHT_PRESSED);
+		view.addKeyListener(KeyEvent.VK_LEFT, GameEvent.LEFT_PRESSED);
 	}
 	
 	/*public GameController getGameController(){
@@ -198,11 +202,24 @@ public class MainController implements ActionListener {
 				break;
 			}
 		}
-		else if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
-			exit();
+		if (e.getActionCommand().equals(GameEvent.UP_PRESSED)) {
+			gameController.accelerate(new Vector2D(0,-100));
+			System.out.println("UP");
 		}
-		else {
-			System.out.println(e); //debugging
+		if (e.getActionCommand().equals(GameEvent.DOWN_PRESSED)) {
+			gameController.accelerate(new Vector2D(0,100));
+			System.out.println("DOWN");
+		}
+		if (e.getActionCommand().equals(GameEvent.RIGHT_PRESSED)) {
+			gameController.accelerate(new Vector2D(100,0));
+			System.out.println("RIGHT");
+		}
+		if (e.getActionCommand().equals(GameEvent.LEFT_PRESSED)) {
+			gameController.accelerate(new Vector2D(-100,0));
+			System.out.println("LEFT");
+		}
+		if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
+			exit();
 		}
 	}
 }

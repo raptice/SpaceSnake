@@ -1,6 +1,5 @@
 package view;
 import java.awt.event.ActionListener;
-import java.util.Observer;
 
 import javax.swing.JFileChooser;
 
