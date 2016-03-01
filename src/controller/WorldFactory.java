@@ -192,17 +192,17 @@ public class WorldFactory {
 	 * @return	true	if there is a free space for the object
 	 * 			false	if there is no free space for the object
 	 */
-		public boolean checkPos(Vector2D pos,double radius, ArrayList<WorldObject> gameObjects){
-			for(WorldObject objects : gameObjects){
-				double lengthsqr = pos.sub(objects.getPosition()).lengthsquared();
-				double radlength = radius + objects.getRadius();
-				
-				if(lengthsqr<radlength*radlength){
-					return false;
-				}
-			}
-			return true;
+	public boolean checkPos(Vector2D pos, double radius, ArrayList<WorldObject> gameObjects){
+		for(WorldObject objects : gameObjects){
+			double lengthsqr = pos.sub(objects.getPosition()).lengthsquared();
+			double radlength = radius + objects.getRadius();
+			
+			if(lengthsqr<radlength*radlength){
+				return false;
+			}			
 		}
+		return true;
+	}
 	
 	/**
 	 * Randomizes position coordinates
