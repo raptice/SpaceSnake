@@ -167,7 +167,6 @@ public class WorldFactory {
 				
 				while(!checkPos(pos,radius,gameObjects)){
 					pos =randomPosition();
-					System.out.println("new position BH");
 				}
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
