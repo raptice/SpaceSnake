@@ -24,13 +24,13 @@ public class PhysicsEngine extends Thread
     private WorldCollection data;
     private boolean setPaused;
     private double gameSpeed;
-    private Vector2D MouseDir = new Vector2D (0,0);
-    private double MouseAccPower = 1;
+    private Vector2D mouseDir = new Vector2D (0,0);
+    private double mouseAccPower = 1;
     
     /**
      * Constructor that sets the in-game physics
      * @param	data		ArrayList of World Objects
-     * 			dt			
+     * 			dT			
      * 			gameSpeed	
      */
     public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
@@ -40,13 +40,11 @@ public class PhysicsEngine extends Thread
     }
 
     public void SnakePull(Vector2D acc){
-    	if(acc==null)
-    	{
-    		MouseDir = new Vector2D (0,0);
+    	if(acc==null) {
+    		mouseDir = new Vector2D (0,0);
     	}
-    	else
-    	{
-    		MouseDir = acc.scale(MouseAccPower);
+    	else {
+    		mouseDir = acc.scale(mouseAccPower);
     	}
     	
     }
@@ -100,7 +98,7 @@ public class PhysicsEngine extends Thread
             }
             for(WorldObject obj : collection){
             	if(obj instanceof SnakeHead){
-            		((SnakeHead)obj).accelerate(MouseDir,dT);
+            		((SnakeHead)obj).accelerate(mouseDir,dT);
             	}	
             }
             
