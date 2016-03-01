@@ -129,7 +129,7 @@ implements ActionListener, Observer
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
 			//System.out.println("GameController: Mouse released: "+e.getVector());
-			physicsEngine.SnakePull(null);
+			physicsEngine.SnakePull(new Vector2D (0,0));
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());

@@ -25,7 +25,7 @@ public class PhysicsEngine extends Thread
     private boolean setPaused;
     private double gameSpeed;
     private Vector2D mouseDir = new Vector2D (0,0);
-    private double mouseAccPower = 1;
+    private double mouseAccPower = 5;
     
     /**
      * Constructor that sets the in-game physics
@@ -40,16 +40,7 @@ public class PhysicsEngine extends Thread
     }
 
     public void SnakePull(Vector2D acc){
-    	if(acc==null) {
-    		mouseDir = new Vector2D (0,0);
-    	}
-    	else {
     		mouseDir = acc.scale(mouseAccPower);
-    	}
-    	
-    }
-    public void collisionResolve(){
-    	
     }
     /**
      * Starts the thread. 
