@@ -100,11 +100,20 @@ public class WorldFactory {
 		int edible = ZERO;
 		int blackHole = ZERO;
 		
-		if(WorldSize.intValue() <= 5000 && WorldSize.intValue() >= 7400 ){
+		if(WorldSize.intValue() <= 5000 || WorldSize.intValue() <= 6000 ){
 			
-			floater = totalObjects/3;
+			floater = totalObjects/5;
+			edible = totalObjects/6;
+			blackHole = totalObjects/7 ;
+			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
+		}
+
+		
+		if( WorldSize.intValue() >= 6001 && WorldSize.intValue() <= 8500 ){
+			
+			floater = totalObjects/2;
 			edible = totalObjects;
-			blackHole = totalObjects /4;
+			blackHole = totalObjects/4 ;
 			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
 		}
 		
@@ -112,7 +121,8 @@ public class WorldFactory {
 			
 			floater = totalObjects;
 			edible = totalObjects *2;
-			blackHole = totalObjects /2;
+			blackHole = totalObjects/2 ;
+
 			System.out.println("size 15000 or less totalobjects = "+totalObjects);
 		}
 		 
@@ -153,7 +163,7 @@ public class WorldFactory {
 			for(int i=0; i< spawn.get("BlackHole"); i++){
 				pos = randomPosition();
 				mass = 100;
-				radius = 50;
+				radius = 130;
 				
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
@@ -163,7 +173,7 @@ public class WorldFactory {
 				speed = randomSpeed();
 				pos = randomPosition();
 				mass = 10;
-				radius = 30;
+				radius = 70;
 
 				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
