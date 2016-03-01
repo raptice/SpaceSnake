@@ -87,7 +87,7 @@ public class MainController implements ActionListener {
 	}
 		
 	/**
-	 * Loads the game
+	 * Loads a game
 	 */
 	public void loadGame() {
 		//Get filename from gui

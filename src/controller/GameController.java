@@ -54,7 +54,6 @@ implements ActionListener, Observer
 	 */
 	public void loadGame (WorldCollection theWorld) {
 		worldCollection = theWorld;
-		worldCollection.deleteObservers();
 		worldCollection.addObserver(this);
 		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
 	}
