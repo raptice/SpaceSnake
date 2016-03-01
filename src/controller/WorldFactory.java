@@ -93,7 +93,6 @@ public class WorldFactory {
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
 		Double WorldSize = worldCollection.getWorldSize();
-		System.out.println("world size = "+WorldSize);
 		
 		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
 		int floater = ZERO;
@@ -105,7 +104,6 @@ public class WorldFactory {
 			floater = totalObjects/5;
 			edible = totalObjects/6;
 			blackHole = totalObjects/7 ;
-			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
 		}
 
 		
@@ -114,7 +112,6 @@ public class WorldFactory {
 			floater = totalObjects/2;
 			edible = totalObjects;
 			blackHole = totalObjects/4 ;
-			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
 		}
 		
 		else {
@@ -122,15 +119,11 @@ public class WorldFactory {
 			floater = totalObjects;
 			edible = totalObjects *2;
 			blackHole = totalObjects/2 ;
-
-			System.out.println("size 15000 or less totalobjects = "+totalObjects);
 		}
 		 
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
-
-			System.out.println(spawns);
 		
 		return spawns;
 	}
