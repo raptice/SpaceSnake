@@ -9,9 +9,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-
 import util.Vector2D;
 import view.GameView;
 
