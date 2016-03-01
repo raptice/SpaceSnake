@@ -26,9 +26,9 @@ implements ActionListener, Observer
 	private PhysicsEngine physicsEngine;
 	private WorldFactory worldFactory;
 	
-	MainController parent;
+	private MainController parent;
 
-	private static final long longValue = 50; //TODO: Rename this variable. It's used in the newGame method.
+	private static final long gameSpeed = 50;
 	
 	/**
 	 * Constructor that adds a reference to the parent controller
@@ -45,7 +45,7 @@ implements ActionListener, Observer
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
 		worldCollection.setWorldSize(randomWorldSize());
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, gameSpeed);
 		worldFactory = new WorldFactory(this, worldCollection);
 	}
 	
@@ -55,14 +55,13 @@ implements ActionListener, Observer
 	public void loadGame (WorldCollection theWorld) {
 		worldCollection = theWorld;
 		worldCollection.addObserver(this);
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, gameSpeed);
 	}
 	
 	/**
 	 * Returns the world. Used in order to save a game.
 	 * @return worldCollection	the world of the game
 	 */
-
 	public WorldCollection getWorldCollection() {
 		return worldCollection;
 	}
@@ -140,7 +139,7 @@ implements ActionListener, Observer
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable arg0, Object arg1) { //TODO: Ändra variabelnamn...
 		if(arg1 instanceof String)
 		{	
 			if (((String)arg1).equals("GAMEOVER"))
