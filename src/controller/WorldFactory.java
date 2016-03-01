@@ -62,9 +62,9 @@ public class WorldFactory {
 	 * Creates a snake with a set position
 	 */
 	public void createSnake(){
-		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,20);
-		tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,15);
-		tail2 = new SnakeTail(worldCollection, new Vector2D(0,2),new Vector2D(-70,100),5,15);
+		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,40);
+		tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,30);
+		tail2 = new SnakeTail(worldCollection, new Vector2D(0,2),new Vector2D(-70,100),5,30);
 		
 		head.addTail(tail);
 		tail.addTail(tail2);
