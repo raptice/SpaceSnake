@@ -25,7 +25,7 @@ public class PhysicsEngine extends Thread
     private boolean setPaused;
     private double gameSpeed;
     private Vector2D mouseDir = new Vector2D (0,0);
-    private double mouseAccPower = 5;
+    private double mouseAccPower = 1;
     
     /**
      * Constructor that sets the in-game physics

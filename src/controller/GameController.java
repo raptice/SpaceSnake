@@ -124,7 +124,7 @@ implements ActionListener, Observer
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
 			//System.out.println("GameController: Mouse pressed: "+e.getVector());
-			physicsEngine.SnakePull(e.getVector().div(100));
+			physicsEngine.SnakePull(e.getVector().div(20));
 			//Maybe should set something in the physicsengine that released unsets?
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
@@ -133,7 +133,7 @@ implements ActionListener, Observer
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());
-			physicsEngine.SnakePull(e.getVector().div(100));
+			physicsEngine.SnakePull(e.getVector().div(20));
 		}
 	}
 	
