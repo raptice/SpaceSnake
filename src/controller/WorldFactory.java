@@ -93,7 +93,6 @@ public class WorldFactory {
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
 		Double WorldSize = worldCollection.getWorldSize();
-		System.out.println("world size = "+WorldSize);
 		
 		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
 		int floater = ZERO;
@@ -105,7 +104,6 @@ public class WorldFactory {
 			floater = totalObjects/5;
 			edible = totalObjects/6;
 			blackHole = totalObjects/7 ;
-			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
 		}
 
 		
@@ -114,7 +112,6 @@ public class WorldFactory {
 			floater = totalObjects/2;
 			edible = totalObjects;
 			blackHole = totalObjects/4 ;
-			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
 		}
 		
 		else {
@@ -122,15 +119,11 @@ public class WorldFactory {
 			floater = totalObjects;
 			edible = totalObjects *2;
 			blackHole = totalObjects/2 ;
-
-			System.out.println("size 15000 or less totalobjects = "+totalObjects);
 		}
 		 
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
-
-			System.out.println(spawns);
 		
 		return spawns;
 	}
@@ -165,6 +158,9 @@ public class WorldFactory {
 				mass = 100;
 				radius = 130;
 				
+				while(!checkPos(pos,radius,gameObjects)){
+					pos =randomPosition();
+				}
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
 		}
@@ -178,6 +174,26 @@ public class WorldFactory {
 				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
 		}
+	}
+	
+	/**
+	 * Checks if a position is free for the object
+	 * @param 	pos		the x and y coordinates of the object
+	 * 			radius	the radius of the object
+	 * 			gameObjects		the array that holds objects
+	 * @return	true	if there is a free space for the object
+	 * 			false	if there is no free space for the object
+	 */
+	public boolean checkPos(Vector2D pos, double radius, ArrayList<WorldObject> gameObjects){
+		for(WorldObject objects : gameObjects){
+			double lengthsqr = pos.sub(objects.getPosition()).lengthsquared();
+			double radlength = radius + objects.getRadius();
+			
+			if(lengthsqr<radlength*radlength){
+				return false;
+			}			
+		}
+		return true;
 	}
 	
 	/**

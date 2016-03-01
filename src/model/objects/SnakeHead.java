@@ -2,7 +2,6 @@ package model.objects;
 
 import java.io.Serializable;
 
-import controller.GameController;
 import model.WorldCollection;
 import model.WorldObject;
 import util.Config;
