@@ -65,9 +65,9 @@ public class MainController implements ActionListener {
 		view.addKeyListener(KeyEvent.VK_ESCAPE, GameEvent.ESC_PRESSED);
 	}
 	
-	public GameController getGameController(){
-		return this.gameController;
-	}
+	/*public GameController getGameController(){
+		return gameController;
+	}*/
 	
 	/**
 	 * Starts a new game
