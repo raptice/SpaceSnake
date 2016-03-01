@@ -1,9 +1,10 @@
 
-package controller;
+package controller.menucontroller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.MainController;
 import util.GameEvent;
 
 /**
@@ -26,15 +27,12 @@ public class IngameMenuController implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == GameEvent.RETURN_TO_GAME) {
-			System.out.println("IngameMenuController: Resume game");
 			parent.resumeGame();
 		}
 		else if (e.getActionCommand() == GameEvent.SAVE_GAME) {
-			System.out.println("IngameMenuController: Save game");
 			parent.saveGame();
 		}
 		else if (e.getActionCommand() == GameEvent.EXIT_GAME) {
-			System.out.println("IngameMenuController: Exit game");
 			parent.exitMenu();
 		}
 		else {

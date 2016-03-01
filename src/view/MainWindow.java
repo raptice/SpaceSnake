@@ -50,9 +50,10 @@ implements WindowListener
 	/** Default layer for the menu (top of everything). */
 	public static int TOPLAYER = JLayeredPane.DRAG_LAYER;
 	
-	//The JFrame that contains everything
+	/** The JFrame that contains everything */
 	private JFrame theWindow;
-	//The pane to which everything is added in different layers
+	
+	/** The pane to which everything is added in different layers */
 	private JLayeredPane theContent = new JLayeredPane();
 
 	
@@ -85,15 +86,7 @@ implements WindowListener
 	{
 		//Load a window
 		theWindow = new JFrame(Config.get("Window_title"));
-		
-		//Set up the window appearance...
-		//theWindow.setIconImage(Toolkit.getDefaultToolkit().getImage("images/icon.png"));
-		//new ImageIcon(getClass().getClassLoader().getResource("PATH/TO/YourImage.png")));
-		//URL iconURL = getClass().getResource("src/3D_Geometrical_Figures_24.svg.png");
-		// iconURL is null when not found
-		//ImageIcon icon = new ImageIcon(iconURL);
-		//theWindow.setIconImage(icon.getImage());
-		
+				
 		theWindow.setPreferredSize(new Dimension(
 				Integer.parseInt(Config.get("Window_width")), 
 				Integer.parseInt(Config.get("Window_height"))));
@@ -110,7 +103,8 @@ implements WindowListener
         theWindow.getContentPane().add(theContent);
         theContent.setLayout(new FillAllLayout());    
 	}
-	
+
+
 	/**
 	 * Adds KeyStrokeEvents and sends ActionEvents to the ActionListeners.
 	 */
@@ -130,8 +124,8 @@ implements WindowListener
 	        }
 	    });
 	}
-	
-	
+
+
 	/**
 	 * Adds a game component as a part to the main window.
 	 * 

@@ -1,5 +1,7 @@
 package model.objects;
 
+import java.io.Serializable;
+
 import util.Config;
 import util.Vector2D;
 import model.Moveable;
@@ -14,7 +16,14 @@ import model.WorldObject;
 
 public class SnakePart
 extends Moveable 
+implements Serializable 
 {
+	
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected SnakePart nextPart;
 	private double stiffness = 10;
 	private double linkLength = 40;
@@ -71,6 +80,14 @@ extends Moveable
 		nextPart = tail;
 		linkLength = this.getRadius() + tail.getRadius();
 		return true;
+	}
+	
+	
+	/**
+	 * Removes the tail (in case it died)
+	 */
+	public void removeTail () {
+		nextPart = null;
 	}
 	
 	

@@ -1,4 +1,4 @@
-package view.mapfigures;
+package view.map;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,7 +11,6 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import util.Vector2D;
-import view.MapView;
 
 /**
  * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
@@ -97,8 +96,12 @@ implements Observer
 		// if (died) parent.removeItem(this);
 		if (what instanceof String) {
 			if (((String)what).equals("Died"))
-				//Die!
-				parent.removeMe(this);
+			{
+				final MapFigure reference = this;
+				SwingUtilities.invokeLater(new Runnable() {
+				    public void run() { parent.removeMe(reference); }	    
+				});
+			}
 		}
 		
 		// if (resized) resize(new_size);

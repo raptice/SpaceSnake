@@ -1,8 +1,9 @@
-package controller;
+package controller.menucontroller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.MainController;
 import util.GameEvent;
 
 /**
@@ -25,15 +26,12 @@ public class StartupMenuController implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == GameEvent.START_NEW_GAME) {
-			System.out.println("StartupMenuController: Start game");
 			parent.startNewGame();
 		}
 		else if (e.getActionCommand() == GameEvent.LOAD_GAME) {
-			System.out.println("StartupMenuController: Load game");
 			parent.loadGame();
 		}
 		else if (e.getActionCommand() == GameEvent.EXIT) {
-			System.out.println("StartupMenuController: Exit");
 			parent.exit();
 		}
 		else {

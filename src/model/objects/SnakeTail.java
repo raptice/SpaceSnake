@@ -1,5 +1,7 @@
 package model.objects;
 
+import java.io.Serializable;
+
 import model.WorldCollection;
 import model.WorldObject;
 import util.Vector2D;
@@ -12,8 +14,14 @@ import util.Vector2D;
 
 public class SnakeTail 
 extends SnakePart
+implements Serializable
 {
 
+	/**
+	 * Change this value if any change is made to any fields.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/*public SnakeTail(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
 			double mass, double radius) {
 		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
@@ -39,11 +47,15 @@ extends SnakePart
 		while (next != null)
 		{
 			next.kill();
-			//theWorld.remove(next);
+			theWorld.remove(next);
 			next=next.getTail();
 		}
 		this.kill();
-		//theWorld.remove(this);
+		theWorld.remove(this);
+		for (WorldObject item : theWorld.getCollection()) {
+			if (item instanceof SnakePart && ((SnakePart)item).getTail() != null && ((SnakePart)item).getTail().equals(this))
+				((SnakePart)item).removeTail();
+		}
 		//set previous parts tail to null.
 		
 	}
