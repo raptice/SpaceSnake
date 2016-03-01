@@ -65,11 +65,6 @@ public class MainController implements ActionListener {
 		view.addKeyListener(KeyEvent.VK_ESCAPE, GameEvent.ESC_PRESSED);
 	}
 	
-	/* TODO: Add model and fix where to have the methods for GameController
-	public void addModel(Model model){
-		System.out.println("Controller: adding model");
-		this.model = model;
-	}*/
 	public GameController getGameController(){
 		return this.gameController;
 	}
