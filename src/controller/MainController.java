@@ -2,6 +2,12 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import model.WorldCollection;
 
 import controller.menucontroller.GameOverMenuController;
 import controller.menucontroller.IngameMenuController;
@@ -12,7 +18,11 @@ import view.View;
 
 /**
  * Creates view and model, handles events from the keyboard and implements actions from subcontrollers
+ * 
+ * @author Ingrid, Micaela
+ * @version 2016-02-28
  */
+
 public class MainController implements ActionListener {
 	private View view;
 	private String state;
@@ -63,6 +73,7 @@ public class MainController implements ActionListener {
 	public GameController getGameController(){
 		return this.gameController;
 	}
+	
 	/**
 	 * Starts a new game
 	 */
@@ -77,9 +88,29 @@ public class MainController implements ActionListener {
 		
 	/**
 	 * Loads the game
-	 * TODO: Add method to load game
 	 */
 	public void loadGame() {
+		//Get filename from gui
+		String filename = view.loadGameFileChooser();
+		FileInputStream fis = null;
+	    ObjectInputStream in = null;
+	    WorldCollection theWorld = null;
+	    //Load the game
+	    try {
+	    	fis = new FileInputStream(filename);
+	    	in = new ObjectInputStream(fis);
+	    	theWorld = (WorldCollection) in.readObject();
+	    	in.close();
+	    } catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }
+	    //Start the game
+	    gameController.loadGame(theWorld);
+	    view.hideStartupMenu();			
+		gameController.addObserver(view.showNewGame(gameController));
+		gameController.addObserver(view.showNewMap());
+		gameController.runPhysics();
+		state = GAME_VIEW;
 	}
 	
 	/**
@@ -101,14 +132,24 @@ public class MainController implements ActionListener {
 	
 	/**
 	 * Saves the game
-	 * TODO: Add method to save game
 	 */
 	public void saveGame() {
-		//Läs in filnamn från gui
+		//get filename from gui
 		String filename = view.saveGameFileChooser();
 		System.out.println(filename);
-		//hämta worldcollection
-		//spara
+		//get worldcollection
+		WorldCollection theWorld = gameController.getWorldCollection();
+		//Save the game
+		FileOutputStream fos = null;
+	    ObjectOutputStream out = null;
+	    try {
+	    	fos = new FileOutputStream(filename);
+	    	out = new ObjectOutputStream(fos);
+	    	out.writeObject(theWorld);
+	    	out.close();
+	    } catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }		
 	}
 	
 	/**
@@ -126,6 +167,7 @@ public class MainController implements ActionListener {
 		view.showStartupMenu(startupMenuController);
 		state = STARTUP_MENU;
 	}
+	
 	/**
 	 * Pauses a running game and shows the in game menu
 	 */
@@ -135,14 +177,17 @@ public class MainController implements ActionListener {
 		state = INGAME_MENU;
 	}
 	
+	/**
+	 * Sets Game Over state and shows the Game Over menu
+	 */
 	public void setGameOver() {
 		view.showGameOverMenu(gameOverMenuController);
 		state = GAME_OVER;
 	}
 	
 	/**
-	 * Handles events coming from the ESC button on the keyboard and from when the window is closed
-	 * @param e		The ActionEvent sent from a button press or by closing the window
+	 * Handles events coming from the ESC button on the keyboard, and from when the main window is closed
+	 * @param e		The ActionEvent sent from a button press or by closing the main window
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
