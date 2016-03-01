@@ -24,6 +24,8 @@ implements ActionListener, Observer
 {
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
+	
+	@SuppressWarnings("unused")
 	private WorldFactory worldFactory;
 	
 	private MainController parent;
@@ -122,19 +124,16 @@ implements ActionListener, Observer
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
 			//System.out.println("GameController: Mouse pressed: "+e.getVector());
-			this.physicsEngine.SnakePull(e.getVector().div(100));
+			physicsEngine.SnakePull(e.getVector().div(100));
 			//Maybe should set something in the physicsengine that released unsets?
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
 			//System.out.println("GameController: Mouse released: "+e.getVector());
-			this.physicsEngine.SnakePull(null);
+			physicsEngine.SnakePull(null);
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());
-			this.physicsEngine.SnakePull(e.getVector().div(100));
-		}
-		else {
-			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
+			physicsEngine.SnakePull(e.getVector().div(100));
 		}
 	}
 	
