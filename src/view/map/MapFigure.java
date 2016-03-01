@@ -2,12 +2,8 @@ package view.map;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import util.Vector2D;
