@@ -116,7 +116,7 @@ implements ActionListener, Observer
 	public void addObserver(GameObserver gameObserver) {
 		worldCollection.addObserver(gameObserver);
 		gameObserver.addWorld(worldCollection);
-	}	
+	}
 	
 	/**
 	 * Handles mouse events in the game

@@ -35,8 +35,6 @@ public class View
 	 */
 	public View()
 	{
-		System.out.println("view: started");
-
 		mainWindow = new MainWindow();
 		gameView = new GameView();
 		gameViewMenu = new GameViewMenu();

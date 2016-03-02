@@ -38,10 +38,8 @@ implements Serializable
 	}
 	
 	public void add(WorldObject obj){
-		if(addcheck(obj)){
-			data.add(obj);
-			update(obj);
-		}
+		data.add(obj);
+		update(obj);
 	}
 	
 	/**
@@ -52,7 +50,6 @@ implements Serializable
 		data.remove(obj);
 	}
 	
-	public boolean addcheck(WorldObject obj){/* Check if position is free for requested object*/ return true;}
 	public void delete(WorldObject obj){ 
 		if (obj instanceof SnakeHead) {
 			gameover();

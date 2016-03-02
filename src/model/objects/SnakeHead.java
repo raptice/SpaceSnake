@@ -25,12 +25,6 @@ implements Serializable
 	
 	private double new_Tail_radius;
 	private double new_Tail_mass;
-
-	
-	/*public SnakeHead(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
-			double mass, double radius) {
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
 	
 	public SnakeHead(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
 		super(world, velocity, position, mass, radius);
