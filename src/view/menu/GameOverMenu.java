@@ -12,8 +12,8 @@ import view.GameComponent;
 /**
  * This is a class that just contains the gameover menu
  * 
- * @author Gustav
- * @version 2016-02-05
+ * @author Micaela
+ * @version 2016-02-25
  */
 
 @SuppressWarnings("serial")

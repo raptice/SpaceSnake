@@ -8,8 +8,6 @@ import java.awt.RadialGradientPaint;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 
-import javax.swing.JComponent;
-
 import view.GameView;
 
 @SuppressWarnings("serial")

@@ -14,7 +14,6 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -32,7 +31,6 @@ import util.Config;
 import util.Parser;
 import view.GameComponent;
 import view.GameObserver;
-import view.figures.*;
 
 /**
  * This is a class that just contains the game itself

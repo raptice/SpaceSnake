@@ -62,9 +62,9 @@ public class WorldFactory {
 	 * Creates a snake with a set position
 	 */
 	public void createSnake(){
-		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,20);
-		tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,15);
-		tail2 = new SnakeTail(worldCollection, new Vector2D(0,2),new Vector2D(-70,100),5,15);
+		head = new SnakeHead(worldCollection, new Vector2D(1,-7), new Vector2D(20,100),10,40);
+		tail = new SnakeTail(worldCollection, new Vector2D(0,0),new Vector2D(-30,100),5,30);
+		tail2 = new SnakeTail(worldCollection, new Vector2D(0,2),new Vector2D(-70,100),5,30);
 		
 		head.addTail(tail);
 		tail.addTail(tail2);
@@ -93,34 +93,37 @@ public class WorldFactory {
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
 		Double WorldSize = worldCollection.getWorldSize();
-		System.out.println("world size = "+WorldSize);
 		
 		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
 		int floater = ZERO;
 		int edible = ZERO;
 		int blackHole = ZERO;
 		
-		if(WorldSize.intValue() <= 5000 && WorldSize.intValue() >= 7400 ){
+		if(WorldSize.intValue() <= 5000 || WorldSize.intValue() <= 6000 ){
 			
-			floater = totalObjects/3;
+			floater = totalObjects/5;
+			edible = totalObjects/6;
+			blackHole = totalObjects/7 ;
+		}
+
+		
+		if( WorldSize.intValue() >= 6001 && WorldSize.intValue() <= 8500 ){
+			
+			floater = totalObjects/2;
 			edible = totalObjects;
-			blackHole = totalObjects /4;
-			System.out.println("size 5000-7000: totalobjects = "+totalObjects);
+			blackHole = totalObjects/4 ;
 		}
 		
 		else {
 			
 			floater = totalObjects;
 			edible = totalObjects *2;
-			blackHole = totalObjects /2;
-			System.out.println("size 15000 or less totalobjects = "+totalObjects);
+			blackHole = totalObjects/2 ;
 		}
 		 
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
-
-			System.out.println(spawns);
 		
 		return spawns;
 	}
@@ -153,8 +156,11 @@ public class WorldFactory {
 			for(int i=0; i< spawn.get("BlackHole"); i++){
 				pos = randomPosition();
 				mass = 100;
-				radius = 50;
+				radius = 130;
 				
+				while(!checkPos(pos,radius,gameObjects)){
+					pos =randomPosition();
+				}
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
 		}
@@ -163,11 +169,31 @@ public class WorldFactory {
 				speed = randomSpeed();
 				pos = randomPosition();
 				mass = 10;
-				radius = 30;
+				radius = 70;
 
 				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
 		}
+	}
+	
+	/**
+	 * Checks if a position is free for the object
+	 * @param 	pos		the x and y coordinates of the object
+	 * 			radius	the radius of the object
+	 * 			gameObjects		the array that holds objects
+	 * @return	true	if there is a free space for the object
+	 * 			false	if there is no free space for the object
+	 */
+	public boolean checkPos(Vector2D pos, double radius, ArrayList<WorldObject> gameObjects){
+		for(WorldObject objects : gameObjects){
+			double lengthsqr = pos.sub(objects.getPosition()).lengthsquared();
+			double radlength = radius + objects.getRadius();
+			
+			if(lengthsqr<radlength*radlength){
+				return false;
+			}			
+		}
+		return true;
 	}
 	
 	/**

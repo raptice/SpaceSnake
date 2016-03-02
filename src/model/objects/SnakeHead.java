@@ -2,7 +2,6 @@ package model.objects;
 
 import java.io.Serializable;
 
-import controller.GameController;
 import model.WorldCollection;
 import model.WorldObject;
 import util.Config;
@@ -24,8 +23,8 @@ implements Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private double new_Tail_radius = 10;
-	private double new_Tail_mass = 10;
+	private double new_Tail_radius;
+	private double new_Tail_mass;
 
 	
 	/*public SnakeHead(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
@@ -75,12 +74,12 @@ implements Serializable
 		if (last.equals(this))
 			tail = new SnakeTail(theWorld, this.getVelocity(), 
 					this.getPosition().sub(this.getVelocity().normalize().scale(this.getRadius()+new_Tail_radius)),
-					new_Tail_radius,new_Tail_mass);
+					new_Tail_mass,new_Tail_radius);
 		else
 			tail = new SnakeTail(theWorld, 
 					last.getVelocity(), 
 					last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
-					new_Tail_radius,new_Tail_mass);
+					new_Tail_mass,new_Tail_radius);
 		
 		// Add the tailpart
 		last.addTail(tail);

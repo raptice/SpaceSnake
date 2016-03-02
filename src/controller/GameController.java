@@ -7,10 +7,10 @@ import java.util.Observer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 import model.*;
 import view.*;
 import util.GameEvent;
+import util.Vector2D;
 
 /**
  * Class that handles events from the GameView and methods for the PhysicsEngine
@@ -24,11 +24,13 @@ implements ActionListener, Observer
 {
 	private WorldCollection worldCollection;
 	private PhysicsEngine physicsEngine;
+	
+	@SuppressWarnings("unused")
 	private WorldFactory worldFactory;
 	
-	MainController parent;
+	private MainController parent;
 
-	private static final long longValue = 50; //TODO: Rename this variable. It's used in the newGame method.
+	private static final long gameSpeed = 50;
 	
 	/**
 	 * Constructor that adds a reference to the parent controller
@@ -45,7 +47,7 @@ implements ActionListener, Observer
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
 		worldCollection.setWorldSize(randomWorldSize());
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, gameSpeed);
 		worldFactory = new WorldFactory(this, worldCollection);
 	}
 	
@@ -55,14 +57,13 @@ implements ActionListener, Observer
 	public void loadGame (WorldCollection theWorld) {
 		worldCollection = theWorld;
 		worldCollection.addObserver(this);
-		physicsEngine = new PhysicsEngine(worldCollection, 1, longValue);
+		physicsEngine = new PhysicsEngine(worldCollection, 1, gameSpeed);
 	}
 	
 	/**
 	 * Returns the world. Used in order to save a game.
 	 * @return worldCollection	the world of the game
 	 */
-
 	public WorldCollection getWorldCollection() {
 		return worldCollection;
 	}
@@ -123,24 +124,25 @@ implements ActionListener, Observer
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
 			//System.out.println("GameController: Mouse pressed: "+e.getVector());
-			this.physicsEngine.SnakePull(e.getVector().div(100));
+			physicsEngine.SnakePull(e.getVector().div(20));
 			//Maybe should set something in the physicsengine that released unsets?
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
 			//System.out.println("GameController: Mouse released: "+e.getVector());
-			this.physicsEngine.SnakePull(null);
+			physicsEngine.SnakePull(new Vector2D (0,0));
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
 			//System.out.println("GameController: Mouse dragged: "+e.getVector());
-			this.physicsEngine.SnakePull(e.getVector().div(100));
+			physicsEngine.SnakePull(e.getVector().div(20));
 		}
-		else {
-			System.out.println("GameViewController: Unknown button: " + e.paramString()); //debugging
-		}
+	}
+	
+	public void accelerate(Vector2D	acc) {
+		physicsEngine.SnakePull(acc);
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable arg0, Object arg1) { //TODO: Ändra variabelnamn...
 		if(arg1 instanceof String)
 		{	
 			if (((String)arg1).equals("GAMEOVER"))
