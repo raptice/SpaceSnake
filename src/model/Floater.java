@@ -18,8 +18,7 @@ public class Floater extends Moveable implements IGravity, Serializable{
 	private static final long serialVersionUID = 1L;
 	private double gravity=12;
 	
-<<<<<<< HEAD
-	
+
 	/**
 	 * 
 	 * @param world 	The WorldCollection of objects.
@@ -28,8 +27,6 @@ public class Floater extends Moveable implements IGravity, Serializable{
 	 * @param mass		The mass value.
 	 * @param radius	The radius value.
 	 */
-=======
->>>>>>> refs/remotes/raptice/master
 	public Floater(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius){
 		super(world, velocity, position, mass, radius);
 		gravity=Double.parseDouble(Config.get("Gravity_constant"));
