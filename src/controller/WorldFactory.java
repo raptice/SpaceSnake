@@ -146,8 +146,7 @@ public class WorldFactory {
 	
 	/**
 	 * Creates objects with randomized coordinates that are added to an arraylist
-	 * @param pos	Vector with x and y coordinates that are to be checked
-	 * 			gameObjects		List that can hold objects that will be put in the world
+	 * @param 	gameObjects		List that can hold objects that will be put in the world
 	 * 			spawn			HashMap that holds keys mapped to the amount of certain objects that should be created.
 	 * TODO: Move randomization of position to a new separate method randomizePosition() 
 	 * 		that returns a Vector2D of random position, which also checks if it's in the map
