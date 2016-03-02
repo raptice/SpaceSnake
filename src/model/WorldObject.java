@@ -25,14 +25,6 @@ implements Serializable
 	protected WorldCollection theWorld;
 	
 	/**
-	 * Constructor using xpos and ypos
-	 */
-	/*public WorldObject(WorldCollection world, double xPos, double yPos, double mass, double radius){
-			this(world, new Vector2D(xPos,yPos),mass,radius);
-	}*/
-	
-	
-	/**
 	 * Constructor using vectors.
 	 */
 	public WorldObject(WorldCollection world, Vector2D position, double mass, double radius) {
@@ -80,6 +72,7 @@ implements Serializable
 		notifyObservers(position);
 	}
 	public void kill(){
+		theWorld.delete(this);
 		setChanged();
 		notifyObservers("Died");
 	}

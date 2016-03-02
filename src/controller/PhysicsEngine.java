@@ -61,7 +61,6 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            //Make a clone so changes (additions and deletions only affect next iteration
             ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
     		
             for(WorldObject obj : collection){

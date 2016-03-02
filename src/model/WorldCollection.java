@@ -2,6 +2,7 @@ package model;
 import java.io.Serializable;
 import java.util.*;
 
+import model.objects.Edible;
 import model.objects.SnakeHead;
 
 
@@ -37,10 +38,8 @@ implements Serializable
 	}
 	
 	public void add(WorldObject obj){
-		if(addcheck(obj)){
-			data.add(obj);
-			update(obj);
-		}
+		data.add(obj);
+		update(obj);
 	}
 	
 	/**
@@ -51,10 +50,13 @@ implements Serializable
 		data.remove(obj);
 	}
 	
-	public boolean addcheck(WorldObject obj){/* Check if position is free for requested object*/ return true;}
 	public void delete(WorldObject obj){ 
-		if (obj instanceof SnakeHead)
+		if (obj instanceof SnakeHead) {
 			gameover();
+		} else if (obj instanceof Edible) {
+			this.remove(obj);
+			newEdible();
+		}
 	}
 	public ArrayList<WorldObject> surrounding(WorldObject obj){
 		return new ArrayList<WorldObject>();
@@ -66,5 +68,9 @@ implements Serializable
 	public void gameover() {
 		setChanged();
 		notifyObservers(new String("GAMEOVER"));
+	}
+	public void newEdible() {
+		setChanged();
+		notifyObservers(new String("NEWEDIBLE"));
 	}
 }
