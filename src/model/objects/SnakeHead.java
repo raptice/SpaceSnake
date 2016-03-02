@@ -55,7 +55,7 @@ implements Serializable
 	}
 	
 	private void die() {
-		theWorld.gameover();
+		theWorld.delete(this);
 	}
 	
 	private void eat(Edible what)
@@ -87,7 +87,6 @@ implements Serializable
 		
 		//kill the edible object
 		what.kill();
-		theWorld.remove(what);
 		
 		//Get points?
 		//other actions?

@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.*;
+import model.objects.Edible;
 import view.*;
+import util.Config;
 import util.GameEvent;
 import util.Vector2D;
 
@@ -145,11 +147,24 @@ implements ActionListener, Observer
 	public void update(Observable arg0, Object arg1) { //TODO: Ändra variabelnamn...
 		if(arg1 instanceof String)
 		{	
-			if (((String)arg1).equals("GAMEOVER"))
-			{
+			if (((String)arg1).equals("GAMEOVER")) {
 				parent.setGameOver();
 				pausePhysics(); //Bad!
+			} else if (((String)arg1).equals("NEWEDIBLE")) {
+				newEdible();
 			}
+			
 		}
+	}
+	
+	private void newEdible() {
+		Vector2D pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
+		while ( pos.lengthsquared() > worldCollection.getWorldSize()*worldCollection.getWorldSize() )
+			pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
+		double speedMultiplier = 30;
+		Vector2D speed = new Vector2D((Math.random() * speedMultiplier) - speedMultiplier/2, (Math.random() * speedMultiplier) - speedMultiplier/2);
+		double mass = Double.parseDouble(Config.get("edible_mass"));
+		double size = Double.parseDouble(Config.get("edible_size"));
+		worldCollection.add(new Edible(worldCollection,speed,pos,mass,size));
 	}
 }

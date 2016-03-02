@@ -80,6 +80,7 @@ implements Serializable
 		notifyObservers(position);
 	}
 	public void kill(){
+		theWorld.delete(this);
 		setChanged();
 		notifyObservers("Died");
 	}
