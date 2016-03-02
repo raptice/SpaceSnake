@@ -72,8 +72,7 @@ implements MouseListener, GameObserver, ActionListener
 	 * Constructor that generates the view.
 	 */
 	public MapView ()
-	{
-		System.out.println("Mapview created");		
+	{	
 		this.build();
 		this.addMouseListener(this);
 		
@@ -179,7 +178,6 @@ implements MouseListener, GameObserver, ActionListener
 		for (WorldObject thing : world.getCollection()) {
 			addItem(thing);
 		}
-		System.out.println("Addworld i MapView");
 		worldSize=(int)world.getWorldSize();
 	}
 	

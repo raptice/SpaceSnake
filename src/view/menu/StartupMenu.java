@@ -25,8 +25,7 @@ extends GameComponent{
 	 * Constructor that generates the menu
 	 */
 	public StartupMenu ()
-	{
-		System.out.println("Startup menu created");		
+	{	
 		this.buildMenu();
 	}
 	

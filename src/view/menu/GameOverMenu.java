@@ -24,8 +24,7 @@ extends GameComponent{
 	 * Constructor that generates the menu
 	 */
 	public GameOverMenu ()
-	{
-		System.out.println("GameOver menu created");		
+	{		
 		this.buildMenu();
 	}
 	
