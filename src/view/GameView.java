@@ -61,8 +61,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 * Constructor that generates the view.
 	 */
 	public GameView ()
-	{
-		System.out.println("Gameview created");		
+	{	
 		this.build();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -189,7 +188,6 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		for (WorldObject thing : world.getCollection()) {
 			addItem(thing);
 		}
-		System.out.println("Addworld i GameView");
 		worldSize=(int)world.getWorldSize();
 	}
 	

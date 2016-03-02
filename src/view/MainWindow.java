@@ -61,8 +61,7 @@ implements WindowListener
 	 * Constructor that generates the window.
 	 */
 	public MainWindow ()
-	{
-		System.out.println("Main window created");		
+	{	
 		this.build();
 	}
 	
