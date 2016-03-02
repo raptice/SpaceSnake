@@ -28,10 +28,6 @@ implements IGravity, Serializable
 	
 	private double gravity = 18;
 	
-	/*public BlackHole(WorldCollection world, double xPos, double yPos, double mass, double radius) {
-		this(world, new Vector2D(xPos, yPos), mass, radius);
-	}*/
-	
 	public BlackHole(WorldCollection world, Vector2D position, double mass, double radius) {
 		super(world, position, mass, radius);
 		gravity=Double.parseDouble(Config.get("Gravity_constant"));

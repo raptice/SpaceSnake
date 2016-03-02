@@ -19,10 +19,6 @@ public class Floater extends Moveable implements IGravity, Serializable{
 	
 	private double gravity=12;
 	
-	
-	/*public Floater(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
 	public Floater(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius){
 		super(world, velocity, position, mass, radius);
 		gravity=Double.parseDouble(Config.get("Gravity_constant"));
