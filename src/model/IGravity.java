@@ -10,16 +10,17 @@ import java.util.ArrayList;
 public interface IGravity {
 	
 	/**
-	 * To get the gravity constant for this object
-	 * @return
+	 * Return the gravity value.
+	 * @return gravity The gravity value.
 	 */
 	public double getGravity();
 	
 	
 	/**
-	 * Calculate the gravitational force on movable objects among the WorldObjects.
+	 * Adds effect of gravitationalforce from other objects to this object over given time.
 	 * 
-	 * @param Affecting WorldObject
+	 * @param data The list of WorldObjects.
+	 * @param dT The time under which force accelerates this object.
 	 * @return	void
 	 */
 	public void gravityPull(ArrayList<WorldObject> data, double dT);
