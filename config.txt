@@ -52,7 +52,7 @@ Map_border_color = 0,0,0,200
 
 Snake_link_stiffness = 1
 Snake_link_damping   = 0.99
-new_Tail_radius = 10
+new_Tail_radius = 30
 new_Tail_mass = 10
 	
 Collision_damping = 0.95
