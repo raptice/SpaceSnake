@@ -2,6 +2,7 @@ package view;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import view.map.MapView;
 import view.menu.GameOverMenu;
@@ -198,6 +199,15 @@ public class View
 	    if(returnVal == JFileChooser.APPROVE_OPTION)
 	    	return filechooser.getSelectedFile().toString();
 	    else return null;
+	}
+	
+	
+	/**
+	 * Shows a popup dialog for error messages.
+	 */
+	public void messageDialog(String message) {
+		//custom title, error icon
+		JOptionPane.showMessageDialog(mainWindow, message, "Message", JOptionPane.ERROR_MESSAGE);
 	}
 }
 
