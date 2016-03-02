@@ -25,14 +25,6 @@ implements Serializable
 	protected Vector2D velocity_diff = new Vector2D(0,0);
 	private double collision_damping = 0.99;
 	private double max_speed_sqr = 2500;
-
-	/**
-	 * Constructor
-	 */
-	/*public Moveable(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
-	
 	
 	/**
 	 * Constructor
@@ -125,15 +117,6 @@ implements Serializable
 			double constant = (massScalar * dot)/dstsqr;
 			Vector2D newV1 = p1minusp2.scale(constant*collision_damping);
 			velocity_diff = velocity_diff.sub( newV1 );
-			
-			/*
-			Moveable moveable = (Moveable) obj;
-			double dot = velocity.sub(moveable.getVelocity()).dot(position.sub(moveable.getPosition()));
-			Vector2D dv = position.sub(moveable.getPosition());
-			dv = dv.scale(  dot/position.sub(moveable.getPosition()).lengthsquared());
-			dv = dv.div(mass+moveable.getMass());
-			return dv.scale(collision_damping*2*moveable.getMass());
-			*/
 			
 		} else {
 			double dot = velocity.dot(position.sub(obj.getPosition()));
