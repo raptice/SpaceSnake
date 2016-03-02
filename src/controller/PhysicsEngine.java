@@ -14,7 +14,7 @@ import util.Vector2D;
  * Class that governs the physics of the game.
  * Handles input from the game world.
  * 
- * @author Ingrid, Micaela
+ * @author Ingrid, Micaela, Victor
  * @version 2016-02-28
  */
 
@@ -39,6 +39,10 @@ public class PhysicsEngine extends Thread
         this.dT = dT;
     }
 
+    /**
+     * Adds mouse power and direction to the snakehead
+     * @param acc	The force applied
+     */
     public void SnakePull(Vector2D acc){
     		mouseDir = acc.scale(mouseAccPower);
     }
