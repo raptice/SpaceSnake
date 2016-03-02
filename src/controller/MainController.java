@@ -91,25 +91,29 @@ public class MainController implements ActionListener {
 	public void loadGame() {
 		//Get filename from gui
 		String filename = view.loadGameFileChooser();
-		FileInputStream fis = null;
-	    ObjectInputStream in = null;
-	    WorldCollection theWorld = null;
-	    //Load the game
-	    try {
-	    	fis = new FileInputStream(filename);
-	    	in = new ObjectInputStream(fis);
-	    	theWorld = (WorldCollection) in.readObject();
-	    	in.close();
-	    } catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }
-	    //Start the game
-	    gameController.loadGame(theWorld);
-	    view.hideStartupMenu();			
-		gameController.addObserver(view.showNewGame(gameController));
-		gameController.addObserver(view.showNewMap());
-		gameController.runPhysics();
-		state = GAME_VIEW;
+		if (filename != null)
+		{
+			FileInputStream fis = null;
+			ObjectInputStream in = null;
+			WorldCollection theWorld = null;
+			//Load the game
+			try {
+				fis = new FileInputStream(filename);
+				in = new ObjectInputStream(fis);
+				theWorld = (WorldCollection) in.readObject();
+				in.close();
+				
+				//Start the game
+				gameController.loadGame(theWorld);
+				view.hideStartupMenu();			
+				gameController.addObserver(view.showNewGame(gameController));
+				gameController.addObserver(view.showNewMap());
+				gameController.runPhysics();
+				state = GAME_VIEW;
+			} catch (Exception ex) {
+				view.messageDialog("Error while loading file.");
+			}
+		}
 	}
 	
 	/**
@@ -135,20 +139,23 @@ public class MainController implements ActionListener {
 	public void saveGame() {
 		//get filename from gui
 		String filename = view.saveGameFileChooser();
-		System.out.println(filename);
-		//get worldcollection
-		WorldCollection theWorld = gameController.getWorldCollection();
-		//Save the game
-		FileOutputStream fos = null;
-	    ObjectOutputStream out = null;
-	    try {
-	    	fos = new FileOutputStream(filename);
-	    	out = new ObjectOutputStream(fos);
-	    	out.writeObject(theWorld);
-	    	out.close();
-	    } catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }		
+		if (filename != null)
+		{
+			System.out.println(filename);
+			//get worldcollection
+			WorldCollection theWorld = gameController.getWorldCollection();
+			//Save the game
+			FileOutputStream fos = null;
+	    	ObjectOutputStream out = null;
+	    	try {
+	    		fos = new FileOutputStream(filename);
+	    		out = new ObjectOutputStream(fos);
+	    		out.writeObject(theWorld);
+	    		out.close();
+	    	} catch (Exception ex) {
+	    		view.messageDialog("Error while saving file.");
+	    	}
+		}
 	}
 	
 	/**

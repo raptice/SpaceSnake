@@ -2,6 +2,7 @@ package model;
 import java.io.Serializable;
 import java.util.*;
 
+import model.objects.Edible;
 import model.objects.SnakeHead;
 
 
@@ -50,8 +51,12 @@ implements Serializable
 	}
 	
 	public void delete(WorldObject obj){ 
-		if (obj instanceof SnakeHead)
+		if (obj instanceof SnakeHead) {
 			gameover();
+		} else if (obj instanceof Edible) {
+			this.remove(obj);
+			newEdible();
+		}
 	}
 	public ArrayList<WorldObject> surrounding(WorldObject obj){
 		return new ArrayList<WorldObject>();
@@ -63,5 +68,9 @@ implements Serializable
 	public void gameover() {
 		setChanged();
 		notifyObservers(new String("GAMEOVER"));
+	}
+	public void newEdible() {
+		setChanged();
+		notifyObservers(new String("NEWEDIBLE"));
 	}
 }

@@ -54,7 +54,16 @@ Snake_link_stiffness = 1
 Snake_link_damping   = 0.99
 new_Tail_radius = 30
 new_Tail_mass = 10
-	
+
+edible_size = 30
+edible_mass = 30
+
+black_hole_mass = 100
+black_hole_size = 100
+
+floater_size = 50
+floater_mass = 50
+
 Collision_damping = 0.95
 Gravity_constant = 50
 Max_speed = 50
