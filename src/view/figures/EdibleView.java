@@ -41,7 +41,7 @@ extends GameFigure {
 
 	/**
      * Paints itself.
-     * @param g			The graphics that is used
+     * @param g_in		The graphics that is used
      */
     @Override
     public void paintComponent(Graphics g_in) {

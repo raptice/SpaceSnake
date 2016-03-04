@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Interface with methods representing generic gravitational functionality.
  * @author Victor
+ * @version 2016-03-04
  *
  */
 public interface IGravity {
@@ -21,7 +22,7 @@ public interface IGravity {
 	 * 
 	 * @param data The list of WorldObjects.
 	 * @param dT The time under which force accelerates this object.
-	 * @return	void
+	 * 
 	 */
 	public void gravityPull(ArrayList<WorldObject> data, double dT);
 }
