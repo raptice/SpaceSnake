@@ -39,7 +39,7 @@ import view.GameObserver;
  * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
- * @version 2016-02-05
+ * @version 2016-03-04
  */
 
 
@@ -120,7 +120,7 @@ implements MouseListener, GameObserver, ActionListener
         g2.setStroke(new BasicStroke(2*worldSize/mapSize));
         
         Point2D center = new Point2D.Double(0, 0);
-        Point2D focus = center;//new Point2D.Float(40, 40);
+        Point2D focus = center;
         float[] dist = {0.0f, 0.9f, 1.0f};
         Color[] colors = {bg_color1, bg_color2, bg_color3};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);

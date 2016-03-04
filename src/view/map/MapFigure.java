@@ -14,7 +14,7 @@ import util.Vector2D;
  * Is also an ActionListener to be able to listen to itself.
  *  
  * @author Gustav
- * @version 2016-02-05
+ * @version 2016-03-04
  */
 
 public class MapFigure 
