@@ -58,7 +58,7 @@ implements Observer
     
     
     /**
-     * Paints itself.
+     * Paints itself. Default function that each subclass should override.
      * @param g_in		The graphics that is used
      */
     @Override
