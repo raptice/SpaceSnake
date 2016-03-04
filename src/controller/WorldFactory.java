@@ -17,7 +17,7 @@ import util.Config;
 import util.Vector2D;
 
 /**
- * Class that creates objects and puts them in the world.
+ * The class that creates objects and puts them in the world.
  * 
  * @author Ingrid, Micaela
  * @version 2016-02-28
