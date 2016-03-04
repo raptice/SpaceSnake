@@ -46,6 +46,7 @@ public class PhysicsEngine extends Thread
     public void SnakePull(Vector2D acc){
     		mouseDir = acc.scale(mouseAccPower);
     }
+    
     /**
      * Starts the thread. 
      * Pauses and resumes thread based on flags.
@@ -95,8 +96,6 @@ public class PhysicsEngine extends Thread
             		((SnakeHead)obj).accelerate(mouseDir,dT);
             	}	
             }
-            
-            
         }
     }
     /**
