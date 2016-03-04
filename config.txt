@@ -65,5 +65,5 @@ floater_size = 100
 floater_mass = 100
 
 Collision_damping = 0.95
-Gravity_constant = 50
+Gravity_constant = 1000
 Max_speed = 50
