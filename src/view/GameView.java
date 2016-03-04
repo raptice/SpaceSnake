@@ -1,4 +1,5 @@
 package view;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,6 +27,7 @@ import model.objects.SnakeTail;
 
 import util.Config;
 import util.GameEvent;
+import util.Parser;
 import util.Vector2D;
 import view.figures.*;
 
@@ -57,6 +59,11 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	//The snake position
 	private Vector2D snakePosition=new Vector2D(0,0);
+	
+	//Colors of the world
+	private Color backgroundColor = new Color(200,200,200);
+	private Color borderColor = new Color(200,200,200);
+	private Color worldColor = new Color(200,200,200);
 	
 	/**
 	 * Constructor that generates the view.
@@ -97,6 +104,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		//Use coordinates for positioning
 		this.setLayout(null);
 		zoom = Double.parseDouble(Config.get("Startup_zoom"));
+		backgroundColor = Parser.ColorFromString(Config.get("Game_bg_color"));
+		borderColor = Parser.ColorFromString(Config.get("Game_border_color"));
+		worldColor = Parser.ColorFromString(Config.get("Game_world_color"));
 	}
 
 	
@@ -109,7 +119,8 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		
 		Graphics2D g2 =(Graphics2D)g;
         super.paintComponent(g2);
-        
+        g2.setBackground(backgroundColor);
+        g2.clearRect(0, 0, this.getWidth(), this.getHeight());
         //Set center to (0,0)
         g2.translate(this.getWidth()/2 - snakePosition.getX()*zoom, this.getHeight()/2 - snakePosition.getY()*zoom); 
         
@@ -120,10 +131,11 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
         g2.setRenderingHint(
     	        RenderingHints.KEY_ANTIALIASING,
     	        RenderingHints.VALUE_ANTIALIAS_ON);
-    	g2.setColor(Color.BLACK);
+    	g2.setColor(worldColor);
+        g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);
+        g2.setStroke(new BasicStroke(5));
+        g2.setColor(borderColor);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
-        g2.setColor(Color.BLACK);
-        g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
     }
 	
 	
