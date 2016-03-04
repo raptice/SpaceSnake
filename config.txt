@@ -3,6 +3,7 @@ Window_title  = Space Snake
 Window_width  = 800
 Window_height = 600
 Map_size      = 200
+Startup_zoom  = 0.2
 
 Menu_padding          = 10
 Menu_corner_r         = 40
