@@ -24,6 +24,7 @@ import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakeTail;
 
+import util.Config;
 import util.GameEvent;
 import util.Vector2D;
 import view.figures.*;
@@ -49,7 +50,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	int worldSize=800;
 	
 	// Determines the zoom level
-	protected float zoom = 1;
+	protected double zoom = 0.1;
 	
 	//How much should the zoom change on zoom in/out
 	private double zoomstep = 1.01; 
@@ -95,6 +96,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	{
 		//Use coordinates for positioning
 		this.setLayout(null);
+		zoom = Double.parseDouble(Config.get("Startup_zoom"));
 	}
 
 	
@@ -130,7 +132,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 * @param amount	The amount to zoom. Logarithmic scale	
 	 * @return The zoom level after the zoom action
 	 */
-	public float zoom(int amount){
+	public double zoom(int amount){
 		zoom *= Math.pow(zoomstep, amount);
 		repaint();
 		return zoom;
