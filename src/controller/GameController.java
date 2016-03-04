@@ -48,7 +48,7 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		worldCollection.setWorldSize(randomWorldSize());
+		worldCollection.setWorldSize(WorldFactory.randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, gameSpeed);
 		worldFactory = new WorldFactory(this, worldCollection);
 	}
@@ -99,14 +99,6 @@ implements ActionListener, Observer
 			physicsEngine.setResumed();
 			physicsEngine.notifyAll();
 		}
-	}
-	
-	/**
-	 * Randomizes the size of the map
-	 * @return worldSize	Randomized double
-	 */
-	private double randomWorldSize() {
-		return (Math.random() * 10000) + 5000;
 	}
 	
 	/**

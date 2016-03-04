@@ -247,4 +247,12 @@ public class WorldFactory {
 		else
 			return false;
 	}
+	
+	/**
+	 * Randomizes the size of the map
+	 * @return worldSize	Randomized double
+	 */
+	public static double randomWorldSize() {
+		return (Math.random() * 10000) + 5000;
+	}
 }
