@@ -1,4 +1,7 @@
 /bin
+/doc
+/uml
+
 .project
 .classpath
 
@@ -8,5 +11,6 @@
 *.css
 *.js
 *.uxf
+*.jar
 
 doc/package-list
