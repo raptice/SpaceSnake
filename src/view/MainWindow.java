@@ -90,9 +90,9 @@ implements WindowListener
 		theWindow.setPreferredSize(new Dimension(
 				Integer.parseInt(Config.get("Window_width")), 
 				Integer.parseInt(Config.get("Window_height"))));
-		
+
 		theWindow.pack();
-        
+		
 		//Always place the window 1/3 from the top left corner
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         theWindow.setLocation(d.width/3 - theWindow.getWidth()/3, d.height/3 - theWindow.getHeight()/3);
@@ -147,6 +147,7 @@ implements WindowListener
 	 */
 	private void pack()
 	{
+		theWindow.setPreferredSize(theWindow.getSize());
 		theWindow.pack();
 	}
 	
