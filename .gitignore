@@ -1,17 +1,12 @@
 /bin
-/doc
-/uml
 
 .project
 .classpath
 
 *~
 
-*.html
-*.css
 *.js
-*.uxf
 *.jar
 *.rar
 
-doc/package-list
+
