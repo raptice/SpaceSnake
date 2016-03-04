@@ -14,6 +14,7 @@ import java.io.Serializable;
  * All internal calculations are done with double precision.
  * 
  * @author Gustav
+ * @version 2016-03-04
  */
 
 
@@ -192,7 +193,7 @@ implements
 	public boolean isColinear(Vector2D other) {
 		return 	(x==0&&y==0&&other.getX()==0&&other.getY()==0)
 				||
-				(x>0==other.getX()>0)&&(x/y==other.getX()/other.getY());
+				(x/y==other.getX()/other.getY());
 	}
 	
 	/**
@@ -201,7 +202,7 @@ implements
 	public static boolean isColinear(Vector2D first,Vector2D second) {
 		return 	(first.getX()==0 && first.getY()==0 && second.getX()==0 && second.getY()==0)
 				||
-				(first.getX()>0==second.getX()>0)&&(first.getX()/first.getY()==second.getX()/second.getY());
+				(first.getX()/first.getY()==second.getX()/second.getY());
 	}
 	
 	/**
