@@ -119,7 +119,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
     	        RenderingHints.VALUE_ANTIALIAS_ON);
     	g2.setColor(Color.BLACK);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
     }
 	
