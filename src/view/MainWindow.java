@@ -19,6 +19,7 @@ import javax.swing.KeyStroke;
 import util.GameEvent;
 import util.Config;
 import util.FillAllLayout;
+import util.Parser;
 
 
 
@@ -98,7 +99,8 @@ implements WindowListener
         
         theWindow.setVisible(true);
 		theWindow.addWindowListener(this);
-                
+		
+        theWindow.getContentPane().setBackground(Parser.ColorFromString(Config.get("Background_color")));
         theWindow.getContentPane().add(theContent);
         theContent.setLayout(new FillAllLayout());    
 	}
@@ -115,7 +117,7 @@ implements WindowListener
 		InputMap inputMap  = ((JComponent)theWindow.getContentPane()).getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = ((JComponent)theWindow.getContentPane()).getActionMap();
 	    
-	    inputMap.put(KeyStroke.getKeyStroke(key, 0), code); //KeyEvent.VK_ESCAPE
+	    inputMap.put(KeyStroke.getKeyStroke(key, 0), code);
 	    actionMap.put(code, new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {

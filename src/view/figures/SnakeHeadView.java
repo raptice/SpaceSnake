@@ -61,7 +61,8 @@ extends GameFigure {
      */
 	@Override
 	public void update(Observable who, Object what) {
-		((GameView) parent).updateSnakePosition((Vector2D)what);
+		if (what instanceof Vector2D)
+			((GameView) parent).updateSnakePosition((Vector2D)what);
 		super.update(who, what);
 	}
 }
