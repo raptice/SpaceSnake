@@ -22,6 +22,12 @@ import javax.swing.border.EmptyBorder;
 import util.Config;
 import view.GameComponent;
 
+/**
+ * A class that generates a panel with some (optional) text and buttons.
+ * @author Gustav
+ * @version 2016-03-04
+ */
+
 @SuppressWarnings("serial")
 public class MenuPanel 
 extends JPanel 
@@ -35,6 +41,7 @@ implements MouseListener, ActionListener
 	
 	JPanel titlePanel, buttonPanel;
 	JLabel titleLabel;
+	
 	/**
 	 * Constructor
 	 * @param parent	The gameComponent that will send fireEvent on events.
