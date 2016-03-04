@@ -21,7 +21,7 @@ import util.Vector2D;
 public class PhysicsEngine extends Thread
 {
     private double dT;
-    private WorldCollection data;
+    private WorldCollection world;
     private boolean setPaused;
     private double gameSpeed;
     private Vector2D mouseDir = new Vector2D (0,0);
@@ -33,9 +33,9 @@ public class PhysicsEngine extends Thread
      * 			dT			Length of time step
      * 			gameSpeed	Speed of game iteration
      */
-    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
+    public PhysicsEngine(WorldCollection world, double dT, double gameSpeed){
     	this.gameSpeed = gameSpeed;
-    	this.data = data;
+    	this.world = world;
         this.dT = dT;
     }
 
@@ -66,7 +66,7 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
+            ArrayList<WorldObject> collection = (ArrayList<WorldObject>) world.getCollection().clone();
     		
             for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){
