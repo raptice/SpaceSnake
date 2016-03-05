@@ -59,7 +59,7 @@ Game_border_color = 240,240,240
 Game_world_color  = 0,0,0
 
 Collision_damping = 0.99
-Gravity_constant = 000
+Gravity_constant = 1000
 Max_speed = 50
 
 Snake_link_stiffness = 1
