@@ -142,6 +142,12 @@ public class View
 		
 		return gameView;
 	}
+	
+	/**
+	 * Shows a cleared Game
+	 * @param AL	an ActionListener that listenes to gameactions
+	 * @return	the GameView
+	 */
 	public GameObserver showNewGame(ActionListener AL)
 	{
 		gameView.clear();
@@ -150,12 +156,18 @@ public class View
 	
 	/**
 	 * Shows a Map in which everything happens.
+	 * @return the MapView
 	 */
 	public GameObserver showMap()
 	{
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		return mapView;
 	}
+	
+	/**
+	 * Shows a cleared map.
+	 * @return the MapView
+	 */
 	public GameObserver showNewMap()
 	{
 		mapView.clear();
@@ -201,11 +213,13 @@ public class View
 	
 	/**
 	 * Shows a popup dialog for error messages.
+	 * @param message	The message that is in the dialogue
 	 */
 	public void messageDialog(String message) {
 		//custom title, error icon
 		JOptionPane.showMessageDialog(mainWindow, message, "Message", JOptionPane.ERROR_MESSAGE);
 	}
+	
 }
 
 
