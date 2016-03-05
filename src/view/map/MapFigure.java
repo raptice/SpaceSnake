@@ -44,7 +44,7 @@ implements Observer
     {
     	this.parent = parent;
         this.position = position;
-        this.size=size;
+        this.size = size;
         this.color = color;
     }
 	
@@ -106,14 +106,6 @@ implements Observer
 		}
 	}
 	
-	
-	/**
-	 * Moves the figure to a new position
-	 * @param position	The new position
-	 */
-	private void setPosition (Vector2D position) {
-		this.position = position;
-	}
 	
 	/**
 	 * Returns the x-coordinate
