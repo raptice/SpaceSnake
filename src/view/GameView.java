@@ -12,13 +12,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.Observable;
 
 import javax.swing.SwingUtilities;
 
 
 import model.Floater;
-import model.WorldCollection;
 import model.WorldObject;
 import model.objects.BlackHole;
 import model.objects.Edible;
@@ -44,13 +42,10 @@ import view.figures.*;
 
 @SuppressWarnings("serial")
 public class GameView 
-extends GameComponent 
-implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver, ActionListener
+extends WorldView 
+implements MouseWheelListener, MouseMotionListener, MouseListener, ActionListener
 {
 
-	//Temp variable until the proper world gets used
-	int worldSize=800;
-	
 	// Determines the zoom level
 	protected double zoom = 0.1;
 	
@@ -201,50 +196,26 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		return (new Vector2D(point)).sub(new Vector2D(this.getWidth()/2,this.getHeight()/2)).div(zoom);
 	}
 	
-	/**
-	 * Adds a new world to the view including all objects and all constants.
-	 * @param world The WorldCollection from which all objects and constants is taken
-	 */
-	public void addWorld (WorldCollection world) {
-		for (WorldObject thing : world.getCollection()) {
-			addItem(thing);
-		}
-		worldSize=(int)world.getWorldSize();
-	}
-	
-	
-	/**
-	 * Update function run by the observable (through notifyobservers).
-	 * @param who	the observable that was updated
-	 * @param what	what was updated. If it is an WorldObject that object is added to the view
-	 */
-	@Override //Something happened in the world!!!
-	public void update(Observable who, Object what) {
-		//If it was a worldObject: add it.
-		if (what instanceof WorldObject) {
-			addItem((WorldObject) what);
-		}
-	}
-	
 	
 	/**
 	 * Adds some item to the world
 	 * @param what	The item to add
 	 */
-	private void addItem (WorldObject what) {
+	@Override
+	protected void addItem (WorldObject what) {
 		final GameFigure figure;
 		if (what instanceof Floater) {
-			figure = new FloaterView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			figure = new FloaterView(what.getPosition(), what.getRadius()*2 ,this);
 		} else if (what instanceof Edible) {
-			figure = new EdibleView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			figure = new EdibleView(what.getPosition(), what.getRadius()*2 ,this);
 		} else if (what instanceof BlackHole) {
-			figure = new BlackHoleView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			figure = new BlackHoleView(what.getPosition(), what.getRadius()*2 ,this);
 		} else if (what instanceof SnakeHead) {
-			figure = new SnakeHeadView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			figure = new SnakeHeadView(what.getPosition(), what.getRadius()*2 ,this);
 		} else if (what instanceof SnakeTail) {
-			figure = new SnakeTailView(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			figure = new SnakeTailView(what.getPosition(), what.getRadius()*2 ,this);
 		} else {
-			figure = new GameFigure(what.getPosition().getX(), what.getPosition().getY(), what.getRadius()*2 ,this);
+			figure = new GameFigure(what.getPosition(), what.getRadius()*2 ,this);
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 		    public void run() { addFigure(figure); }	    
@@ -266,8 +237,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	 * Remove some item from the world. Called from the items themselves.
 	 * @param who	The item to remove
 	 */
-	public void removeMe(GameFigure who) {
-		this.remove(who);
+	@Override
+	public void removeMe(Figure who) {
+		this.remove((GameFigure)who);
 	}
 	
 	/**
