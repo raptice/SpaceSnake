@@ -65,7 +65,8 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            ArrayList<WorldObject> collection = (ArrayList<WorldObject>) world.getCollection().clone();
+            @SuppressWarnings("unchecked")
+			ArrayList<WorldObject> collection = (ArrayList<WorldObject>) world.getCollection().clone();
     		
             for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){

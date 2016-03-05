@@ -81,7 +81,10 @@ implements Observer
     
     
     /**
-     * Used when "the model" sends notifyObservers(arg1).
+     * Used when an update has happened. Can handle new positions, sizes and if the object died.
+     * @param who		The observable that was updated
+     * @param what		What that was updated, either a Vector2D if it is a new position, a Double if it is a new size
+     * 					or a String containing "Died" if it died.
      */
 	@Override //Movement (or something)
 	public void update(Observable who, Object what) {
@@ -91,6 +94,14 @@ implements Observer
 			final Vector2D position = new Vector2D((Vector2D) what);
 			SwingUtilities.invokeLater(new Runnable() {
 			    public void run() { setPosition(position); }	    
+			});
+		}
+		
+		//If it was a double: use it as size
+		if (what instanceof Double) {
+			final double size = (double) what;
+			SwingUtilities.invokeLater(new Runnable() {
+			    public void run() { resize(size); }	    
 			});
 		}
 		
