@@ -616,8 +616,8 @@ implements
 	
 	/**
 	 * Calculates the squared distance between this vector and the passed parameter vector.
-	 * @param vector
-	 * @return
+	 * @param vector the second vector between which the distance squared is calculated
+	 * @return the length squared between the vectors
 	 */
 	public double distancesquared(Vector2D vector){
 		return sub(vector).lengthsquared();
@@ -627,7 +627,7 @@ implements
 	 * Calculates the squared distance between two vectors.
 	 * @param first	The first vector.
 	 * @param second	The second vector.
-	 * @return
+	 * @return the length squared between the vectors
 	 */
 	public static double distancesquared(Vector2D first, Vector2D second){
 		return diff(first, second).lengthsquared();
@@ -700,27 +700,24 @@ implements
 	 ************************************************ */
 	
 	/**
-	 * Calculates the angle between two vectors
+	 * Calculates the angle between two vectors using Math.atan2
 	 * @return the angle in the interval 0 - 2pi
-	 * @see Math.atan2
 	 */
 	public static double angle (Vector2D first, Vector2D second) {
 		return Math.atan2(second.getY(),second.getX()) - Math.atan2( first.getY(),first.getX());
 	}
 	
 	/**
-	 * Calculates the angle this and another vector
+	 * Calculates the angle this and another vector using Math.atan2
 	 * @return the angle in the interval 0 - 2pi
-	 * @see Math.atan2
 	 */
 	public double angle (Vector2D other) {
 		return Math.atan2(other.getY(),other.getX()) - Math.atan2(y,x);
 	}
 	
 	/**
-	 * Calculates the angle between this and the x-axis
+	 * Calculates the angle between this and the x-axis using Math.atan2
 	 * @return the angle in the interval 0 - 2pi
-	 * @see Math.atan2
 	 */
 	public double angle () {
 		return Math.atan2(y,x);
