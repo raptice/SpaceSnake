@@ -24,13 +24,12 @@ extends GameFigure {
 
 	/**
 	 * Constructor that creates the figure.
-	 * @param x			The initial x-coordinate
-	 * @param y			The initial y-coordinate
-	 * @param size		The initial size (the diameter)
-	 * @param parent	The containing GameView in which it is located
+	 * @param position	The initial position
+	 * @param size		The size of the GameFigure
+	 * @param parent	The containing GameView
 	 */
-	public SnakeHeadView(double x, double y, double size, GameView parent){
-		super(x, y, size, parent);
+	public SnakeHeadView(Vector2D position, double size, GameView parent){
+		super(position, size, parent);
 	}
 
 	/**
