@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import view.map.MapView;
 import view.menu.GameOverMenu;
 import view.menu.GameViewMenu;
 import view.menu.IngameMenu;

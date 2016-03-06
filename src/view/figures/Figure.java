@@ -1,4 +1,4 @@
-package view;
+package view.figures;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import util.Vector2D;
+import view.WorldView;
 
 /**
  * Main class for figures
