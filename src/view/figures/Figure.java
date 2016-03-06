@@ -69,8 +69,12 @@ implements Observer
 		// if (died) parent.removeItem(this);
 		if (what instanceof String) {
 			if (((String)what).equals("Died"))
-				//Die!
-				parent.removeMe(this);
+			{
+				final Figure thisFigure= this;
+				SwingUtilities.invokeLater(new Runnable() {
+				    public void run() { parent.removeMe(thisFigure); }	    
+				});
+			}
 		}
 	}
 	
